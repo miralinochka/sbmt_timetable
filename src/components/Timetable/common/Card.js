@@ -11,9 +11,11 @@ const Card = ({ children }) => {
 
 const styles = {
 	container: {
+    flex: 1,
 		borderWidth: 1,
 		borderRadius: 2,
-		borderColor: '#ddd',
+    borderColor: '#ddd',
+    backgroundColor: '#fff',
 		borderBottomWidth: 0,
     shadowColor: 'black',
 		shadowOffset: { width: 0, height: 2 },

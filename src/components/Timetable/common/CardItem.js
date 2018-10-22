@@ -2,7 +2,6 @@ import React from 'react';
 import { Text, View } from 'react-native';
 
 export const CardItem = ({ children, stylish }) => {
-  console.log('style', stylish)
 	return (
     <View style={[styles.container, stylish]}> 
       {children}
