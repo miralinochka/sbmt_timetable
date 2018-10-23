@@ -1,55 +1,78 @@
 import React from 'react';
 import { Text, TouchableOpacity, View, Image, SafeAreaView } from 'react-native';
 import colors from '../../../colors'
+import { Actions } from 'react-native-router-flux';
+
+const ActionIcon = ({ icon, onPress, iconStyle }) => (
+  <TouchableOpacity onPress={onPress} >
+    <Image
+      style={iconStyle}
+      source={icon}
+    />
+  </TouchableOpacity>
+);
 
 export const Header = ({ headerText, showIcons, back }) => {
-  const { textStyle, viewStyle, safeAreaStyle, refreshStyle, iconStyle } = styles;
-  console.log()
+  const { title, view, safeArea, icon, hiddenIcon, backIcon } = styles;
   return (
-    <SafeAreaView style={safeAreaStyle}>
-    <View style={viewStyle}>
+    <SafeAreaView style={safeArea}>
+    <View style={view}>
       {
         showIcons && (
-          <TouchableOpacity>
-            <Image
-              style={iconStyle}
-              source={require('../../../images/groups.png')}
-            />
-          </TouchableOpacity>
+          <ActionIcon
+            icon={require('../../../images/groups.png')}
+            iconStyle={icon}
+            onPress={() => {}}
+          />
         )
       }
-      <Text style={textStyle}>{headerText}</Text>
-      {showIcons && (<TouchableOpacity>
-        <Image
-          style={iconStyle}
-          source={require('../../../images/refresh-button.png')}
-        />
-      </TouchableOpacity>
-      )}
+      {
+        back && (
+          <ActionIcon
+            icon={require('../../../images/back.png')}
+            iconStyle={[icon, backIcon]}
+            onPress={() => {Actions.timetable()}}
+          />
+        )
+      }
+      <Text style={title}>{headerText}</Text>
+        <ActionIcon
+        icon={require('../../../images/refresh-button.png')}
+        iconStyle={[icon, back && hiddenIcon]}
+        onPress={() => {}}
+      />
     </View>
     </SafeAreaView>
   );
 };
 const styles = {
-  safeAreaStyle: {
+  safeArea: {
     backgroundColor: colors.mainColor,
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
   },
-  viewStyle: {
-      alignItems: 'center',
-      justifyContent: 'space-around',
-      flexDirection: 'row',
-      paddingVertical: 15,
+  view: {
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    paddingVertical: 15,
   },
-  textStyle: {
+  title: {
     fontSize: 20,
+    fontWeight: '600',
     color: colors.mainTextColor,
   },
-  iconStyle: {
+  icon: {
     width: 30, 
     height: 30,
   },
+  backIcon: {
+    width: 25, 
+    height: 25,
+  },
+  hiddenIcon: {
+    opacity: 0,
+  }
 };
 

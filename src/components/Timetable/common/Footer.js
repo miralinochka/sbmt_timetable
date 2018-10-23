@@ -16,13 +16,13 @@ export const Footer = () => {
         <TouchableOpacity>
           <Image
           style={{width: 30, height: 30}}
-          source={require('../../../images/bookmark.png')}
+          source={require('../../../images/calendar.png')}
           />
         </TouchableOpacity>
         <TouchableOpacity>
           <Image
           style={{width: 30, height: 30}}
-          source={require('../../../images/settings.png')}
+          source={require('../../../images/bookmark.png')}
           />
         </TouchableOpacity>
       </View>
