@@ -17,8 +17,9 @@ class SearchTimetable extends Component {
   }
 
   async componentDidMount() {
-    const { addGroups } = this.props;
+    const { addGroups, addLecturers } = this.props;
     await addGroups();
+    await addLecturers();
   }
 
   toggleSearch = () => {
@@ -38,9 +39,17 @@ class SearchTimetable extends Component {
       group.number.includes(searchQuery)
     ));
   }
+  displayLecturers = () => {
+    const { lecturers } = this.props;
+    const { searchQuery } = this.state;
+    return lecturers.filter(lecturer => (
+      lecturer.name.includes(searchQuery) && !lecturer.name.toLowerCase().includes('вакансия')
+    ));
+  }
 
   render() {
     const { searchItem } = this.state;
+    console.log('lecturers',this.props.lecturers)
     return (
       <SafeAreaView>
         <Switch toggleSearch={this.toggleSearch} items={items} searchItem={searchItem}/>
@@ -51,8 +60,8 @@ class SearchTimetable extends Component {
           />
         </CardItem>
         <FlatList
-          data={this.displayGroups()}
-          renderItem={({item}) => <ListItem group={item}/>}
+          data={searchItem===items[0] ? this.displayGroups(): this.displayLecturers()}
+          renderItem={({item}) => <ListItem listItem={item}/>}
         />
       </SafeAreaView>
     );
@@ -61,9 +70,11 @@ class SearchTimetable extends Component {
 
 const mapStateToProps = state => ({
   groups: state.searchItems.groups,
+  lecturers: state.searchItems.lecturers
 });
 
 const mapDispatchToProps = {
   addGroups: actions.addGroups,
+  addLecturers: actions.addLecturers,
 }
 export default connect(mapStateToProps,mapDispatchToProps)(SearchTimetable);

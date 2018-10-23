@@ -6,15 +6,17 @@ class ListItem extends Component {
   onGroupPress = () => {
     
   }
+  renderSubtitle = ({ listItem }) => {
+    return listItem.speciality ? `${listItem.speciality}, ${listItem.course} курс, ${listItem.form}` : `Кафедра ${listItem.name}, ${listItem.department}`;
+  }
   render() {
-    const { number, speciality, course, form } = this.props.group;
-    console.log(this.props)
+    const { listItem } = this.props;
     return (
       <TouchableOpacity onPress={this.onGroupPress}>
         <View>
           <CardItem styled={styles.container}>
-            <Text style={styles.title}>{number}</Text>
-            <Text style={styles.subtitle}>{speciality}, {course} курс, {form}</Text>
+            <Text style={styles.title}>{listItem.number || listItem.name}</Text>
+            <Text style={styles.subtitle}>{this.renderSubtitle({ listItem })}</Text>
           </CardItem>
         </View>
       </TouchableOpacity>

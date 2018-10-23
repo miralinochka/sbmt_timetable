@@ -1,4 +1,4 @@
-import { FETCH_GROUPS } from './types';
+import { FETCH_GROUPS, FETCH_LECTURERS } from './types';
 import axios from 'axios';
 
 const comparator = (first, second) => {
@@ -22,3 +22,15 @@ export const addGroups = () => async dispatch => {
   }
 }
 
+export const addLecturers = () => async dispatch => {
+  try {
+    const { data } = await axios.get('http://timetable.sbmt.by/lecturers/');
+    data.sort(comparator);
+    dispatch({
+      type: FETCH_LECTURERS,
+      lecturers: data
+    })
+  } catch(e) {
+    console.log('error', e)
+  }
+}
