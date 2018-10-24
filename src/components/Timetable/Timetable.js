@@ -8,7 +8,7 @@ class Timetable extends Component {
     return (
       <Fragment >
         <Main></Main>
-        <Footer onPress={this.onPress}/>
+        {/* <Footer onPress={this.onPress}/> */}
       </Fragment>
     );
   }
