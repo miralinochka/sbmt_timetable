@@ -7,6 +7,7 @@ import * as actions from '../../../actions/'
 
 import ListItem from './ListItem'
 import styles from './styles';
+import { Actions } from 'react-native-router-flux';
 
 const items = ['Группа', 'Преподаватель'];
 
@@ -46,6 +47,12 @@ class SearchTimetable extends Component {
       lecturer.name.includes(searchQuery) && !lecturer.name.toLowerCase().includes('вакансия')
     ));
   }
+  
+  onGroupPress = async (groupOrLecturer) => {
+    const { downloadTimetable } = this.props;
+    await downloadTimetable(groupOrLecturer);
+    Actions.timetable();
+  }
 
   render() {
     const { searchItem } = this.state;
@@ -61,7 +68,8 @@ class SearchTimetable extends Component {
         </CardItem>
         <FlatList
           data={searchItem===items[0] ? this.displayGroups(): this.displayLecturers()}
-          renderItem={({item}) => <ListItem listItem={item}/>}
+          renderItem={({item}) => <ListItem listItem={item} onGroupPress={()=>this.onGroupPress(item)}/>}
+          keyExtractor={(item, index) => index.toString()}
         />
       </SafeAreaView>
     );
@@ -76,5 +84,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   addGroups: actions.addGroups,
   addLecturers: actions.addLecturers,
+  downloadTimetable: actions.downloadTimetable,
 }
 export default connect(mapStateToProps,mapDispatchToProps)(SearchTimetable);

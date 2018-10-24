@@ -1,4 +1,6 @@
 import { StyleSheet } from 'react-native';
+import colors from '../../../../colors';
+
 export default StyleSheet.create({
   container: {
     flexDirection: 'row',
@@ -11,10 +13,10 @@ export default StyleSheet.create({
     borderColor: '#000',
     paddingHorizontal: 8,
     paddingVertical: 5,
-    backgroundColor: "#fff",
+    backgroundColor: colors.mainTextColor,
   },
   colored: {
-    backgroundColor: '#9fc4f4'
+    backgroundColor: colors.switch,
   },
   text: {
     fontSize: 15,

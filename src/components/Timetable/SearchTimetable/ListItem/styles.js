@@ -1,12 +1,16 @@
 import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+  title: {
+    fontSize: 18,
+    paddingLeft: 15,
+    fontWeight: '600',
   },
-  button: {
-    borderWidth: 1,
-		borderRadius: 2,
-		borderColor: '#ddd',
+  subtitle: {
+    fontSize: 15,
+    paddingLeft: 15,
+    color: '#303033'
+  },
+  container: {
+    flexDirection: 'column',
   }
 })

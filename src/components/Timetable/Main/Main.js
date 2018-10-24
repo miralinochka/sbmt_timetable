@@ -1,10 +1,16 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, FlatList } from 'react-native';
+import TimetableItem from './TimetableItem';
 
 export default Main = () => {
 	return (
     <View style={styles.container}> 
-      <Text style={styles.defaultText}>Расписание не выбрано:(</Text>
+    <Text>Date</Text>
+    {/* <FlatList
+      data={}
+      keyExtractor={(item, index) => index.toString()}
+      renderItem={({item}) => <TimetableItem listItem={item}/>}
+    /> */}
     </View>
   );
 };
@@ -12,8 +18,6 @@ export default Main = () => {
 const styles = {
 	container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   defaultText: {
     fontSize: 20,
