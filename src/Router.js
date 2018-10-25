@@ -1,5 +1,5 @@
 import React from 'react';
-import { Scene, Router, Actions, TouchableOpacity } from 'react-native-router-flux';
+import { Scene, Router } from 'react-native-router-flux';
 import { Image } from 'react-native';
 import Timetable from './components/Timetable'
 import SearchTimetable from './components/Timetable/SearchTimetable';

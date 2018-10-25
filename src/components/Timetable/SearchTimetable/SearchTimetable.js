@@ -50,13 +50,13 @@ class SearchTimetable extends Component {
   
   onGroupPress = async (groupOrLecturer) => {
     const { downloadTimetable } = this.props;
+    console.log('groupOrLecturer',groupOrLecturer)
     await downloadTimetable(groupOrLecturer);
     Actions.timetable();
   }
 
   render() {
     const { searchItem } = this.state;
-    console.log('lecturers',this.props.lecturers)
     return (
       <SafeAreaView>
         <Switch toggleSearch={this.toggleSearch} items={items} searchItem={searchItem}/>

@@ -1,37 +1,26 @@
-import { FETCH_TIMETABLE } from './types';
+import { FETCH_TIMETABLE, FETCH_TIMETABLE_ERROR } from './types';
 import axios from 'axios';
-const parseString = require('react-native-xml2js').parseString;
 
 
-export const downloadTimetable = (groupOrLecturer) =>  dispatch => {
-  const query = groupOrLecturer.filename;
-  console.log('query',query)
-  console.log(`http://timetable.sbmt.by/shedule/group/${query}`)
-  // try {
-  //   if(query[0]>=0 && query[0]<=9) {
-  //     const res = await fetch(`http://timetable.sbmt.by/shedule/group/${query}`);
-  //     const textRes = res.text();
-  //     parseString(textRes, (err, result) => {
-  //       console.log(result)
-  //     })
-    
-  //   }
-  //   // dispatch({
-  //   //   type: FETCH_TIMETABLE,
-  //   //   timetable
-  //   // })
-  // } catch(e) {
-  //   console.log('error', e)
-  // }
-  if(query[0]>=0 && query[0]<=9) {
-  fetch(`http://timetable.sbmt.by/shedule/group/${query}`)
-  .then(res => res.text() && console.log(res))
-  .then(res => {
-    console.log(res)
-    parseString(res, (err, result) => {
-      console.log(result)
-  });
-})
+export const downloadTimetable = (groupOrLecturer) => async dispatch => {
+  const groupOrLecturerFile = groupOrLecturer.filename;
+  try {
+    if(groupOrLecturerFile[0]>=0 && groupOrLecturerFile[0]<=9) {
+      const { data } = await axios.get(`http://127.0.0.1:3000/parse?query=/shedule/group/${groupOrLecturerFile}`);
+      console.log('data', data)
+      const groupNumber = groupOrLecturer.number;
+      dispatch({
+        type: FETCH_TIMETABLE,
+        groupNumber,
+        timetable: data.schedule.lesson
+      })
+    }
+  } catch(e) {
+    console.log('error', e)
+    dispatch({
+      type: FETCH_TIMETABLE_ERROR,
+      error: 'Расписание не найдено:('
+    })
   }
 }
 

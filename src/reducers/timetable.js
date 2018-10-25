@@ -1,9 +1,9 @@
-import { FETCH_TIMETABLE } from '../actions/types';
+import { FETCH_TIMETABLE, FETCH_TIMETABLE_ERROR } from '../actions/types';
 
-export const timetables =  (state=[], action) => {
+export const timetables =  (state={}, action) => {
   switch (action.type) {
     case FETCH_TIMETABLE:
-    return [...state, action.timetable]
+    return {...state, [action.groupNumber]: action.timetable}
     default:
     return state;
   }
@@ -12,7 +12,18 @@ export const timetables =  (state=[], action) => {
 export const currentTimetable = (state=null, action) => {
   switch (action.type) {
     case FETCH_TIMETABLE:
-    return action.timetable
+    return {[action.groupNumber]: action.timetable}
+    default:
+    return state;
+  }
+}
+
+export const timetableError = (state=null, action) => {
+  switch (action.type) {
+    case FETCH_TIMETABLE_ERROR:
+    return action.error
+    case FETCH_TIMETABLE:
+    return null;
     default:
     return state;
   }
