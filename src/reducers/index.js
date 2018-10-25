@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
 import searchItems from './searchItems';
-import timetable from './timetable';
+import { timetables, currentTimetable } from './timetable';
 
 export default combineReducers({
   searchItems,
-  timetable
+  timetables,
+  currentTimetable,
 });

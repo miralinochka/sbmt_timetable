@@ -7,7 +7,7 @@ class Timetable extends Component {
   render() {
     return (
       <Fragment >
-        <Main></Main>
+        <Main />
         {/* <Footer onPress={this.onPress}/> */}
       </Fragment>
     );

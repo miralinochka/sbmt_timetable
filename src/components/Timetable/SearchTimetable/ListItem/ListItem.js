@@ -4,7 +4,7 @@ import {CardItem} from '../../common'
 import styles from './styles';
 
 const renderSubtitle = ({ listItem }) => {
-  return listItem.speciality ? `${listItem.speciality}, ${listItem.course} курс, ${listItem.form}` : `Кафедра ${listItem.name}, ${listItem.department}`;
+  return listItem.speciality ? `${listItem.speciality}, ${listItem.course} курс, ${listItem.form}` : `Кафедра ${listItem.department}, ${listItem.position.toLowerCase()}`;
 }
 export default ListItem = ({ listItem, onGroupPress }) => {
     return (

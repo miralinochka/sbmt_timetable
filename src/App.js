@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import Router from './Router';
 import configureStore from './store';
 
-const store = configureStore({});
+const store = configureStore({}).store;
 class App extends Component {
   render() {
     return (

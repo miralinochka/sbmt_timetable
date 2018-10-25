@@ -1,18 +1,21 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Text, View, FlatList } from 'react-native';
-import TimetableItem from './TimetableItem';
+import {connect} from 'react-redux';
 
-export default Main = () => {
-	return (
-    <View style={styles.container}> 
-    <Text>Date</Text>
-    {/* <FlatList
-      data={}
-      keyExtractor={(item, index) => index.toString()}
-      renderItem={({item}) => <TimetableItem listItem={item}/>}
-    /> */}
-    </View>
-  );
+class Main extends Component {
+  render() {
+    const { currentTimetable} = this.props;
+    return (
+      <View style={styles.container}> 
+      <Text>Date</Text>
+      {/* <FlatList
+        data={currentTimetable}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({item}) => <TimetableItem listItem={item}/>}
+      /> */}
+      </View>
+    );
+  }
 };
 
 const styles = {
@@ -23,3 +26,9 @@ const styles = {
     fontSize: 20,
   }
 };
+
+const mapStateToProps = state => ({
+  currentTimetable: state.currentTimetable,
+});
+
+export default connect(mapStateToProps)(Main);

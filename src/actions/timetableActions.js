@@ -1,21 +1,37 @@
 import { FETCH_TIMETABLE } from './types';
 import axios from 'axios';
-import { parseString } from 'react-native-xml2js'
+const parseString = require('react-native-xml2js').parseString;
 
-export const downloadTimetable = (groupOrLecturer) => async dispatch => {
+
+export const downloadTimetable = (groupOrLecturer) =>  dispatch => {
   const query = groupOrLecturer.filename;
   console.log('query',query)
   console.log(`http://timetable.sbmt.by/shedule/group/${query}`)
-  try {
-    if(query[0]>=0 && query[0]<=9) {
-      const res = await axios.get(`http://timetable.sbmt.by/shedule/group/${query}`, {headers: {'accept': 'application/xml'}});
-      console.log('data',res)
-    }
-    // dispatch({
-    //   type: FETCH_TIMETABLE,
-    //   timetable
-    // })
-  } catch(e) {
-    console.log('error', e)
+  // try {
+  //   if(query[0]>=0 && query[0]<=9) {
+  //     const res = await fetch(`http://timetable.sbmt.by/shedule/group/${query}`);
+  //     const textRes = res.text();
+  //     parseString(textRes, (err, result) => {
+  //       console.log(result)
+  //     })
+    
+  //   }
+  //   // dispatch({
+  //   //   type: FETCH_TIMETABLE,
+  //   //   timetable
+  //   // })
+  // } catch(e) {
+  //   console.log('error', e)
+  // }
+  if(query[0]>=0 && query[0]<=9) {
+  fetch(`http://timetable.sbmt.by/shedule/group/${query}`)
+  .then(res => res.text() && console.log(res))
+  .then(res => {
+    console.log(res)
+    parseString(res, (err, result) => {
+      console.log(result)
+  });
+})
   }
 }
+
