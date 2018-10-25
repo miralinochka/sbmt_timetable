@@ -1,9 +1,9 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-const Card = ({ children, stylish }) => {
+const Card = ({ children, styled }) => {
 	return (
-    <View style={[styles.container, stylish]}> 
+    <View style={[styles.container, styled]}> 
       {children}
     </View>
   );

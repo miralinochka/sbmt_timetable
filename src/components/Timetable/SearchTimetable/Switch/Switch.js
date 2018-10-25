@@ -5,13 +5,15 @@ import styles from './styles'
 const Switch = ({ toggleSearch, items, style, searchItem }) => {
 	return (
     <View style={[styles.container, style]}>
+    <View style={[styles.innerContainer, style]}>
       {
-        items.map(item => (
-          <TouchableOpacity onPress={toggleSearch} style={[styles.button, searchItem===item && styles.colored]} key={item}>
+        items.map((item, index) => (
+          <TouchableOpacity onPress={toggleSearch} style={[styles.button, searchItem===item && styles.colored, index===items.length-1 && styles.noRightBorder]} key={item}>
             <Text style={styles.text}>{item}</Text>
           </TouchableOpacity>
         ))
       }
+    </View>
     </View>
   );
 };

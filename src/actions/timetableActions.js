@@ -8,8 +8,8 @@ export const downloadTimetable = (groupOrLecturer) => async dispatch => {
   console.log(`http://timetable.sbmt.by/shedule/group/${query}`)
   try {
     if(query[0]>=0 && query[0]<=9) {
-      const {data} = await axios.get(`http://timetable.sbmt.by/shedule/group/${query}`);
-      console.log('data',data)
+      const res = await axios.get(`http://timetable.sbmt.by/shedule/group/${query}`, {headers: {'accept': 'application/xml'}});
+      console.log('data',res)
     }
     // dispatch({
     //   type: FETCH_TIMETABLE,

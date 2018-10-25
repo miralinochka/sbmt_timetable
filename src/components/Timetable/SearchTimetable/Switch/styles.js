@@ -3,17 +3,26 @@ import colors from '../../../../colors';
 
 export default StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    alignItems: 'center',
     marginHorizontal: 10,
     marginVertical: 10,
   },
-  button: {
+  innerContainer: {
+    flexDirection: 'row',
     borderWidth: 1,
-    borderColor: '#000',
+    borderColor: colors.switchBorder,
+    borderRadius: 3,
+    overflow: 'hidden',
+  },
+  button: {
+    borderRightWidth: 1,
+    borderColor: colors.switchBorder,
     paddingHorizontal: 8,
     paddingVertical: 5,
     backgroundColor: colors.mainTextColor,
+  },
+  noRightBorder: {
+    borderRightWidth: 0,
   },
   colored: {
     backgroundColor: colors.switch,

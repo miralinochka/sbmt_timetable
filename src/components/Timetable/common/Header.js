@@ -41,7 +41,7 @@ export class Header extends Component {
           )
         }
         { visibleGroupView &&
-        <Card stylish={groupViewStyle}>
+        <Card styled={groupViewStyle}>
         {
           groupViewOptions.map(groupViewOption => (
             <CardItem key={groupViewOption}>
