@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { Text, TouchableOpacity, View, Image, SafeAreaView } from 'react-native';
-import colors from '../../../colors'
+import {
+  Text, TouchableOpacity, View, Image, SafeAreaView,
+} from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { CardItem, Card } from '../common'
+import colors from '../../../colors';
+import { CardItem, Card } from '.';
 
 const ActionIcon = ({ icon, onIconPress, iconStyle }) => (
-  <TouchableOpacity onPress={onIconPress} >
+  <TouchableOpacity onPress={onIconPress}>
     <Image
       style={iconStyle}
       source={icon}
@@ -14,24 +16,28 @@ const ActionIcon = ({ icon, onIconPress, iconStyle }) => (
 );
 
 const changeTimetableView = () => {
-  
-}
-const groupViewOptions = ['вся группа', '1 подгруппа', '2 подгруппа']
+
+};
+const groupViewOptions = ['вся группа', '1 подгруппа', '2 подгруппа'];
 export class Header extends Component {
   state = {
     visibleGroupView: false,
   }
+
   changeGroupView = () => {
-    this.setState(prev => ({visibleGroupView: !prev.visibleGroupView}))
+    this.setState(prev => ({ visibleGroupView: !prev.visibleGroupView }));
   }
+
   render() {
     const { headerText, showIcons, back } = this.props;
-    const { title, view, safeArea, icon, hiddenIcon, backIcon, groupViewStyle } = styles;
+    const {
+      title, view, safeArea, icon, hiddenIcon, backIcon, groupViewStyle,
+    } = styles;
     const { visibleGroupView } = this.state;
     return (
       <SafeAreaView style={safeArea}>
-      <View style={view}>
-        {
+        <View style={view}>
+          {
           showIcons && (
             <ActionIcon
               icon={require('../../../images/groups.png')}
@@ -40,9 +46,10 @@ export class Header extends Component {
             />
           )
         }
-        { visibleGroupView &&
+          { visibleGroupView
+        && (
         <Card styled={groupViewStyle}>
-        {
+          {
           groupViewOptions.map(groupViewOption => (
             <CardItem key={groupViewOption}>
               <TouchableOpacity onPress={changeTimetableView}>
@@ -52,27 +59,28 @@ export class Header extends Component {
           ))
         }
         </Card>
+        )
       }
-        {
+          {
           back && (
             <ActionIcon
               icon={require('../../../images/back.png')}
               iconStyle={[icon, backIcon]}
-              onIconPress={() => {Actions.timetable()}}
+              onIconPress={() => { Actions.timetable(); }}
             />
           )
         }
-        <Text style={title}>{headerText}</Text>
+          <Text style={title}>{headerText}</Text>
           <ActionIcon
-          icon={require('../../../images/refresh-button.png')}
-          iconStyle={[icon, back && hiddenIcon]}
-          onIconPress={() => {}}
-        />
-      </View>
+            icon={require('../../../images/refresh-button.png')}
+            iconStyle={[icon, back && hiddenIcon]}
+            onIconPress={() => {}}
+          />
+        </View>
       </SafeAreaView>
     );
   }
-};
+}
 const styles = {
   safeArea: {
     backgroundColor: colors.mainColor,
@@ -92,11 +100,11 @@ const styles = {
     color: colors.mainTextColor,
   },
   icon: {
-    width: 30, 
+    width: 30,
     height: 30,
   },
   backIcon: {
-    width: 25, 
+    width: 25,
     height: 25,
   },
   hiddenIcon: {
@@ -104,7 +112,6 @@ const styles = {
   },
   groupViewStyle: {
     position: 'absolute',
-    transform: [{ translateY: 72}, {translateX: -10,}]
-  }
+    transform: [{ translateY: 72 }, { translateX: -10 }],
+  },
 };
-

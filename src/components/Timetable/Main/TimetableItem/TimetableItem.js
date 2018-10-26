@@ -26,7 +26,6 @@ const TimetableItem = ({ timetableForADay }) => {
         return colors.practiseColor;
     }
   };
-  console.log(subjectTypeFormatted);
   return (
     <CardItem styled={styles.container}>
       <View style={styles.containerMainPart}>

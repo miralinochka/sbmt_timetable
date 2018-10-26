@@ -1,4 +1,6 @@
 import { StyleSheet } from 'react-native';
+import colors from '../../../../colors';
+
 export default StyleSheet.create({
   title: {
     fontSize: 18,
@@ -8,9 +10,9 @@ export default StyleSheet.create({
   subtitle: {
     fontSize: 15,
     paddingLeft: 15,
-    color: '#303033'
+    color: colors.subtitle,
   },
   container: {
     flexDirection: 'column',
-  }
-})
+  },
+});

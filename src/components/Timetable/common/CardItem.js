@@ -1,20 +1,18 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-export const CardItem = ({ children, styled }) => {
-	return (
+export const CardItem = ({ children, styled }) => (
     <View style={[styles.container, styled]}> 
       {children}
     </View>
   );
-};
 
 const styles = {
-	container: {
-		borderBottomWidth: 1,
+  container: {
+    borderBottomWidth: 1,
     padding: 5,
     backgroundColor: '#fff',
     flexDirection: 'row',
-    borderColor: '#ddd',	
-	}
+    borderColor: '#ddd',
+  },
 };

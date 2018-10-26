@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Text, SafeAreaView, FlatList } from 'react-native';
+import {connect} from 'react-redux';
 import { Header, Input, CardItem } from '../common'
 import Switch from './Switch';
-import {connect} from 'react-redux';
-import * as actions from '../../../actions/'
+import * as actions from "../../../actions";
 
-import ListItem from './ListItem'
+import ListItem from './ListItem';
 import styles from './styles';
 import { Actions } from 'react-native-router-flux';
 
@@ -25,12 +25,12 @@ class SearchTimetable extends Component {
 
   toggleSearch = () => {
     this.setState(({ searchItem }) => ({
-      searchItem: searchItem === items[0] ? items[1] : items[0]
+      searchItem: searchItem === items[0] ? items[1] : items[0],
     }));
   }
 
   hangleSearchInput = (text) => {
-    this.setState({searchQuery: text});
+    this.setState({ searchQuery: text });
   }
 
   displayGroups = () => {
@@ -40,6 +40,7 @@ class SearchTimetable extends Component {
       group.number.includes(searchQuery)
     ));
   }
+
   displayLecturers = () => {
     const { lecturers } = this.props;
     const { searchQuery } = this.state;
@@ -47,10 +48,10 @@ class SearchTimetable extends Component {
       lecturer.name.includes(searchQuery) && !lecturer.name.toLowerCase().includes('вакансия')
     ));
   }
-  
+
   onGroupPress = async (groupOrLecturer) => {
     const { downloadTimetable } = this.props;
-    console.log('groupOrLecturer',groupOrLecturer)
+    console.log('groupOrLecturer', groupOrLecturer);
     await downloadTimetable(groupOrLecturer);
     Actions.timetable();
   }
@@ -59,31 +60,31 @@ class SearchTimetable extends Component {
     const { searchItem } = this.state;
     return (
       <SafeAreaView>
-        <Switch toggleSearch={this.toggleSearch} items={items} searchItem={searchItem}/>
+        <Switch toggleSearch={this.toggleSearch} items={items} searchItem={searchItem} />
         <CardItem styled={styles.cardItem}>
           <Input
-            placeholder='Поиск...'
+            placeholder="Поиск..."
             onChangeText={this.hangleSearchInput}
           />
         </CardItem>
         <FlatList
-          data={searchItem===items[0] ? this.displayGroups(): this.displayLecturers()}
-          renderItem={({item}) => <ListItem listItem={item} onGroupPress={()=>this.onGroupPress(item)}/>}
+          data={searchItem === items[0] ? this.displayGroups() : this.displayLecturers()}
+          renderItem={({ item }) => <ListItem listItem={item} onGroupPress={() => this.onGroupPress(item)} />}
           keyExtractor={(item, index) => index.toString()}
         />
       </SafeAreaView>
     );
   }
-};
+}
 
 const mapStateToProps = state => ({
   groups: state.searchItems.groups,
-  lecturers: state.searchItems.lecturers
+  lecturers: state.searchItems.lecturers,
 });
 
 const mapDispatchToProps = {
   addGroups: actions.addGroups,
   addLecturers: actions.addLecturers,
   downloadTimetable: actions.downloadTimetable,
-}
-export default connect(mapStateToProps,mapDispatchToProps)(SearchTimetable);
+};
+export default connect(mapStateToProps, mapDispatchToProps)(SearchTimetable);

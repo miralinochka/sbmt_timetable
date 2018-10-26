@@ -1,32 +1,34 @@
-import { FETCH_TIMETABLE, FETCH_TIMETABLE_ERROR } from '../actions/types';
+import { FETCH_TIMETABLE, FETCH_TIMETABLE_ERROR, SET_CURRENT_TIMETABLE } from '../actions/types';
 
-export const timetables =  (state={}, action) => {
+export const timetables = (state = {}, action) => {
   switch (action.type) {
     case FETCH_TIMETABLE:
-    return {...state, [action.groupNumber]: action.timetable}
+      return { ...state, [action.groupNumber]: action.timetable };
     default:
-    return state;
+      return state;
   }
-}
+};
 
-export const currentTimetable = (state=null, action) => {
+export const currentTimetable = (state = null, action) => {
   switch (action.type) {
     case FETCH_TIMETABLE:
-    return {[action.groupNumber]: action.timetable}
+    case SET_CURRENT_TIMETABLE:
+      return { [action.groupNumber]: action.timetable };
     case FETCH_TIMETABLE_ERROR:
-    return null;
+      return null;
     default:
-    return state;
+      return state;
   }
-}
+};
 
-export const timetableError = (state='Расписание не найдено:(', action) => {
+export const timetableError = (state = 'Расписание не найдено:(', action) => {
   switch (action.type) {
     case FETCH_TIMETABLE_ERROR:
-    return action.error
+      return action.error;
     case FETCH_TIMETABLE:
-    return null;
+      return null;
     default:
-    return state;
+      return state;
   }
 }
+;
