@@ -13,12 +13,14 @@ export const currentTimetable = (state=null, action) => {
   switch (action.type) {
     case FETCH_TIMETABLE:
     return {[action.groupNumber]: action.timetable}
+    case FETCH_TIMETABLE_ERROR:
+    return null;
     default:
     return state;
   }
 }
 
-export const timetableError = (state=null, action) => {
+export const timetableError = (state='Расписание не найдено:(', action) => {
   switch (action.type) {
     case FETCH_TIMETABLE_ERROR:
     return action.error

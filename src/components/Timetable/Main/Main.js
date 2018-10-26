@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, View, FlatList } from 'react-native';
+import { Text, View, FlatList, SafeAreaView } from 'react-native';
 import {connect} from 'react-redux';
 import TimetableItem from './TimetableItem';
 
@@ -21,8 +21,12 @@ class Main extends Component {
     const { currentTimetable, timetableError} = this.props;
     const currentDate = new Date();
     return (
-      <View style={styles.container}> 
-      <Text style={styles.defaultText}>{timetableError}</Text>
+      <SafeAreaView>
+      {timetableError &&
+      <View style={[styles.container, styles.defaultTextView]}>
+        <Text style={styles.defaultText}>{timetableError}</Text>
+      </View>
+      }
       {
         currentTimetable && 
         <FlatList
@@ -31,17 +35,18 @@ class Main extends Component {
           keyExtractor={(item, index) => index.toString()}
         />
       }
-      </View>
+      </SafeAreaView>
     );
   }
 };
 
 const styles = {
-	container: {
-    flex: 1,
-  },
   defaultText: {
     fontSize: 20,
+  },
+  defaultTextView: {
+    alignItems: 'center',
+    alignSelf: 'center',
   }
 };
 

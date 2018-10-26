@@ -17,7 +17,7 @@ const Input = ({ value, onChangeText, placeholder }) => {
 
 const styles = StyleSheet.create({
 	container: {
-    justifyContent: 'center',
+    flex: 1,
   },
   input: {
     color: '#000',

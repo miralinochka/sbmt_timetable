@@ -13,22 +13,26 @@ export default StyleSheet.create({
   time: {
     fontSize: 22,
   },
+  containerTime: {
+    width: '16%',
+  },
   subject: {
     fontSize: 15,
+    fontWeight: '600',
   },
   place: {
     fontSize: 13,
-    color: colors.subtitle
-  }, 
+    color: colors.subtitle,
+  },
   lecturer: {
-    fontSize: 12,
+    fontSize: 11,
     textAlign: 'right',
-    color: colors.subtitle
-  },  
+    color: colors.subtitle,
+  },
   rectangle: {
-    backgroundColor: colors.lecture,
+    backgroundColor: colors.practiseColor,
     width: 10,
     height: '100%',
     marginHorizontal: 10,
   },
-})
+});

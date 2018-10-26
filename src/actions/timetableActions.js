@@ -9,11 +9,18 @@ export const downloadTimetable = (groupOrLecturer) => async dispatch => {
       const { data } = await axios.get(`http://127.0.0.1:3000/parse?query=/shedule/group/${groupOrLecturerFile}`);
       console.log('data', data)
       const groupNumber = groupOrLecturer.number;
-      dispatch({
-        type: FETCH_TIMETABLE,
-        groupNumber,
-        timetable: data.schedule.lesson
-      })
+      if(Object.values(data.schedule.lesson)[0]) {
+        dispatch({
+          type: FETCH_TIMETABLE,
+          groupNumber,
+          timetable: data.schedule.lesson
+        })
+      } else {
+        dispatch({
+          type: FETCH_TIMETABLE_ERROR,
+          error: 'Расписание не найдено:('
+        })
+      }
     }
   } catch(e) {
     console.log('error', e)
