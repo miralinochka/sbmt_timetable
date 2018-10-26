@@ -30,5 +30,4 @@ export const timetableError = (state = 'Расписание не найдено
     default:
       return state;
   }
-}
-;
+};

@@ -35,4 +35,7 @@ export default StyleSheet.create({
     height: '100%',
     marginHorizontal: 10,
   },
+  containerLecturer: {
+    flex: 1,
+  },
 });

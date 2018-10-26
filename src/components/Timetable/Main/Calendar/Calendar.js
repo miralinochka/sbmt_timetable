@@ -3,22 +3,11 @@ import {
   Text, View, FlatList, SafeAreaView,
 } from 'react-native';
 import { connect } from 'react-redux';
-import moment from 'moment';
-import TimetableItem from './TimetableItem';
 import styles from './styles';
 
-class Main extends Component {
-  renderCurrentTimetable = (timetable = [], currentDate) => {
-    const currentTT = timetable.filter((tt) => {
-      const ttDate = moment(tt.date, 'DD-MM-YYYY', 'ru').format('L');
-      return ttDate === currentDate;
-    });
-    return currentTT;
-  }
-
+class Calendar extends Component {
   render() {
-    const { currentTimetable, timetableError } = this.props;
-    const currentDate = moment().format('L');
+    const currentDate = new Date();
     return (
       <SafeAreaView>
         {
@@ -46,4 +35,4 @@ const mapStateToProps = state => console.log(state) || ({
   timetableError: state.timetableError,
 });
 
-export default connect(mapStateToProps)(Main);
+export default connect(mapStateToProps)(Calendar);
