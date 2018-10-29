@@ -23,8 +23,8 @@ class Header extends Component {
 
   changeTimetableView = (subgroup) => {
     console.log('subgroup', subgroup);
-    Actions.timetable({ subgroup });
-    this.changeGroupView();
+    Actions.refresh({ subgroup });
+    this.setState({ visibleGroupView: false })
   };
 
   renderGroups = () => {

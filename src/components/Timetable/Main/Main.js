@@ -23,25 +23,13 @@ class Main extends Component {
     console.log('swipe right');
     this.setState(prevState => ({ currentDate: prevState.currentDate.subtract(1, 'd') }));
   }
-  // onSwipe = (gestureName, gestureState) => {
-
-  //   const {SWIPE_LEFT, SWIPE_RIGHT} = swipeDirections;
-  //   switch (gestureName) {
-  //     case SWIPE_LEFT:
-  //     case SWIPE_RIGHT:
-  //     const { setTimetableError } = this.props;
-  //     setTimetableError('')
-  //   }
-  // }
 
   renderTimetable = (currentDate) => {
     const { currentTimetable, subgroup } = this.props;
     const relevantTimetable = this.renderCurrentTimetable(currentTimetable, currentDate);
     console.log('relevantTimetable', relevantTimetable);
     return relevantTimetable.map((ttItem, index) => {
-      if (subgroup === ttItem.subgroup || !subgroup) {
-        return (<TimetableItem key={ttItem.time + index} timetableForADay={ttItem} />);
-      }
+      if ((ttItem.subgroup === subgroup || ttItem.subgroup === 'вся группа') || subgroup === 'вся группа') return <TimetableItem key={ttItem.time + index} timetableForADay={ttItem} />;
     });
   }
 
@@ -61,13 +49,14 @@ class Main extends Component {
       directionalOffsetThreshold: 80,
     };
     console.log('main props', this.props);
-    console.log('currentDate', currentDate)
+    console.log('currentDate', currentDate);
     return (
       <SafeAreaView>
         <GestureRecognizer
           onSwipeLeft={this.onSwipeLeft}
           onSwipeRight={this.onSwipeRight}
           config={config}
+          style={{ height: '100%' }}
         >
           {
           currentTimetable.length > 0 && currentDate.day() !== 0
@@ -93,7 +82,7 @@ const mapStateToProps = state => console.log(state) || ({
   timetableError: state.timetableError,
 });
 const mapDispatchToProps = {
- 
+
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
