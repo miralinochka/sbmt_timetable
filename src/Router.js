@@ -4,8 +4,8 @@ import { Image } from 'react-native';
 import Timetable from './components/Timetable'
 import SearchTimetable from './components/Timetable/SearchTimetable';
 import SavedTimetable from './components/Timetable/SavedTimetable';
-import {Header} from './components/Timetable/common';
-import footerStyle from './components/Timetable/common/Footer/styles'
+import Header from './components/Timetable/Header';
+import footerStyle from './components/Timetable/common/Footer/styles';
 
 
 const SearchIcon = () => (

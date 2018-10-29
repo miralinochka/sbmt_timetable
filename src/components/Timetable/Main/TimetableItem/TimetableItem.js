@@ -7,7 +7,7 @@ import colors from '../../../../colors';
 const TimetableItem = ({ timetableForADay }) => {
   console.log('timetableForADay', timetableForADay);
   const {
-    time, subject, building, room, lecturer, type,
+    time, subject, building, room, lecturer, type, subgroup,
   } = timetableForADay;
   const subjectType = type.toLowerCase().split(' ');
   const subjectTypeFormatted = subjectType.reduce((prevWord, nextWord) => (
@@ -31,6 +31,11 @@ const TimetableItem = ({ timetableForADay }) => {
       <View style={styles.containerMainPart}>
         <View style={styles.containerTime}>
           <Text style={styles.time}>{time}</Text>
+          {
+            subgroup[0] > 0 && subgroup[0] < 9 && <Text style={styles.place}>
+            {subgroup[0]} подгр.
+          </Text>
+          }
         </View>
         <View style={[styles.rectangle, { backgroundColor: generateBC(subjectTypeFormatted) }]} />
         <View style={styles.containerLecturer}>

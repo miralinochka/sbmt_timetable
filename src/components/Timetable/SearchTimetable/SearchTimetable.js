@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, SafeAreaView, FlatList } from 'react-native';
 import {connect} from 'react-redux';
-import { Header, Input, CardItem } from '../common'
+import { Input, CardItem } from '../common';
 import Switch from './Switch';
 import * as actions from "../../../actions";
 

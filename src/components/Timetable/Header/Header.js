@@ -3,8 +3,9 @@ import {
   Text, TouchableOpacity, View, Image, SafeAreaView,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import colors from '../../../colors';
-import { CardItem, Card } from '.';
+import { CardItem, Card } from '../common';
 
 const ActionIcon = ({ icon, onIconPress, iconStyle }) => (
   <TouchableOpacity onPress={onIconPress}>
@@ -15,14 +16,27 @@ const ActionIcon = ({ icon, onIconPress, iconStyle }) => (
   </TouchableOpacity>
 );
 
-const changeTimetableView = () => {
-
-};
-const groupViewOptions = ['вся группа', '1 подгруппа', '2 подгруппа'];
-export class Header extends Component {
+class Header extends Component {
   state = {
     visibleGroupView: false,
   }
+
+  changeTimetableView = (subgroup) => {
+    console.log('subgroup', subgroup);
+    Actions.timetable({ subgroup });
+    this.changeGroupView();
+  };
+
+  renderGroups = () => {
+    const { subgroups } = this.props;
+    return subgroups.map(subgroup => (
+      <CardItem key={subgroup}>
+        <TouchableOpacity onPress={() => this.changeTimetableView(subgroup)}>
+          <Text>{subgroup}</Text>
+        </TouchableOpacity>
+      </CardItem>
+    ));
+  };
 
   changeGroupView = () => {
     this.setState(prev => ({ visibleGroupView: !prev.visibleGroupView }));
@@ -50,14 +64,8 @@ export class Header extends Component {
         && (
         <Card styled={groupViewStyle}>
           {
-          groupViewOptions.map(groupViewOption => (
-            <CardItem key={groupViewOption}>
-              <TouchableOpacity onPress={changeTimetableView}>
-                <Text>{groupViewOption}</Text>
-              </TouchableOpacity>
-            </CardItem>
-          ))
-        }
+          this.renderGroups()
+          }
         </Card>
         )
       }
@@ -112,6 +120,13 @@ const styles = {
   },
   groupViewStyle: {
     position: 'absolute',
-    transform: [{ translateY: 72 }, { translateX: -10 }],
+    // transform: [{ translateY: 72 }, { translateX: -10 }],
+    top: '120%',
   },
 };
+
+const mapStateToProps = state => ({
+  subgroups: state.currentGroup.subgroups,
+});
+
+export default connect(mapStateToProps)(Header);
