@@ -54,6 +54,7 @@ class SearchTimetable extends Component {
     console.log('groupOrLecturer', groupOrLecturer);
     await downloadTimetable(groupOrLecturer);
     Actions.timetable();
+    Actions.refresh({ headerText: groupOrLecturer.number ? `${groupOrLecturer.number} гр.` : groupOrLecturer.name })
   }
 
   render() {

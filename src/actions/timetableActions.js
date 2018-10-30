@@ -7,6 +7,7 @@ export const setTimetableError = error => ({
 });
 
 export const downloadTimetable = groupOrLecturer => async (dispatch) => {
+  console.log('groupOrLecturer', groupOrLecturer)
   const groupOrLecturerFile = groupOrLecturer.filename;
   try {
     if (groupOrLecturerFile[0] >= 0 && groupOrLecturerFile[0] <= 9) {
@@ -36,3 +37,4 @@ export const setCurrentTimetable = (groupNumber, timetable, subgroups) => ({
   timetable,
   subgroups,
 });
+
