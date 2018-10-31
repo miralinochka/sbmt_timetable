@@ -7,9 +7,9 @@ import colors from '../../../../colors';
 const TimetableItem = ({ timetableForADay }) => {
   console.log('timetableForADay', timetableForADay);
   const {
-    time, subject, building, room, lecturer, type, subgroup,
+    time, subject, building, room, lecturer, type, subgroup, group,
   } = timetableForADay;
-  const subjectType = type.toLowerCase().split(' ');
+  const subjectType = type.toLowerCase().trim().split(' ');
   const subjectTypeFormatted = subjectType.reduce((prevWord, nextWord) => (
     prevWord + nextWord[0]
   ), '');
@@ -32,7 +32,7 @@ const TimetableItem = ({ timetableForADay }) => {
         <View style={styles.containerTime}>
           <Text style={styles.time}>{time}</Text>
           {
-            subgroup[0] > 0 && subgroup[0] < 9 && <Text style={styles.place}>
+            subgroup && subgroup[0] > 0 && subgroup[0] < 9 && <Text style={styles.place}>
             {subgroup[0]} подгр.
           </Text>
           }
@@ -47,7 +47,7 @@ const TimetableItem = ({ timetableForADay }) => {
           </Text>
         </View>
       </View>
-      <Text style={styles.lecturer}>{lecturer}</Text>
+      <Text style={styles.lecturer}>{lecturer || group}</Text>
     </CardItem>
   );
 };

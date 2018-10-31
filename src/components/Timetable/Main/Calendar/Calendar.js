@@ -19,9 +19,20 @@ const config = {
 class Calendar extends Component {
   state = {
     date: moment(),
+    chosenDay: this.props.chosenDay,
   }
 
-  renderMonth = currentDate => `${monthArray[currentDate.month()]}, ${currentDate.year()}`;
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (!prevState.chosenDay.isSame(nextProps.chosenDay)) {
+      return {
+        date: nextProps.chosenDay.clone(),
+        chosenDay: nextProps.chosenDay,
+      };
+    }
+    return null;
+  }
+
+  renderMonth = date => `${monthArray[date.month()]}, ${date.year()}`;
 
   renderWeek = (currentDate) => {
     const { chosenDay, onDayChange } = this.props;
@@ -72,6 +83,7 @@ class Calendar extends Component {
     const { chosenDay } = this.props;
     const { date } = this.state;
     console.log('date', date);
+    console.log('chosenDay', chosenDay);
     return (
       <View style={styles.container}>
 
@@ -105,7 +117,6 @@ class Calendar extends Component {
 }
 
 const mapStateToProps = state => console.log(state) || ({
-  currentTimetable: state.currentTimetable,
   timetableError: state.timetableError,
 });
 

@@ -52,9 +52,11 @@ class SearchTimetable extends Component {
   onGroupPress = async (groupOrLecturer) => {
     const { downloadTimetable } = this.props;
     console.log('groupOrLecturer', groupOrLecturer);
+    const lecturerNameArray = groupOrLecturer.name && groupOrLecturer.name.split(' ');
+    const lecturerName = lecturerNameArray && (lecturerNameArray[2] ? `${lecturerNameArray[0]} ${lecturerNameArray[1][0]}. ${lecturerNameArray[2][0]}.` : `${lecturerNameArray[0]} ${lecturerNameArray[1][0]}.`);
     await downloadTimetable(groupOrLecturer);
     Actions.timetable();
-    Actions.refresh({ headerText: groupOrLecturer.number ? `${groupOrLecturer.number} гр.` : groupOrLecturer.name })
+    Actions.refresh({ headerText: groupOrLecturer.number ? `${groupOrLecturer.number} гр.` : lecturerName });
   }
 
   render() {

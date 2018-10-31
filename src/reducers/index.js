@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 import searchItems from './searchItems';
-import { timetables, currentTimetable, timetableError, currentGroup } from './timetable';
+import {
+  timetables, currentTimetable, timetableError, currentGroupOrLecturer,
+} from './timetable';
 
 export default combineReducers({
   searchItems,
   timetables,
   currentTimetable,
   timetableError,
-  currentGroup,
+  currentGroupOrLecturer,
 });

@@ -29,7 +29,6 @@ class SavedTimetable extends Component {
 
 const mapStateToProps = state => ({
   timetables: state.timetables,
-  currentTimetable: state.currentTimetable,
 });
 
 const mapDispatchToProps = {

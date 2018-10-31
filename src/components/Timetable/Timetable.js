@@ -4,7 +4,7 @@ import Main from './Main';
 class Timetable extends Component {
   render() {
     return (
-      <Main subgroup={this.props.subgroup || 'вся группа'}/>
+      <Main subgroup={this.props.subgroup || 'вся группа'} />
     );
   }
 }

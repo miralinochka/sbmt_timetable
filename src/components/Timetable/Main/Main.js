@@ -8,7 +8,7 @@ import moment from 'moment';
 import TimetableItem from './TimetableItem';
 import Calendar from './Calendar';
 import styles from './styles';
-import { Actions } from 'react-native-router-flux';
+import * as actions from '../../../actions';
 
 const config = {
   velocityThreshold: 0.3,
@@ -19,20 +19,40 @@ class Main extends Component {
     currentDate: moment(),
   }
 
+  checkTimetable = (swipeDirection, currentDate) => {
+    const { currentTimetable } = this.props;
+    const day = swipeDirection === 'left' ? currentDate.clone().add(1, 'd') : currentDate.clone().subtract(1, 'd');
+    console.log('day', day);
+    const timetableExist = currentTimetable.find((tt) => {
+      const ttDate = moment(tt.date, 'DD-MM-YYYY', 'ru').format('L');
+      return ttDate === day.format('L') || day.day() === 0;
+    });
+    return timetableExist;
+  }
+
   onSwipeLeftTimetable = (gestureState) => {
     console.log('swipe left');
+
     this.setState(prevState => ({ currentDate: prevState.currentDate.add(1, 'd') }));
   }
 
   onSwipeRightTimetable = (gestureState) => {
     console.log('swipe right');
+
     this.setState(prevState => ({ currentDate: prevState.currentDate.subtract(1, 'd') }));
   }
 
   renderTimetable = (currentDate) => {
-    const { currentTimetable, subgroup } = this.props;
+    const { currentTimetable, subgroup, setTimetableError } = this.props;
     const relevantTimetable = this.renderCurrentTimetable(currentTimetable, currentDate);
     console.log('relevantTimetable', relevantTimetable);
+    if (relevantTimetable.length === 0) {
+      return (
+        <View style={styles.defaultTextView}>
+          <Text style={styles.defaultText}>Расписание не найдено:(</Text>
+        </View>
+      );
+    }
     return relevantTimetable.map((ttItem, index) => {
       if ((ttItem.subgroup === subgroup || ttItem.subgroup === 'вся группа') || subgroup === 'вся группа') return <TimetableItem key={ttItem.time + index} timetableForADay={ttItem} />;
     });
@@ -50,6 +70,11 @@ class Main extends Component {
     this.setState({ currentDate });
   }
 
+  getCurrentDate = () => {
+    const { currentDate } = this.state;
+    return currentDate.clone();
+  }
+
   render() {
     const { currentTimetable, timetableError } = this.props;
     const { currentDate } = this.state;
@@ -58,7 +83,7 @@ class Main extends Component {
     return (
       <SafeAreaView>
         {currentTimetable.length > 0
-        && <Calendar chosenDay={currentDate} onDayChange={this.onCurrentDayChange} />}
+        && <Calendar chosenDay={this.getCurrentDate()} onDayChange={this.onCurrentDayChange} />}
         <GestureRecognizer
           onSwipeLeft={this.onSwipeLeftTimetable}
           onSwipeRight={this.onSwipeRightTimetable}
@@ -66,16 +91,16 @@ class Main extends Component {
           style={{ height: '100%' }}
         >
           {
-            currentTimetable.length > 0 && currentDate.day() !== 0
+            currentTimetable.length > 0
               ? (
-              <ScrollView>
-                {this.renderTimetable(currentDate)}
-              </ScrollView>
+                <ScrollView>
+                  {this.renderTimetable(currentDate)}
+                </ScrollView>
               )
               : (
-              <View style={[styles.container, styles.defaultTextView]}>
-                <Text style={styles.defaultText}>{timetableError}</Text>
-              </View>
+                <View style={styles.defaultTextView}>
+                  <Text style={styles.defaultText}>{timetableError}</Text>
+                </View>
               )
           }
         </GestureRecognizer>
@@ -89,4 +114,8 @@ const mapStateToProps = state => console.log(state) || ({
   timetableError: state.timetableError,
 });
 
-export default connect(mapStateToProps)(Main);
+const mapDispatchToProps = {
+  setTimetableError: actions.setTimetableError,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

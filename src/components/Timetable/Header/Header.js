@@ -4,13 +4,14 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import colors from '../../../colors';
 import { CardItem, Card } from '../common';
+import * as actions from '../../../actions';
+import styles from './styles';
 
-const ActionIcon = ({ icon, onIconPress, iconStyle }) => (
-  <TouchableOpacity onPress={onIconPress}>
+const ActionIcon = ({ icon, onIconPress, hiddenIcon, backIcon }) => (
+  <TouchableOpacity onPress={onIconPress} style={styles.icon}>
     <Image
-      style={iconStyle}
+      style={[styles.icon, backIcon, hiddenIcon]}
       source={icon}
     />
   </TouchableOpacity>
@@ -24,7 +25,7 @@ class Header extends Component {
   changeTimetableView = (subgroup) => {
     console.log('subgroup', subgroup);
     Actions.refresh({ subgroup });
-    this.setState({ visibleGroupView: false })
+    this.setState({ visibleGroupView: false });
   };
 
   renderGroups = () => {
@@ -42,12 +43,18 @@ class Header extends Component {
     this.setState(prev => ({ visibleGroupView: !prev.visibleGroupView }));
   }
 
+  onRefreshButtonClick = async () => {
+    const { downloadTimetable, currentGroupOrLecturer } = this.props;
+    await downloadTimetable(currentGroupOrLecturer);
+  }
+
   render() {
-    const { headerText, showIcons, back } = this.props;
+    const { headerText, showIcons, back, subgroups } = this.props;
     const {
       title, view, safeArea, icon, hiddenIcon, backIcon, groupViewStyle,
     } = styles;
     const { visibleGroupView } = this.state;
+    console.log('header props', this.props)
     return (
       <SafeAreaView style={safeArea}>
         <View style={view}>
@@ -55,7 +62,7 @@ class Header extends Component {
           showIcons && (
             <ActionIcon
               icon={require('../../../images/groups.png')}
-              iconStyle={icon}
+              hiddenIcon={subgroups.length < 2 && hiddenIcon && hiddenIcon}
               onIconPress={this.changeGroupView}
             />
           )
@@ -73,7 +80,7 @@ class Header extends Component {
           back && (
             <ActionIcon
               icon={require('../../../images/back.png')}
-              iconStyle={[icon, backIcon]}
+              backIcon={backIcon}
               onIconPress={() => { Actions.timetable(); }}
             />
           )
@@ -81,52 +88,23 @@ class Header extends Component {
           <Text style={title}>{headerText}</Text>
           <ActionIcon
             icon={require('../../../images/refresh-button.png')}
-            iconStyle={[icon, back && hiddenIcon]}
-            onIconPress={() => {}}
+            hiddenIcon={back && hiddenIcon}
+            onIconPress={this.onRefreshButtonClick}
           />
         </View>
       </SafeAreaView>
     );
   }
 }
-const styles = {
-  safeArea: {
-    backgroundColor: colors.mainColor,
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-  },
-  view: {
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    flexDirection: 'row',
-    paddingVertical: 15,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: '600',
-    color: colors.mainTextColor,
-  },
-  icon: {
-    width: 30,
-    height: 30,
-  },
-  backIcon: {
-    width: 25,
-    height: 25,
-  },
-  hiddenIcon: {
-    opacity: 0,
-  },
-  groupViewStyle: {
-    position: 'absolute',
-    // transform: [{ translateY: 72 }, { translateX: -10 }],
-    top: '120%',
-  },
-};
+
 
 const mapStateToProps = state => ({
-  subgroups: state.currentGroup.subgroups,
+  subgroups: state.currentGroupOrLecturer.subgroups,
+  currentGroupOrLecturer: state.currentGroupOrLecturer,
 });
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = {
+  downloadTimetable: actions.downloadTimetable,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
