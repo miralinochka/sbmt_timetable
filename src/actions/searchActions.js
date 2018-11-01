@@ -2,8 +2,8 @@ import axios from 'axios';
 import { FETCH_GROUPS, FETCH_LECTURERS } from './types';
 
 const comparator = (first, second) => {
-  if (first.number < second.number) {return -1;}
-  if (first.number > second.number) {return 1;}
+  if (first.number < second.number) { return -1; }
+  if (first.number > second.number) { return 1; }
   return 0;
 };
 

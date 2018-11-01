@@ -5,9 +5,9 @@ import {
 import GestureRecognizer from 'react-native-swipe-gestures';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import TimetableItem from './TimetableItem';
 import Calendar from './Calendar';
-import PropTypes from 'prop-types';
 import styles from './styles';
 
 const config = {
@@ -30,11 +30,11 @@ class ShowTimetable extends Component {
     return timetableExist;
   }
 
-  onSwipeLeftTimetable = (gestureState) => {
+  onSwipeLeftTimetable = () => {
     this.setState(prevState => ({ currentDate: prevState.currentDate.add(1, 'd') }));
   }
 
-  onSwipeRightTimetable = (gestureState) => {
+  onSwipeRightTimetable = () => {
     this.setState(prevState => ({ currentDate: prevState.currentDate.subtract(1, 'd') }));
   }
 
@@ -73,7 +73,6 @@ class ShowTimetable extends Component {
   render() {
     const { currentTimetable, timetableError } = this.props;
     const { currentDate } = this.state;
-    console.log('ShowTimetable props', this.props);
     return (
       <SafeAreaView>
         {currentTimetable.length > 0
@@ -103,7 +102,18 @@ class ShowTimetable extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+ShowTimetable.defaultProps = {
+  subgroup: '',
+  currentTimetable: [],
+};
+
+ShowTimetable.propTypes = {
+  timetableError: PropTypes.string.isRequired,
+  subgroup: PropTypes.string,
+
+};
+
+const mapStateToProps = state => console.log('state', state) || ({
   currentTimetable: state.currentTimetable,
   timetableError: state.timetableError,
 });

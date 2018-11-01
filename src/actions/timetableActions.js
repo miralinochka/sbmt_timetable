@@ -17,7 +17,9 @@ export const downloadTimetable = groupOrLecturer => async (dispatch) => {
       const { data } = await axios.get(`http://127.0.0.1:3000/parse?query=/shedule/group/${groupOrLecturerFile}`);
       groupOrLecturerName = groupOrLecturer.number || groupOrLecturer.name;
       timetable = data.schedule.lesson;
-      subgroups = timetable.map(item => item.subgroup).filter((subgr, index, array) => array.indexOf(subgr) === index);
+      subgroups = timetable
+        .map(item => item.subgroup)
+        .filter((subgr, index, array) => array.indexOf(subgr) === index);
     } else {
       const { data } = await axios.get(`http://127.0.0.1:3000/parse?query=/shedule/lecturer/${groupOrLecturerFile}`);
       const lecturerNameArray = groupOrLecturer.name.trim().split(' ');

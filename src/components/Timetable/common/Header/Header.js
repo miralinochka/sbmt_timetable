@@ -1,24 +1,15 @@
 import React, { Component } from 'react';
 import {
-  Text, TouchableOpacity, View, Image, SafeAreaView,
+  Text, TouchableOpacity, View, SafeAreaView,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import ContainerItem from '../ContainerItem';
 import Container from '../Container';
+import ActionIcon from './ActionIcon';
 import * as actions from '../../../../actions';
 import styles from './styles';
-
-const ActionIcon = ({
- icon, onIconPress, hiddenIcon, backIcon 
-}) => (
-  <TouchableOpacity onPress={onIconPress} style={styles.icon}>
-    <Image
-      style={[styles.icon, backIcon, hiddenIcon]}
-      source={icon}
-    />
-  </TouchableOpacity>
-);
 
 class Header extends Component {
   state = {
@@ -52,8 +43,8 @@ class Header extends Component {
 
   render() {
     const {
- headerText, showIcons, back, subgroups 
-} = this.props;
+      headerText, showIcons, back, subgroups,
+    } = this.props;
     const {
       title, view, safeArea, hiddenIcon, backIcon, groupViewStyle,
     } = styles;
@@ -64,7 +55,7 @@ class Header extends Component {
           {
           showIcons && (
             <ActionIcon
-              icon={require('../../../../images/groups.png')}
+              icon={require('../../../../images/groups.png')} // eslint-disable-line global-require
               hiddenIcon={(!subgroups || subgroups.length < 2) && hiddenIcon}
               onIconPress={subgroups && this.changeGroupView}
             />
@@ -82,7 +73,7 @@ class Header extends Component {
           {
           back && (
             <ActionIcon
-              icon={require('../../../../images/back.png')}
+              icon={require('../../../../images/back.png')} // eslint-disable-line global-require
               backIcon={backIcon}
               onIconPress={() => { Actions.timetable(); }}
             />
@@ -90,7 +81,7 @@ class Header extends Component {
         }
           <Text style={title}>{headerText}</Text>
           <ActionIcon
-            icon={require('../../../../images/refresh-button.png')}
+            icon={require('../../../../images/refresh-button.png')} // eslint-disable-line global-require
             hiddenIcon={back && hiddenIcon}
             onIconPress={this.onRefreshButtonClick}
           />
@@ -100,6 +91,17 @@ class Header extends Component {
   }
 }
 
+Header.defaultProps = {
+  showIcons: null,
+  back: null,
+};
+
+Header.propTypes = {
+  headerText: PropTypes.string.isRequired,
+  showIcons: PropTypes.bool,
+  back: PropTypes.bool,
+  subgroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 const mapStateToProps = state => ({
   subgroups: state.currentGroupOrLecturer.subgroups,

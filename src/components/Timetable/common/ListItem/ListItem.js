@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
+import PropTypes from 'prop-types';
 import ContainerItem from '../ContainerItem';
 import styles from './styles';
 
@@ -11,10 +12,25 @@ const ListItem = ({ listItem, onGroupPress, savedTT }) => (
   <TouchableOpacity onPress={onGroupPress}>
     <View>
       <ContainerItem styled={[styles.container, savedTT && { paddingVertical: 15 }]}>
-        <Text style={styles.title}>{ savedTT ? listItem : (listItem.number || listItem.name) }</Text>
+        <Text style={styles.title}>
+          { savedTT ? listItem : (listItem.number || listItem.name) }
+        </Text>
         {!savedTT && <Text style={styles.subtitle}>{renderSubtitle({ listItem })}</Text>}
       </ContainerItem>
     </View>
   </TouchableOpacity>
 );
+
+ListItem.defaultProps = {
+  savedTT: null,
+  listItem: {},
+};
+
+ListItem.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  listItem: PropTypes.any,
+  onGroupPress: PropTypes.func.isRequired,
+  savedTT: PropTypes.bool,
+};
+
 export default ListItem;

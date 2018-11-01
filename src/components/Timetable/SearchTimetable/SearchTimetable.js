@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { SafeAreaView, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import PropTypes from 'prop-types';
 import Input from '../common/Input';
-import ContainerItem from '../common/ContainerItem'
+import ContainerItem from '../common/ContainerItem';
 import Switch from './Switch';
 import * as actions from '../../../actions';
-
 import ListItem from '../common/ListItem';
 import styles from './styles';
 
@@ -73,13 +73,23 @@ class SearchTimetable extends Component {
         </ContainerItem>
         <FlatList
           data={searchItem === items[0] ? this.displayGroups() : this.displayLecturers()}
-          renderItem={({ item }) => <ListItem listItem={item} onGroupPress={() => this.onGroupPress(item)} />}
+          renderItem={({ item }) => (
+            <ListItem
+              listItem={item}
+              onGroupPress={() => this.onGroupPress(item)}
+            />
+          )}
           keyExtractor={(item, index) => index.toString()}
         />
       </SafeAreaView>
     );
   }
 }
+
+SearchTimetable.propTypes = {
+  groups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  lecturers: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+};
 
 const mapStateToProps = state => ({
   groups: state.searchItems.groups,
