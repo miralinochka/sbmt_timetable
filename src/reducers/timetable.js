@@ -8,7 +8,14 @@ const currentGroupOrLecturerInitialState = {
 export const timetables = (state = {}, action) => {
   switch (action.type) {
     case FETCH_TIMETABLE:
-      return action.groupNumber ? { ...state, [action.groupNumber]: action.timetable } : { ...state, [action.lecturerName]: action.timetable };
+      if (Object.keys(state).length > 9) {
+        const theEarliestTimetableDate = Math.min(...Object.values(state).map(value => value.createdOn));
+        const theEarliestTimetable = Object.keys(state).find(key => +(state[key].createdOn) === theEarliestTimetableDate);
+        const newState = { ...state };
+        delete newState[theEarliestTimetable];
+        return { ...newState, [action.groupOrLecturer]: { timetable: action.timetable, createdOn: new Date(), filename: action.filename } };
+      }
+      return { ...state, [action.groupOrLecturer]: { timetable: action.timetable, createdOn: new Date(), filename: action.filename } };
     default:
       return state;
   }
@@ -18,7 +25,7 @@ export const currentTimetable = (state = [], action) => {
   switch (action.type) {
     case FETCH_TIMETABLE:
     case SET_CURRENT_TIMETABLE:
-      return action.timetable.length ? action.timetable : [action.timetable];
+      return action.timetable;
     case FETCH_TIMETABLE_ERROR:
       return [];
     default:
@@ -30,7 +37,7 @@ export const currentGroupOrLecturer = (state = currentGroupOrLecturerInitialStat
   switch (action.type) {
     case FETCH_TIMETABLE:
     case SET_CURRENT_TIMETABLE:
-      return action.groupNumber ? { name: action.groupNumber, subgroups: action.subgroups, filename: action.filename } : { name: action.lecturerName, subgroups: action.subgroups, filename: action.filename };
+      return { name: action.groupOrLecturer, subgroups: action.subgroups, filename: action.filename };
     case FETCH_TIMETABLE_ERROR:
       return currentGroupOrLecturerInitialState;
     default:

@@ -2,19 +2,20 @@ import React, { Component } from 'react';
 import {
   Text, View, SafeAreaView, ScrollView,
 } from 'react-native';
-import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
+import GestureRecognizer from 'react-native-swipe-gestures';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import TimetableItem from './TimetableItem';
 import Calendar from './Calendar';
+import PropTypes from 'prop-types';
 import styles from './styles';
-import * as actions from '../../../actions';
 
 const config = {
   velocityThreshold: 0.3,
   directionalOffsetThreshold: 80,
 };
-class Main extends Component {
+
+class ShowTimetable extends Component {
   state = {
     currentDate: moment(),
   }
@@ -22,7 +23,6 @@ class Main extends Component {
   checkTimetable = (swipeDirection, currentDate) => {
     const { currentTimetable } = this.props;
     const day = swipeDirection === 'left' ? currentDate.clone().add(1, 'd') : currentDate.clone().subtract(1, 'd');
-    console.log('day', day);
     const timetableExist = currentTimetable.find((tt) => {
       const ttDate = moment(tt.date, 'DD-MM-YYYY', 'ru').format('L');
       return ttDate === day.format('L') || day.day() === 0;
@@ -31,21 +31,16 @@ class Main extends Component {
   }
 
   onSwipeLeftTimetable = (gestureState) => {
-    console.log('swipe left');
-
     this.setState(prevState => ({ currentDate: prevState.currentDate.add(1, 'd') }));
   }
 
   onSwipeRightTimetable = (gestureState) => {
-    console.log('swipe right');
-
     this.setState(prevState => ({ currentDate: prevState.currentDate.subtract(1, 'd') }));
   }
 
   renderTimetable = (currentDate) => {
-    const { currentTimetable, subgroup, setTimetableError } = this.props;
+    const { currentTimetable, subgroup } = this.props;
     const relevantTimetable = this.renderCurrentTimetable(currentTimetable, currentDate);
-    console.log('relevantTimetable', relevantTimetable);
     if (relevantTimetable.length === 0) {
       return (
         <View style={styles.defaultTextView}>
@@ -78,8 +73,7 @@ class Main extends Component {
   render() {
     const { currentTimetable, timetableError } = this.props;
     const { currentDate } = this.state;
-    console.log('main props', this.props);
-    console.log('currentDate', currentDate);
+    console.log('ShowTimetable props', this.props);
     return (
       <SafeAreaView>
         {currentTimetable.length > 0
@@ -109,13 +103,9 @@ class Main extends Component {
   }
 }
 
-const mapStateToProps = state => console.log(state) || ({
+const mapStateToProps = state => ({
   currentTimetable: state.currentTimetable,
   timetableError: state.timetableError,
 });
 
-const mapDispatchToProps = {
-  setTimetableError: actions.setTimetableError,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps)(ShowTimetable);

@@ -29,5 +29,5 @@ export default StyleSheet.create({
   },
   text: {
     fontSize: 15,
-  }
-})
+  },
+});

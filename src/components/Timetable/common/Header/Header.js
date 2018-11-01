@@ -4,11 +4,14 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { CardItem, Card } from '../common';
-import * as actions from '../../../actions';
+import ContainerItem from '../ContainerItem';
+import Container from '../Container';
+import * as actions from '../../../../actions';
 import styles from './styles';
 
-const ActionIcon = ({ icon, onIconPress, hiddenIcon, backIcon }) => (
+const ActionIcon = ({
+ icon, onIconPress, hiddenIcon, backIcon 
+}) => (
   <TouchableOpacity onPress={onIconPress} style={styles.icon}>
     <Image
       style={[styles.icon, backIcon, hiddenIcon]}
@@ -23,7 +26,6 @@ class Header extends Component {
   }
 
   changeTimetableView = (subgroup) => {
-    console.log('subgroup', subgroup);
     Actions.refresh({ subgroup });
     this.setState({ visibleGroupView: false });
   };
@@ -31,11 +33,11 @@ class Header extends Component {
   renderGroups = () => {
     const { subgroups } = this.props;
     return subgroups.map(subgroup => (
-      <CardItem key={subgroup}>
+      <ContainerItem key={subgroup}>
         <TouchableOpacity onPress={() => this.changeTimetableView(subgroup)}>
           <Text>{subgroup}</Text>
         </TouchableOpacity>
-      </CardItem>
+      </ContainerItem>
     ));
   };
 
@@ -49,37 +51,38 @@ class Header extends Component {
   }
 
   render() {
-    const { headerText, showIcons, back, subgroups } = this.props;
     const {
-      title, view, safeArea, icon, hiddenIcon, backIcon, groupViewStyle,
+ headerText, showIcons, back, subgroups 
+} = this.props;
+    const {
+      title, view, safeArea, hiddenIcon, backIcon, groupViewStyle,
     } = styles;
     const { visibleGroupView } = this.state;
-    console.log('header props', this.props)
     return (
       <SafeAreaView style={safeArea}>
         <View style={view}>
           {
           showIcons && (
             <ActionIcon
-              icon={require('../../../images/groups.png')}
-              hiddenIcon={subgroups.length < 2 && hiddenIcon && hiddenIcon}
-              onIconPress={this.changeGroupView}
+              icon={require('../../../../images/groups.png')}
+              hiddenIcon={(!subgroups || subgroups.length < 2) && hiddenIcon}
+              onIconPress={subgroups && this.changeGroupView}
             />
           )
         }
           { visibleGroupView
         && (
-        <Card styled={groupViewStyle}>
+        <Container styled={groupViewStyle}>
           {
           this.renderGroups()
           }
-        </Card>
+        </Container>
         )
       }
           {
           back && (
             <ActionIcon
-              icon={require('../../../images/back.png')}
+              icon={require('../../../../images/back.png')}
               backIcon={backIcon}
               onIconPress={() => { Actions.timetable(); }}
             />
@@ -87,7 +90,7 @@ class Header extends Component {
         }
           <Text style={title}>{headerText}</Text>
           <ActionIcon
-            icon={require('../../../images/refresh-button.png')}
+            icon={require('../../../../images/refresh-button.png')}
             hiddenIcon={back && hiddenIcon}
             onIconPress={this.onRefreshButtonClick}
           />

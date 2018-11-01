@@ -5,6 +5,7 @@ export default StyleSheet.create({
   container: {
     borderBottomWidth: 0,
     flexDirection: 'column',
+    paddingHorizontal: 15,
   },
   containerMainPart: {
     flexDirection: 'row',
@@ -14,7 +15,7 @@ export default StyleSheet.create({
     fontSize: 22,
   },
   containerTime: {
-    width: '16%',
+    width: '17%',
   },
   subject: {
     fontSize: 15,

@@ -1,12 +1,8 @@
-import React, { Component } from 'react';
-import Main from './Main';
+import React from 'react';
+import ShowTimetable from './ShowTimetable';
 
-class Timetable extends Component {
-  render() {
-    return (
-      <Main subgroup={this.props.subgroup || 'вся группа'} />
-    );
-  }
-}
+const Timetable = () => (
+  <ShowTimetable />
+);
 
 export default Timetable;

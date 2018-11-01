@@ -39,14 +39,11 @@ class Calendar extends Component {
     const days = [];
     const startOfWeek = currentDate.clone().startOf('isoWeek');
     const endOfWeek = currentDate.clone().endOf('isoWeek');
-
-    console.log('startOfWeek, endOfWeek', startOfWeek, endOfWeek);
     let day = startOfWeek;
     while (day <= endOfWeek) {
       days.push(day);
       day = day.clone().add(1, 'd');
     }
-    console.log('days', days);
     return days.map((dayNumber, index) => {
       const isCurrentDay = moment().year() === dayNumber.year() && moment().month() === dayNumber.month() && moment().date() === dayNumber.date();
       const isChosenDay = chosenDay.year() === dayNumber.year() && chosenDay.month() === dayNumber.month() && chosenDay.date() === dayNumber.date();
@@ -70,20 +67,15 @@ class Calendar extends Component {
   }
 
   onSwipeLeft = (gestureState) => {
-    console.log('swipe left calendar');
     this.setState(prevState => ({ date: prevState.date.add(7, 'd') }));
   }
 
   onSwipeRight = (gestureState) => {
-    console.log('swipe right calendar');
     this.setState(prevState => ({ date: prevState.date.subtract(7, 'd') }));
   }
 
   render() {
-    const { chosenDay } = this.props;
     const { date } = this.state;
-    console.log('date', date);
-    console.log('chosenDay', chosenDay);
     return (
       <View style={styles.container}>
 
@@ -116,7 +108,7 @@ class Calendar extends Component {
   }
 }
 
-const mapStateToProps = state => console.log(state) || ({
+const mapStateToProps = state => ({
   timetableError: state.timetableError,
 });
 

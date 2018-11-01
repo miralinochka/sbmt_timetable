@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { Text, SafeAreaView, FlatList } from 'react-native';
-import {connect} from 'react-redux';
-import { Input, CardItem } from '../common';
-import Switch from './Switch';
-import * as actions from "../../../actions";
-
-import ListItem from './ListItem';
-import styles from './styles';
+import { SafeAreaView, FlatList } from 'react-native';
+import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import Input from '../common/Input';
+import ContainerItem from '../common/ContainerItem'
+import Switch from './Switch';
+import * as actions from '../../../actions';
+
+import ListItem from '../common/ListItem';
+import styles from './styles';
 
 const items = ['Группа', 'Преподаватель'];
 
@@ -64,12 +65,12 @@ class SearchTimetable extends Component {
     return (
       <SafeAreaView>
         <Switch toggleSearch={this.toggleSearch} items={items} searchItem={searchItem} />
-        <CardItem styled={styles.cardItem}>
+        <ContainerItem styled={styles.containerItem}>
           <Input
             placeholder="Поиск..."
             onChangeText={this.hangleSearchInput}
           />
-        </CardItem>
+        </ContainerItem>
         <FlatList
           data={searchItem === items[0] ? this.displayGroups() : this.displayLecturers()}
           renderItem={({ item }) => <ListItem listItem={item} onGroupPress={() => this.onGroupPress(item)} />}

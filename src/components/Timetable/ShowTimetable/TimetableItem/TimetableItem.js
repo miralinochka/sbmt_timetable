@@ -1,11 +1,10 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import styles from './styles';
-import { CardItem } from '../../common';
+import ContainerItem from '../../common/ContainerItem';
 import colors from '../../../../colors';
 
 const TimetableItem = ({ timetableForADay }) => {
-  console.log('timetableForADay', timetableForADay);
   const {
     time, subject, building, room, lecturer, type, subgroup, group,
   } = timetableForADay;
@@ -27,14 +26,16 @@ const TimetableItem = ({ timetableForADay }) => {
     }
   };
   return (
-    <CardItem styled={styles.container}>
+    <ContainerItem styled={styles.container}>
       <View style={styles.containerMainPart}>
         <View style={styles.containerTime}>
           <Text style={styles.time}>{time}</Text>
           {
-            subgroup && subgroup[0] > 0 && subgroup[0] < 9 && <Text style={styles.place}>
-            {subgroup[0]} подгр.
-          </Text>
+            subgroup && subgroup[0] > 0 && subgroup[0] < 9 && (
+            <Text style={styles.place}>
+              {subgroup[0]} подгр.
+            </Text>
+)
           }
         </View>
         <View style={[styles.rectangle, { backgroundColor: generateBC(subjectTypeFormatted) }]} />
@@ -48,7 +49,7 @@ const TimetableItem = ({ timetableForADay }) => {
         </View>
       </View>
       <Text style={styles.lecturer}>{lecturer || group}</Text>
-    </CardItem>
+    </ContainerItem>
   );
 };
 
