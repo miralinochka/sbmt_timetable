@@ -4,14 +4,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import * as actions from '../../../actions';
+import * as utils from '../../../utils';
 import ListItem from '../common/ListItem';
 
 class SavedTimetable extends Component {
   onGroupPress = (group, timetableObject) => {
     const { setCurrentTimetable } = this.props;
-    const subgroups = timetableObject.timetable
-      .map(item => item.subgroup)
-      .filter((subgr, index, array) => array.indexOf(subgr) === index);
+    const subgroups = utils.getSubgroups(timetableObject.timetable);
     setCurrentTimetable(group, timetableObject.timetable, subgroups, timetableObject.filename);
     Actions.reset('_timetable', { subgroups, headerText: group[0] > 0 ? `${group} гр.` : group });
   }

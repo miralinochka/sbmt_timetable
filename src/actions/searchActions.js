@@ -1,34 +1,20 @@
-import axios from 'axios';
-import { FETCH_GROUPS, FETCH_LECTURERS } from './types';
+import * as api from '../api';
+import { ADD_GROUPS_AND_LECTURERS } from './types';
+import * as utils from '../utils';
 
-const comparator = (first, second) => {
-  if (first.number < second.number) { return -1; }
-  if (first.number > second.number) { return 1; }
-  return 0;
-};
-
-export const addGroups = () => async (dispatch) => {
+const addGroupsAndLecturers = () => async (dispatch) => {
   try {
-    const { data } = await axios.get('http://timetable.sbmt.by/groups/');
-    data.sort(comparator);
+    const groups = await api.fetchAllGroupsTimetable();
+    const lecturers = await api.fetchAllLecturersTimetable();
+    groups.sort(utils.comparator);
     dispatch({
-      type: FETCH_GROUPS,
-      groups: data,
+      type: ADD_GROUPS_AND_LECTURERS,
+      groups,
+      lecturers,
     });
   } catch (e) {
     console.log('error', e);
   }
 };
 
-export const addLecturers = () => async (dispatch) => {
-  try {
-    const { data } = await axios.get('http://timetable.sbmt.by/lecturers/');
-    data.sort(comparator);
-    dispatch({
-      type: FETCH_LECTURERS,
-      lecturers: data,
-    });
-  } catch (e) {
-    console.log('error', e);
-  }
-};
+export default addGroupsAndLecturers;

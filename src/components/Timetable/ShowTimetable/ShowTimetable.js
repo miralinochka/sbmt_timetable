@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Text, View, SafeAreaView, ScrollView,
+  Text, View, ScrollView, SafeAreaView,
 } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import { connect } from 'react-redux';
@@ -8,7 +8,9 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import TimetableItem from './TimetableItem';
 import Calendar from './Calendar';
+import Spinner from '../common/Spinner';
 import styles from './styles';
+
 
 const config = {
   velocityThreshold: 0.3,
@@ -49,7 +51,14 @@ class ShowTimetable extends Component {
       );
     }
     return relevantTimetable.map((ttItem, index) => {
-      if ((ttItem.subgroup === subgroup || ttItem.subgroup === 'вся группа') || subgroup === 'вся группа') return <TimetableItem key={ttItem.time + index} timetableForADay={ttItem} />;
+      if (ttItem.subgroup === subgroup || ttItem.subgroup === 'вся группа' || subgroup === 'вся группа') {
+        return (
+          <TimetableItem
+            // eslint-disable-next-line react/no-array-index-key
+            key={ttItem.time + index}
+            timetableForADay={ttItem}
+          />);
+      }
     });
   }
 
@@ -71,51 +80,65 @@ class ShowTimetable extends Component {
   }
 
   render() {
-    const { currentTimetable, timetableError } = this.props;
+    const { currentTimetable, timetableError, isLoading } = this.props;
     const { currentDate } = this.state;
+    console.log('ShowTimetable props', this.props, this.state);
     return (
-      <SafeAreaView>
-        {currentTimetable.length > 0
-        && <Calendar chosenDay={this.getCurrentDate()} onDayChange={this.onCurrentDayChange} />}
-        <GestureRecognizer
-          onSwipeLeft={this.onSwipeLeftTimetable}
-          onSwipeRight={this.onSwipeRightTimetable}
-          config={config}
-          style={{ height: '100%' }}
-        >
-          {
-            currentTimetable.length > 0
-              ? (
-                <ScrollView>
-                  {this.renderTimetable(currentDate)}
-                </ScrollView>
-              )
-              : (
-                <View style={styles.defaultTextView}>
-                  <Text style={styles.defaultText}>{timetableError}</Text>
-                </View>
-              )
-          }
-        </GestureRecognizer>
+      <SafeAreaView style={{ flex: 1 }}>
+        {isLoading ? <Spinner />
+          : (
+            <React.Fragment>
+              {currentTimetable.length > 0
+              && (
+              <Calendar
+                chosenDay={this.getCurrentDate()}
+                onDayChange={this.onCurrentDayChange}
+              />
+              )}
+              <GestureRecognizer
+                onSwipeLeft={this.onSwipeLeftTimetable}
+                onSwipeRight={this.onSwipeRightTimetable}
+                config={config}
+                style={{ flex: 1 }}
+              >
+                {
+                  currentTimetable.length > 0
+                    ? (
+                      <ScrollView style={{ borderWidth: 1 }}>
+                        {this.renderTimetable(currentDate)}
+                      </ScrollView>
+                    )
+                    : (
+                      <View style={styles.defaultTextView}>
+                        <Text style={styles.defaultText}>{timetableError}</Text>
+                      </View>
+                    )
+              }
+              </GestureRecognizer>
+            </React.Fragment>
+          )}
       </SafeAreaView>
     );
   }
 }
 
 ShowTimetable.defaultProps = {
-  subgroup: '',
+  subgroup: 'вся группа',
   currentTimetable: [],
 };
 
 ShowTimetable.propTypes = {
   timetableError: PropTypes.string.isRequired,
   subgroup: PropTypes.string,
-
+  currentTimetable: PropTypes.arrayOf(PropTypes.shape({})),
+  isLoading: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = state => console.log('state', state) || ({
+const mapStateToProps = state => ({
   currentTimetable: state.currentTimetable,
   timetableError: state.timetableError,
+  isLoading: state.isLoading,
 });
+
 
 export default connect(mapStateToProps)(ShowTimetable);

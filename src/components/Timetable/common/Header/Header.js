@@ -37,7 +37,8 @@ class Header extends Component {
   }
 
   onRefreshButtonClick = async () => {
-    const { downloadTimetable, currentGroupOrLecturer } = this.props;
+    const { downloadTimetable, currentGroupOrLecturer, toggleSpinner } = this.props;
+    toggleSpinner(true);
     await downloadTimetable(currentGroupOrLecturer);
   }
 
@@ -49,6 +50,7 @@ class Header extends Component {
       title, view, safeArea, hiddenIcon, backIcon, groupViewStyle,
     } = styles;
     const { visibleGroupView } = this.state;
+    console.log('header props', this.props)
     return (
       <SafeAreaView style={safeArea}>
         <View style={view}>
@@ -56,8 +58,8 @@ class Header extends Component {
           showIcons && (
             <ActionIcon
               icon={require('../../../../images/groups.png')} // eslint-disable-line global-require
-              hiddenIcon={(!subgroups || subgroups.length < 2) && hiddenIcon}
-              onIconPress={subgroups && this.changeGroupView}
+              hideIcon={(subgroups.length < 2) && hiddenIcon}
+              onIconPress={(subgroups.length > 2) && this.changeGroupView}
             />
           )
         }
@@ -73,7 +75,7 @@ class Header extends Component {
           {
           back && (
             <ActionIcon
-              icon={require('../../../../images/back.png')} // eslint-disable-line global-require
+              icon={require('../../../../images/back.png')} // eslint-disable-line
               backIcon={backIcon}
               onIconPress={() => { Actions.timetable(); }}
             />
@@ -81,8 +83,8 @@ class Header extends Component {
         }
           <Text style={title}>{headerText}</Text>
           <ActionIcon
-            icon={require('../../../../images/refresh-button.png')} // eslint-disable-line global-require
-            hiddenIcon={back && hiddenIcon}
+            icon={require('../../../../images/refresh-button.png')} // eslint-disable-line
+            hideIcon={back && hiddenIcon}
             onIconPress={this.onRefreshButtonClick}
           />
         </View>
@@ -110,6 +112,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   downloadTimetable: actions.downloadTimetable,
+  toggleSpinner: actions.toggleSpinner,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

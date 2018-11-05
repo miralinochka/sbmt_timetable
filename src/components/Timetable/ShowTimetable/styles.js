@@ -6,7 +6,6 @@ export default StyleSheet.create({
   },
   defaultTextView: {
     alignItems: 'center',
-    alignSelf: 'center',
     marginTop: 50,
   },
 });

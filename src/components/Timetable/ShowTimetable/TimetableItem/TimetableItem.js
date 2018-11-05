@@ -1,10 +1,12 @@
 import React from 'react';
 import { Text, View } from 'react-native';
+import PropTypes from 'prop-types';
 import styles from './styles';
 import ContainerItem from '../../common/ContainerItem';
 import colors from '../../../../colors';
 
 const TimetableItem = ({ timetableForADay }) => {
+  console.log('timetableForADay', timetableForADay)
   const {
     time, subject, building, room, lecturer, type, subgroup, group,
   } = timetableForADay;
@@ -12,8 +14,8 @@ const TimetableItem = ({ timetableForADay }) => {
   const subjectTypeFormatted = subjectType.reduce((prevWord, nextWord) => (
     prevWord + nextWord[0]
   ), '');
-  const generateBC = (subjectTypeFormatted) => {
-    switch (subjectTypeFormatted) {
+  const generateBC = (subjectTypeForm) => {
+    switch (subjectTypeForm) {
       case 'л':
         return colors.lectureColor;
       case 'з':
@@ -52,6 +54,7 @@ const TimetableItem = ({ timetableForADay }) => {
           <Text style={styles.place}>
             {building}
 , ауд
+            {' '}
             {room}
           </Text>
         </View>
@@ -59,6 +62,10 @@ const TimetableItem = ({ timetableForADay }) => {
       <Text style={styles.lecturer}>{lecturer || group}</Text>
     </ContainerItem>
   );
+};
+
+TimetableItem.propTypes = {
+  timetableForADay: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default TimetableItem;

@@ -6,7 +6,9 @@ import PropTypes from 'prop-types';
 import Input from '../common/Input';
 import ContainerItem from '../common/ContainerItem';
 import Switch from './Switch';
+import Spinner from '../common/Spinner';
 import * as actions from '../../../actions';
+import * as utils from '../../../utils';
 import ListItem from '../common/ListItem';
 import styles from './styles';
 
@@ -16,12 +18,13 @@ class SearchTimetable extends Component {
   state = {
     searchItem: items[0],
     searchQuery: '',
+    isLoading: true,
   }
 
   async componentDidMount() {
-    const { addGroups, addLecturers } = this.props;
-    await addGroups();
-    await addLecturers();
+    const { addGroupsAndLecturers } = this.props;
+    await addGroupsAndLecturers();
+    this.hideSpinner();
   }
 
   toggleSearch = () => {
@@ -51,17 +54,22 @@ class SearchTimetable extends Component {
   }
 
   onGroupPress = async (groupOrLecturer) => {
-    const { downloadTimetable } = this.props;
+    const { downloadTimetable, toggleSpinner } = this.props;
     console.log('groupOrLecturer', groupOrLecturer);
-    const lecturerNameArray = groupOrLecturer.name && groupOrLecturer.name.split(' ');
-    const lecturerName = lecturerNameArray && (lecturerNameArray[2] ? `${lecturerNameArray[0]} ${lecturerNameArray[1][0]}. ${lecturerNameArray[2][0]}.` : `${lecturerNameArray[0]} ${lecturerNameArray[1][0]}.`);
+    const lecturerName = groupOrLecturer.name && utils.shortenLecturerName(groupOrLecturer.name);
+    toggleSpinner(true);
+    Actions.reset('_timetable', { headerText: groupOrLecturer.number ? `${groupOrLecturer.number} гр.` : lecturerName });
     await downloadTimetable(groupOrLecturer);
-    Actions.timetable();
-    Actions.refresh({ headerText: groupOrLecturer.number ? `${groupOrLecturer.number} гр.` : lecturerName });
+  }
+
+  hideSpinner = () => {
+    this.setState({
+      isLoading: false,
+    });
   }
 
   render() {
-    const { searchItem } = this.state;
+    const { searchItem, isLoading } = this.state;
     return (
       <SafeAreaView>
         <Switch toggleSearch={this.toggleSearch} items={items} searchItem={searchItem} />
@@ -71,16 +79,23 @@ class SearchTimetable extends Component {
             onChangeText={this.hangleSearchInput}
           />
         </ContainerItem>
-        <FlatList
-          data={searchItem === items[0] ? this.displayGroups() : this.displayLecturers()}
-          renderItem={({ item }) => (
-            <ListItem
-              listItem={item}
-              onGroupPress={() => this.onGroupPress(item)}
-            />
-          )}
-          keyExtractor={(item, index) => index.toString()}
-        />
+        {
+          isLoading ? <Spinner />
+            : (
+              <FlatList
+                data={searchItem === items[0] ? this.displayGroups() : this.displayLecturers()}
+                keyboardDismissMode="onDrag"
+                scrollsToTop
+                renderItem={({ item }) => (
+                  <ListItem
+                    listItem={item}
+                    onGroupPress={() => this.onGroupPress(item)}
+                  />
+                )}
+                keyExtractor={(item, index) => index.toString()}
+              />
+            )
+        }
       </SafeAreaView>
     );
   }
@@ -97,8 +112,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  addGroups: actions.addGroups,
-  addLecturers: actions.addLecturers,
+  addGroupsAndLecturers: actions.addGroupsAndLecturers,
   downloadTimetable: actions.downloadTimetable,
+  toggleSpinner: actions.toggleSpinner,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SearchTimetable);

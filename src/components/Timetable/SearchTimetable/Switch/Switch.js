@@ -14,7 +14,8 @@ const Switch = ({
             onPress={toggleSearch}
             style={[
               styles.button,
-              searchItem === item && styles.colored, index === items.length - 1 && styles.noRightBorder,
+              searchItem === item && styles.colored,
+              index === items.length - 1 && styles.noRightBorder,
             ]}
             key={item}
           >

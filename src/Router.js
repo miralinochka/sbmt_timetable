@@ -7,23 +7,22 @@ import SavedTimetable from './components/Timetable/SavedTimetable';
 import Header from './components/Timetable/common/Header';
 import footerStyle from './components/Timetable/common/Footer';
 
-
 const SearchIcon = () => (
   <Image
     style={{ width: 30, height: 30 }}
-    source={require('./images/search.png')}
+    source={require('./images/search.png')} // eslint-disable-line 
   />
 );
 const TimetableIcon = () => (
   <Image
     style={{ width: 30, height: 30 }}
-    source={require('./images/calendar.png')}
+    source={require('./images/calendar.png')} // eslint-disable-line 
   />
 );
 const BookmarkIcon = () => (
   <Image
     style={{ width: 30, height: 30 }}
-    source={require('./images/bookmark.png')}
+    source={require('./images/bookmark.png')} // eslint-disable-line 
   />
 );
 const RouterComponent = () => (

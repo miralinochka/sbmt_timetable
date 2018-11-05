@@ -4,7 +4,7 @@ import styles from './styles';
 
 const Spinner = () => (
   <View style={styles.spinner}>
-    <ActivityIndicator />
+    <ActivityIndicator size="large" />
   </View>
 );
 

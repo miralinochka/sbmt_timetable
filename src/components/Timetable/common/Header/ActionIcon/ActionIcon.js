@@ -7,11 +7,11 @@ import styles from './styles';
 
 const ActionIcon = ({
   // eslint-disable-next-line react/prop-types
-  icon, onIconPress, hiddenIcon, backIcon,
+  icon, onIconPress, hideIcon, backIcon,
 }) => (
   <TouchableOpacity onPress={onIconPress} style={styles.icon}>
     <Image
-      style={[styles.icon, backIcon, hiddenIcon]}
+      style={[styles.icon, backIcon, hideIcon]}
       source={icon}
     />
   </TouchableOpacity>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   Text, View, TouchableOpacity, Image,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import GestureRecognizer from 'react-native-swipe-gestures';
@@ -19,7 +20,7 @@ const config = {
 class Calendar extends Component {
   state = {
     date: moment(),
-    chosenDay: this.props.chosenDay,
+    chosenDay: this.props.chosenDay, // eslint-disable-line
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -45,12 +46,19 @@ class Calendar extends Component {
       day = day.clone().add(1, 'd');
     }
     return days.map((dayNumber, index) => {
-      const isCurrentDay = moment().year() === dayNumber.year() && moment().month() === dayNumber.month() && moment().date() === dayNumber.date();
-      const isChosenDay = chosenDay.year() === dayNumber.year() && chosenDay.month() === dayNumber.month() && chosenDay.date() === dayNumber.date();
+      const isCurrentDay = moment().year() === dayNumber.year()
+        && moment().month() === dayNumber.month()
+        && moment().date() === dayNumber.date();
+      const isChosenDay = chosenDay.year() === dayNumber.year()
+        && chosenDay.month() === dayNumber.month()
+        && chosenDay.date() === dayNumber.date();
       return (
         <View key={dayNumber} style={styles.weekdayView}>
           <Text style={styles.weekdayText}>{weekdays[index]}</Text>
-          <TouchableOpacity style={[styles.dayView, isChosenDay && styles.currentDay]} onPress={() => onDayChange(dayNumber)}>
+          <TouchableOpacity
+            style={[styles.dayView, isChosenDay && styles.currentDay]}
+            onPress={() => onDayChange(dayNumber)}
+          >
             <Text style={[styles.weekdayText, isCurrentDay && { fontWeight: '500', opacity: 1 }]}>{dayNumber.date()}</Text>
           </TouchableOpacity>
         </View>
@@ -66,11 +74,11 @@ class Calendar extends Component {
     this.setState(prev => ({ date: prev.date.subtract(1, 'M') }));
   }
 
-  onSwipeLeft = (gestureState) => {
+  onSwipeLeft = () => {
     this.setState(prevState => ({ date: prevState.date.add(7, 'd') }));
   }
 
-  onSwipeRight = (gestureState) => {
+  onSwipeRight = () => {
     this.setState(prevState => ({ date: prevState.date.subtract(7, 'd') }));
   }
 
@@ -83,14 +91,14 @@ class Calendar extends Component {
           <TouchableOpacity onPress={this.prevMonth}>
             <Image
               style={styles.arrowIcon}
-              source={require('../../../../images/backGray.png')}
+              source={require('../../../../images/backGray.png')} // eslint-disable-line
             />
           </TouchableOpacity>
           <Text style={styles.monthText}>{this.renderMonth(date)}</Text>
           <TouchableOpacity onPress={this.nextMonth}>
             <Image
               style={[styles.arrowIcon, { transform: [{ scaleX: -1 }] }]}
-              source={require('../../../../images/backGray.png')}
+              source={require('../../../../images/backGray.png')} // eslint-disable-line
             />
           </TouchableOpacity>
         </View>
@@ -107,6 +115,11 @@ class Calendar extends Component {
     );
   }
 }
+
+Calendar.propTypes = {
+  onDayChange: PropTypes.func.isRequired,
+  chosenDay: PropTypes.shape({}).isRequired,
+};
 
 const mapStateToProps = state => ({
   timetableError: state.timetableError,

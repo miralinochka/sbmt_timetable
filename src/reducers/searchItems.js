@@ -1,4 +1,4 @@
-import { FETCH_GROUPS, FETCH_LECTURERS } from '../actions/types';
+import { ADD_GROUPS_AND_LECTURERS } from '../actions/types';
 
 const initialState = {
   groups: [],
@@ -6,10 +6,8 @@ const initialState = {
 };
 export default (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_GROUPS:
-      return { ...state, groups: action.groups };
-    case FETCH_LECTURERS:
-      return { ...state, lecturers: action.lecturers };
+    case ADD_GROUPS_AND_LECTURERS:
+      return { ...state, groups: action.groups, lecturers: action.lecturers };
     default:
       return state;
   }
