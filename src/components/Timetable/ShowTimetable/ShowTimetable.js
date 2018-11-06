@@ -104,7 +104,7 @@ class ShowTimetable extends Component {
                 {
                   currentTimetable.length > 0
                     ? (
-                      <ScrollView style={{ borderWidth: 1 }}>
+                      <ScrollView>
                         {this.renderTimetable(currentDate)}
                       </ScrollView>
                     )

@@ -32,6 +32,7 @@ export default StyleSheet.create({
   },
   groupViewStyle: {
     position: 'absolute',
+    zIndex: 10,
     top: '120%',
   },
 });
