@@ -4,6 +4,7 @@ const iconv = require('iconv');
 const parseString = require('react-native-xml2js').parseString;
 
 const app = express();
+const port = process.env.PORT || 3000;
 
 const baseUrl = 'http://timetable.sbmt.by';
 const query = '/shedule/group/531_M.xml';
@@ -27,6 +28,6 @@ app.get('/parse', (req, res) => {
   getConvertedXmlResponse(url, (err, convertedResponse) => res.json(convertedResponse));
 });
 
-app.listen(3000, function () {
-  console.log('SBMT shedule parser app listening on port 3000!');
+app.listen(port, function () {
+  console.log('SBMT shedule parser app listening on port '+ port);
 });
