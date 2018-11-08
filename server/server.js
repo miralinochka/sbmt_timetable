@@ -15,7 +15,7 @@ const getConvertedXmlResponse = (url, cb) => {
     method: 'GET',
     encoding: 'binary'
   }, function (error, response, body) {
-    body = new Buffer.alloc(body, 'binary');
+    body = new Buffer.from(body);
     conv = new iconv.Iconv('windows-1251', 'utf8');
     body = conv.convert(body).toString();
     parseString(body, { explicitArray: false }, cb);
