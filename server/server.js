@@ -7,7 +7,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const baseUrl = 'http://timetable.sbmt.by';
-const query = '/shedule/group/531_M.xml';
+//const query = '/shedule/group/531_M.xml';
 
 const getConvertedXmlResponse = (url, cb) => {
   request({
