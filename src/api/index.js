@@ -11,11 +11,11 @@ export const fetchAllLecturersTimetable = async () => {
 };
 
 export const getGroupTimetable = async (groupFile) => {
-  const { data } = await axios.get(`https://sheltered-garden-21599.herokuapp.com/parse?query=/shedule/group/${groupFile}`);
+  const { data } = await axios.get(`https://salty-inlet-18567.herokuapp.com/parse?query=/shedule/group/${groupFile}`);
   return data.schedule.lesson;
 };
 
 export const getLecturerTimetable = async (lecturerFile) => {
-  const { data } = await axios.get(`https://sheltered-garden-21599.herokuapp.com/parse?query=/shedule/lecturer/${lecturerFile}`);
+  const { data } = await axios.get(`https://salty-inlet-18567.herokuapp.com/parse?query=/shedule/lecturer/${lecturerFile}`);
   return data.lecturer.lesson;
 };

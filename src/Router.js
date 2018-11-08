@@ -4,25 +4,34 @@ import { Image } from 'react-native';
 import ShowTimetable from './components/Timetable/ShowTimetable';
 import SearchTimetable from './components/Timetable/SearchTimetable';
 import SavedTimetable from './components/Timetable/SavedTimetable';
+import SendFeedback from './components/Timetable/SendFeedback';
 import Header from './components/Timetable/common/Header';
 import footerStyle from './components/Timetable/common/Footer';
+import iconStyle from './components/Timetable/common/Header/ActionIcon/styles';
 
 const SearchIcon = () => (
   <Image
-    style={{ width: 30, height: 30 }}
+    style={iconStyle.icon}
     source={require('./images/search.png')} // eslint-disable-line 
   />
 );
 const TimetableIcon = () => (
+
   <Image
-    style={{ width: 30, height: 30 }}
+    style={iconStyle.icon}
     source={require('./images/calendar.png')} // eslint-disable-line 
   />
 );
 const BookmarkIcon = () => (
   <Image
-    style={{ width: 30, height: 30 }}
+    style={iconStyle.icon}
     source={require('./images/bookmark.png')} // eslint-disable-line 
+  />
+);
+const FeedbackIcon = () => (
+  <Image
+    style={iconStyle.icon}
+    source={require('./images/chat.png')} // eslint-disable-line 
   />
 );
 const RouterComponent = () => (
@@ -32,13 +41,14 @@ const RouterComponent = () => (
       navBar={Header}
       tabs
       tabBarStyle={footerStyle.viewStyle}
+      showLabel={false}
     >
       <Scene
         key="searchTimetable"
         icon={SearchIcon}
         component={SearchTimetable}
         headerText="Найти расписание"
-        tabBarLabel=" "
+        refresh
         back
       />
       <Scene
@@ -46,8 +56,8 @@ const RouterComponent = () => (
         icon={TimetableIcon}
         component={ShowTimetable}
         headerText="Расписание занятий"
-        tabBarLabel=" "
-        showIcons
+        showGroups
+        refresh
         initial
       />
       <Scene
@@ -55,7 +65,13 @@ const RouterComponent = () => (
         icon={BookmarkIcon}
         component={SavedTimetable}
         headerText="Сохраненное расписание"
-        tabBarLabel=" "
+        back
+      />
+      <Scene
+        key="sendFeedback"
+        icon={FeedbackIcon}
+        component={SendFeedback}
+        headerText="Напишите нам"
         back
       />
     </Scene>

@@ -37,29 +37,43 @@ class Header extends Component {
   }
 
   onRefreshButtonClick = async () => {
-    const { downloadTimetable, currentGroupOrLecturer, toggleSpinner } = this.props;
+    const {
+      downloadTimetable, currentGroupOrLecturer, toggleSpinner, initialRouteName, addGroupsAndLecturers,
+    } = this.props;
     toggleSpinner(true);
-    await downloadTimetable(currentGroupOrLecturer);
+    if (initialRouteName === '_searchTimetable') {
+      console.log('add groups');
+      await addGroupsAndLecturers();
+    } else {
+      console.log('download tt');
+      await downloadTimetable(currentGroupOrLecturer);
+    }
+    toggleSpinner(false);
+  }
+
+  onTickButtonClick = () => {
+    
   }
 
   render() {
     const {
-      headerText, showIcons, back, subgroups,
+      headerText, showGroups, back, subgroups, refresh, initialRouteName,
     } = this.props;
     const {
       title, view, safeArea, hiddenIcon, backIcon, groupViewStyle,
     } = styles;
     const { visibleGroupView } = this.state;
-    console.log('header props', this.props)
+    console.log('header props', this.props);
     return (
       <SafeAreaView style={safeArea}>
         <View style={view}>
           {
-          showIcons && (
+          showGroups && (
             <ActionIcon
               icon={require('../../../../images/groups.png')} // eslint-disable-line global-require
               hideIcon={(subgroups.length < 2) && hiddenIcon}
-              onIconPress={(subgroups.length > 2) && this.changeGroupView}
+              onIconPress={this.changeGroupView}
+              disabled={subgroups.length <= 2}
             />
           )
         }
@@ -82,11 +96,23 @@ class Header extends Component {
           )
         }
           <Text style={title}>{headerText}</Text>
-          <ActionIcon
-            icon={require('../../../../images/refresh-button.png')} // eslint-disable-line
-            hideIcon={back && hiddenIcon}
-            onIconPress={this.onRefreshButtonClick}
-          />
+          {
+            initialRouteName === '_sendFeedback'
+              ? (
+                <ActionIcon
+                  icon={require('../../../../images/tick.png')} // eslint-disable-line
+                  onIconPress={this.onTickButtonClick}
+                />
+              )
+              : (
+                <ActionIcon
+                  icon={require('../../../../images/refresh.png')} // eslint-disable-line
+                  hideIcon={!refresh && hiddenIcon}
+                  onIconPress={this.onRefreshButtonClick}
+                  disabled={initialRouteName === '_savedTimetable'}
+                />
+              )
+          }
         </View>
       </SafeAreaView>
     );
@@ -94,15 +120,18 @@ class Header extends Component {
 }
 
 Header.defaultProps = {
-  showIcons: null,
+  showGroups: null,
   back: null,
+  refresh: null,
 };
 
 Header.propTypes = {
   headerText: PropTypes.string.isRequired,
-  showIcons: PropTypes.bool,
+  showGroups: PropTypes.bool,
   back: PropTypes.bool,
+  refresh: PropTypes.bool,
   subgroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  initialRouteName: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -112,6 +141,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   downloadTimetable: actions.downloadTimetable,
+  addGroupsAndLecturers: actions.addGroupsAndLecturers,
   toggleSpinner: actions.toggleSpinner,
 };
 

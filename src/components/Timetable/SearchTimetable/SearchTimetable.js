@@ -18,13 +18,13 @@ class SearchTimetable extends Component {
   state = {
     searchItem: items[0],
     searchQuery: '',
-    isLoading: true,
   }
 
   async componentDidMount() {
-    const { addGroupsAndLecturers } = this.props;
+    const { addGroupsAndLecturers, toggleSpinner } = this.props;
+    toggleSpinner(true);
     await addGroupsAndLecturers();
-    this.hideSpinner();
+    toggleSpinner(false);
   }
 
   toggleSearch = () => {
@@ -62,18 +62,14 @@ class SearchTimetable extends Component {
     await downloadTimetable(groupOrLecturer);
   }
 
-  hideSpinner = () => {
-    this.setState({
-      isLoading: false,
-    });
-  }
-
   render() {
-    const { searchItem, isLoading } = this.state;
+    const { searchItem } = this.state;
+    const { isLoading } = this.props;
+    console.log('search', this.props);
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{ flex: 1 }}>
         <Switch toggleSearch={this.toggleSearch} items={items} searchItem={searchItem} />
-        <ContainerItem styled={styles.containerItem}>
+        <ContainerItem styled={styles.сontainerItem}>
           <Input
             placeholder="Поиск..."
             onChangeText={this.hangleSearchInput}
@@ -104,11 +100,13 @@ class SearchTimetable extends Component {
 SearchTimetable.propTypes = {
   groups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   lecturers: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   groups: state.searchItems.groups,
   lecturers: state.searchItems.lecturers,
+  isLoading: state.isLoading,
 });
 
 const mapDispatchToProps = {

@@ -3,6 +3,7 @@ import searchItems from './searchItems';
 import {
   timetables, currentTimetable, timetableError, currentGroupOrLecturer, isLoading,
 } from './timetable';
+import feedback from './feedback';
 
 export default combineReducers({
   isLoading,
@@ -11,4 +12,5 @@ export default combineReducers({
   currentTimetable,
   timetableError,
   currentGroupOrLecturer,
+  feedback,
 });
