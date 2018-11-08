@@ -28,6 +28,10 @@ app.get('/parse', (req, res) => {
   getConvertedXmlResponse(url, (err, convertedResponse) => res.json(convertedResponse));
 });
 
+setInterval(() => {
+  app.get("https://sheltered-garden-21599.herokuapp.com");
+}, 300000);
+
 app.listen(port, function () {
   console.log('SBMT shedule parser app listening on port '+ port);
 });
