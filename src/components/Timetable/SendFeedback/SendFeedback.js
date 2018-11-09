@@ -7,12 +7,13 @@ import { connect } from 'react-redux';
 import styles from './styles';
 import Input from '../common/Input';
 import ContainerItem from '../common/ContainerItem';
+import Confirm from '../common/Confirm';
 import * as actions from '../../../actions';
 
 const SendFeedback = ({ updateFeedback, feedback }) => {
   const {
     userName, email, subject, message,
-  } = feedback;
+  } = feedback.userData;
   console.log('feedback', feedback);
   return (
     <SafeAreaView style={styles.container}>
@@ -51,6 +52,12 @@ const SendFeedback = ({ updateFeedback, feedback }) => {
               styled={{ minHeight: 150 }}
             />
           </ContainerItem>
+          <Confirm
+            visible={feedback.modalState}
+            //onClick={onAccept}
+          >
+            Спасибо! Ваш отзыв отправлен.
+          </Confirm>
         </ScrollView>
       </TouchableWithoutFeedback>
     </SafeAreaView>

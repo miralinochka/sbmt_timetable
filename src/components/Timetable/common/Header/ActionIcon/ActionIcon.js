@@ -7,9 +7,9 @@ import styles from './styles';
 
 const ActionIcon = ({
   // eslint-disable-next-line react/prop-types
-  icon, onIconPress, hideIcon, backIcon, disabled,
+  icon, onIconPress, hideIcon, backIcon, disabled, styled,
 }) => (
-  <TouchableOpacity onPress={disabled ? undefined : onIconPress} style={styles.icon}>
+  <TouchableOpacity onPress={disabled ? undefined : onIconPress} style={[styles.icon, styled]}>
     <Image
       style={[styles.icon, backIcon, hideIcon]}
       source={icon}
@@ -20,12 +20,14 @@ const ActionIcon = ({
 ActionIcon.defaultProps = {
   hiddenIcon: {},
   backIcon: {},
+  styled: {},
 };
 
 ActionIcon.propTypes = {
   onIconPress: PropTypes.func.isRequired,
   hiddenIcon: PropTypes.shape({}),
   backIcon: PropTypes.shape({}),
+  styled: PropTypes.shape({}),
 };
 
 export default ActionIcon;

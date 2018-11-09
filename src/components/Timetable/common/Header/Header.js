@@ -52,7 +52,8 @@ class Header extends Component {
   }
 
   onTickButtonClick = () => {
-    
+    const { toggleModal } = this.props;
+    toggleModal(true);
   }
 
   render() {
@@ -132,6 +133,7 @@ Header.propTypes = {
   refresh: PropTypes.bool,
   subgroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   initialRouteName: PropTypes.string.isRequired,
+  toggleModal: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -143,6 +145,7 @@ const mapDispatchToProps = {
   downloadTimetable: actions.downloadTimetable,
   addGroupsAndLecturers: actions.addGroupsAndLecturers,
   toggleSpinner: actions.toggleSpinner,
+  toggleModal: actions.toggleModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
