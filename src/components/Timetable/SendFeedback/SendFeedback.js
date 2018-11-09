@@ -59,7 +59,7 @@ class SendFeedback extends Component {
                 value={message}
                 onChangeText={value => updateFeedback('message', value)}
                 multiline
-                styled={{ minHeight: 150 }}
+                styled={{ minHeight: 150, textAlignVertical: 'top' }}
               />
             </ContainerItem>
             <Confirm

@@ -14,6 +14,11 @@ export default StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 15,
   },
+  headerTextView: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
   title: {
     fontSize: 22,
     fontWeight: '600',

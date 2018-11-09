@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Text, TouchableOpacity, View, SafeAreaView,
+  Text, TouchableOpacity, View, SafeAreaView, Platform,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
@@ -23,17 +23,34 @@ class Header extends Component {
 
   renderGroups = () => {
     const { subgroups } = this.props;
-    return subgroups.map(subgroup => (
-      <ContainerItem key={subgroup}>
-        <TouchableOpacity onPress={() => this.changeTimetableView(subgroup)}>
-          <Text>{subgroup}</Text>
-        </TouchableOpacity>
-      </ContainerItem>
-    ));
+    if (Platform.OS === 'ios') {
+      return subgroups.map(subgroup => (
+        <Container styled={styles.groupViewStyle}>
+          <ContainerItem key={subgroup}>
+            <TouchableOpacity onPress={() => this.changeTimetableView(subgroup)}>
+              <Text>{subgroup}</Text>
+            </TouchableOpacity>
+          </ContainerItem>
+        </Container>
+      ));
+    }
+    return null;
   };
 
   changeGroupView = () => {
     this.setState(prev => ({ visibleGroupView: !prev.visibleGroupView }));
+  }
+
+  onGroupIconPress = () => {
+    if (Platform.OS === 'ios') return this.changeTimetableView();
+    const { subgroups, subgroup } = this.props;
+    if (subgroup) {
+      const subIndex = subgroups.indexOf(subgroup);
+      console.log('subgroup', subgroup, 'equalIndex', subIndex)
+      if (subIndex !== subgroups.length - 1) return Actions.refresh({ subgroup: subgroups[subIndex + 1] });
+      return Actions.refresh({ subgroup: subgroups[0] });
+    }
+    return Actions.refresh({ subgroup: subgroups[1] });
   }
 
   onRefreshButtonPress = async () => {
@@ -81,10 +98,10 @@ class Header extends Component {
 
   render() {
     const {
-      headerText, showGroups, back, subgroups, refresh, initialRouteName,
+      headerText, showGroups, back, subgroups, refresh, initialRouteName, subgroup,
     } = this.props;
     const {
-      title, view, safeArea, hiddenIcon, backIcon, groupViewStyle,
+      title, view, safeArea, hiddenIcon, backIcon, headerTextView,
     } = styles;
     const { visibleGroupView } = this.state;
     console.log('header props', this.props);
@@ -96,20 +113,12 @@ class Header extends Component {
             <ActionIcon
               icon={require('../../../../images/groups.png')} // eslint-disable-line global-require
               hideIcon={(subgroups.length < 2) && hiddenIcon}
-              onIconPress={this.changeGroupView}
+              onIconPress={this.onGroupIconPress}
               disabled={subgroups.length <= 2}
             />
           )
         }
-          { visibleGroupView
-        && (
-        <Container styled={groupViewStyle}>
-          {
-          this.renderGroups()
-          }
-        </Container>
-        )
-      }
+          { visibleGroupView && this.renderGroups() }
           {
           back && (
             <ActionIcon
@@ -119,7 +128,19 @@ class Header extends Component {
             />
           )
         }
-          <Text style={title}>{headerText}</Text>
+          <View style={headerTextView}>
+            <Text style={title}>{headerText}</Text>
+            {Platform.OS === 'android' && subgroup && subgroup !== 'вся группа' && (
+            <Text style={title}>
+,
+  {' '}
+  {subgroup[0]}
+  {' '}
+подгр.
+</Text>
+            )}
+          </View>
+
           {
             initialRouteName === '_sendFeedback'
               ? (
