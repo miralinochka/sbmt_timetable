@@ -19,6 +19,7 @@ export default (state = initialState, action) => {
     case FEEDBACK_ERROR:
       return { ...state, feedbackError: action.feedbackError };
     case TOGGLE_MODAL:
+      if (action.modalState === false) return initialState;
       return { ...state, modalState: action.modalState };
     default:
       return state;

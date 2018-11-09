@@ -36,7 +36,7 @@ class Header extends Component {
     this.setState(prev => ({ visibleGroupView: !prev.visibleGroupView }));
   }
 
-  onRefreshButtonClick = async () => {
+  onRefreshButtonPress = async () => {
     const {
       downloadTimetable, currentGroupOrLecturer, toggleSpinner, initialRouteName, addGroupsAndLecturers,
     } = this.props;
@@ -51,10 +51,33 @@ class Header extends Component {
     toggleSpinner(false);
   }
 
-  onTickButtonClick = () => {
-    const { toggleModal } = this.props;
-    toggleModal(true);
+  onTickButtonPress = () => {
+    const { toggleModal, userFeedback, setFeedbackError } = this.props;
+    if (this.unfilledFeedbackValues(userFeedback)) {
+      setFeedbackError('Пожалуйста, заполните все поля формы.');
+    } else if (this.checkValidEmail(userFeedback.email)) {
+      setFeedbackError('');
+      toggleModal(true);
+    } else {
+      setFeedbackError('Вы ввели некорректный e-mail.');
+    }
   }
+
+  onBackButtonPress = () => {
+    const { initialRouteName, toggleModal } = this.props;
+    if (initialRouteName === '_sendFeedback') toggleModal(false);
+    Actions.timetable();
+  }
+
+  checkValidEmail = (email) => {
+    const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return email.match(mailformat);
+  }
+
+  unfilledFeedbackValues = userFeedback => (
+    Object.values(userFeedback).includes('')
+  );
+
 
   render() {
     const {
@@ -92,7 +115,7 @@ class Header extends Component {
             <ActionIcon
               icon={require('../../../../images/back.png')} // eslint-disable-line
               backIcon={backIcon}
-              onIconPress={() => { Actions.timetable(); }}
+              onIconPress={this.onBackButtonPress}
             />
           )
         }
@@ -102,14 +125,14 @@ class Header extends Component {
               ? (
                 <ActionIcon
                   icon={require('../../../../images/tick.png')} // eslint-disable-line
-                  onIconPress={this.onTickButtonClick}
+                  onIconPress={this.onTickButtonPress}
                 />
               )
               : (
                 <ActionIcon
                   icon={require('../../../../images/refresh.png')} // eslint-disable-line
                   hideIcon={!refresh && hiddenIcon}
-                  onIconPress={this.onRefreshButtonClick}
+                  onIconPress={this.onRefreshButtonPress}
                   disabled={initialRouteName === '_savedTimetable'}
                 />
               )
@@ -134,11 +157,13 @@ Header.propTypes = {
   subgroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   initialRouteName: PropTypes.string.isRequired,
   toggleModal: PropTypes.func.isRequired,
+  userFeedback: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = state => ({
   subgroups: state.currentGroupOrLecturer.subgroups,
   currentGroupOrLecturer: state.currentGroupOrLecturer,
+  userFeedback: state.feedback.userData,
 });
 
 const mapDispatchToProps = {
@@ -146,6 +171,7 @@ const mapDispatchToProps = {
   addGroupsAndLecturers: actions.addGroupsAndLecturers,
   toggleSpinner: actions.toggleSpinner,
   toggleModal: actions.toggleModal,
+  setFeedbackError: actions.setFeedbackError,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

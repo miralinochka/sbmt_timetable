@@ -1,6 +1,7 @@
 import React from 'react';
-import { Scene, Router } from 'react-native-router-flux';
+import { Scene, Router, Actions } from 'react-native-router-flux';
 import { Image } from 'react-native';
+import { connect } from 'react-redux';
 import ShowTimetable from './components/Timetable/ShowTimetable';
 import SearchTimetable from './components/Timetable/SearchTimetable';
 import SavedTimetable from './components/Timetable/SavedTimetable';
@@ -8,6 +9,7 @@ import SendFeedback from './components/Timetable/SendFeedback';
 import Header from './components/Timetable/common/Header';
 import footerStyle from './components/Timetable/common/Footer';
 import iconStyle from './components/Timetable/common/Header/ActionIcon/styles';
+import * as actions from './actions';
 
 const SearchIcon = () => (
   <Image
@@ -34,7 +36,7 @@ const FeedbackIcon = () => (
     source={require('./images/chat.png')} // eslint-disable-line 
   />
 );
-const RouterComponent = () => (
+const RouterComponent = ({ toggleModal }) => (
   <Router>
     <Scene
       key="root"
@@ -73,8 +75,10 @@ const RouterComponent = () => (
         component={SendFeedback}
         headerText="Напишите нам"
         back
-      />
-    </Scene>
-  </Router>
-);
-export default RouterComponent;
+          onExit={() => toggleModal(false)}
+        />
+      </Scene>
+    </Router>
+    );
+
+export default connect(null, { toggleModal: actions.toggleModal })(RouterComponent);

@@ -7,7 +7,7 @@ export const sendFeedback = feedback => ({
   feedback,
 });
 
-export const updateFeedback = ({ prop, value }) => ({
+export const updateFeedback = (prop, value) => ({
   type: UPDATE_FEEDBACK,
   prop,
   value,

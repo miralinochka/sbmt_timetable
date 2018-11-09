@@ -18,4 +18,8 @@ export default StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 20,
   },
+  errorView: {
+    alignItems: 'flex-start',
+    paddingVertical: 10,
+  },
 });
