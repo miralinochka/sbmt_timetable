@@ -23,15 +23,14 @@ class Header extends Component {
 
   renderGroups = () => {
     const { subgroups } = this.props;
+    console.log('subgroups', subgroups);
     if (Platform.OS === 'ios') {
       return subgroups.map(subgroup => (
-        <Container styled={styles.groupViewStyle}>
-          <ContainerItem key={subgroup}>
-            <TouchableOpacity onPress={() => this.changeTimetableView(subgroup)}>
-              <Text>{subgroup}</Text>
-            </TouchableOpacity>
-          </ContainerItem>
-        </Container>
+        <ContainerItem key={subgroup}>
+          <TouchableOpacity onPress={() => this.changeTimetableView(subgroup)}>
+            <Text>{subgroup}</Text>
+          </TouchableOpacity>
+        </ContainerItem>
       ));
     }
     return null;
@@ -42,12 +41,15 @@ class Header extends Component {
   }
 
   onGroupIconPress = () => {
-    if (Platform.OS === 'ios') return this.changeTimetableView();
+    if (Platform.OS === 'ios') {
+      return this.changeGroupView();
+    }
     const { subgroups, subgroup } = this.props;
     if (subgroup) {
       const subIndex = subgroups.indexOf(subgroup);
-      console.log('subgroup', subgroup, 'equalIndex', subIndex)
-      if (subIndex !== subgroups.length - 1) return Actions.refresh({ subgroup: subgroups[subIndex + 1] });
+      if (subIndex !== subgroups.length - 1) {
+        return Actions.refresh({ subgroup: subgroups[subIndex + 1] });
+      }
       return Actions.refresh({ subgroup: subgroups[0] });
     }
     return Actions.refresh({ subgroup: subgroups[1] });
@@ -55,7 +57,11 @@ class Header extends Component {
 
   onRefreshButtonPress = async () => {
     const {
-      downloadTimetable, currentGroupOrLecturer, toggleSpinner, initialRouteName, addGroupsAndLecturers,
+      downloadTimetable,
+      currentGroupOrLecturer,
+      toggleSpinner,
+      initialRouteName,
+      addGroupsAndLecturers,
     } = this.props;
     toggleSpinner(true);
     if (initialRouteName === '_searchTimetable') {
@@ -104,7 +110,7 @@ class Header extends Component {
       title, view, safeArea, hiddenIcon, backIcon, headerTextView,
     } = styles;
     const { visibleGroupView } = this.state;
-    console.log('header props', this.props);
+    console.log('header',this.props);
     return (
       <SafeAreaView style={safeArea}>
         <View style={view}>
@@ -118,7 +124,12 @@ class Header extends Component {
             />
           )
         }
-          { visibleGroupView && this.renderGroups() }
+          { visibleGroupView
+          && (
+          <Container styled={styles.groupViewStyle}>
+            {this.renderGroups()}
+          </Container>
+          )}
           {
           back && (
             <ActionIcon
@@ -130,14 +141,14 @@ class Header extends Component {
         }
           <View style={headerTextView}>
             <Text style={title}>{headerText}</Text>
-            {Platform.OS === 'android' && subgroup && subgroup !== 'вся группа' && (
+            {subgroup !== '' && subgroup !== 'вся группа' && (
             <Text style={title}>
 ,
-  {' '}
-  {subgroup[0]}
-  {' '}
+              {' '}
+              {subgroup[0]}
+              {' '}
 подгр.
-</Text>
+            </Text>
             )}
           </View>
 
@@ -168,6 +179,7 @@ Header.defaultProps = {
   showGroups: null,
   back: null,
   refresh: null,
+  subgroup: '',
 };
 
 Header.propTypes = {
@@ -176,9 +188,11 @@ Header.propTypes = {
   back: PropTypes.bool,
   refresh: PropTypes.bool,
   subgroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  subgroup: PropTypes.string,
   initialRouteName: PropTypes.string.isRequired,
   toggleModal: PropTypes.func.isRequired,
   userFeedback: PropTypes.objectOf(PropTypes.string).isRequired,
+  setFeedbackError: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

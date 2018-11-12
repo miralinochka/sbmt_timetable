@@ -1,7 +1,8 @@
 import React from 'react';
-import { Scene, Router, Actions } from 'react-native-router-flux';
+import { Scene, Router } from 'react-native-router-flux';
 import { Image } from 'react-native';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import ShowTimetable from './components/Timetable/ShowTimetable';
 import SearchTimetable from './components/Timetable/SearchTimetable';
 import SavedTimetable from './components/Timetable/SavedTimetable';
@@ -75,10 +76,14 @@ const RouterComponent = ({ toggleModal }) => (
         component={SendFeedback}
         headerText="Напишите нам"
         back
-          onExit={() => toggleModal(false)}
-        />
-      </Scene>
-    </Router>
-    );
+        onExit={() => toggleModal(false)}
+      />
+    </Scene>
+  </Router>
+);
+
+RouterComponent.propTypes = {
+  toggleModal: PropTypes.func.isRequired,
+};
 
 export default connect(null, { toggleModal: actions.toggleModal })(RouterComponent);
