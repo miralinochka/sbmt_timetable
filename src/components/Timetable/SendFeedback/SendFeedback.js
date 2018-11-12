@@ -9,6 +9,7 @@ import styles from './styles';
 import Input from '../common/Input';
 import ContainerItem from '../common/ContainerItem';
 import Confirm from '../common/Confirm';
+import Spinner from '../common/Spinner';
 import * as actions from '../../../actions';
 
 class SendFeedback extends Component {
@@ -19,59 +20,62 @@ class SendFeedback extends Component {
   };
 
   render() {
-    const { updateFeedback, feedback } = this.props;
+    const { updateFeedback, feedback, isLoading } = this.props;
     const {
       userName, email, subject, message,
     } = feedback.userData;
 
-    console.log('updateFeedback', updateFeedback);
+    console.log('feedback props', isLoading);
     return (
       <SafeAreaView style={styles.container}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <ScrollView>
-            <View style={styles.defaultTextView}>
-              <Text style={styles.defaultText}>Есть вопросы? Заполняйте форму и оставляйте Ваш отзыв!</Text>
-            </View>
-            <ContainerItem styled={styles.сontainerItem}>
-              <Input
-                placeholder="Имя*"
-                value={userName}
-                onChangeText={value => updateFeedback('userName', value)}
-              />
-            </ContainerItem>
-            <ContainerItem styled={styles.сontainerItem}>
-              <Input
-                placeholder="E-mail*"
-                value={email}
-                onChangeText={value => updateFeedback('email', value)}
-              />
-            </ContainerItem>
-            <ContainerItem styled={styles.сontainerItem}>
-              <Input
-                placeholder="Тема (баг, рекомендация, оценка)*"
-                value={subject}
-                onChangeText={value => updateFeedback('subject', value)}
-              />
-            </ContainerItem>
-            <ContainerItem styled={styles.сontainerItem}>
-              <Input
-                placeholder="Сообщение*"
-                value={message}
-                onChangeText={value => updateFeedback('message', value)}
-                multiline
-                styled={{ minHeight: 150, textAlignVertical: 'top' }}
-              />
-            </ContainerItem>
-            <Confirm
-              visible={feedback.modalState}
-              onClick={this.onConfirm}
-            >
-              Спасибо! Ваш отзыв отправлен.
-            </Confirm>
-            <View style={styles.errorView}>
-              <Text style={[styles.defaultText, { color: 'red', textAlign: 'left' }]}>{feedback.feedbackError}</Text>
-            </View>
-          </ScrollView>
+          {isLoading ? <Spinner />
+            : (
+              <ScrollView>
+                <View style={styles.defaultTextView}>
+                  <Text style={styles.defaultText}>Есть вопросы? Заполняйте форму и оставляйте Ваш отзыв!</Text>
+                </View>
+                <ContainerItem styled={styles.сontainerItem}>
+                  <Input
+                    placeholder="Имя*"
+                    value={userName}
+                    onChangeText={value => updateFeedback('userName', value)}
+                  />
+                </ContainerItem>
+                <ContainerItem styled={styles.сontainerItem}>
+                  <Input
+                    placeholder="E-mail*"
+                    value={email}
+                    onChangeText={value => updateFeedback('email', value)}
+                  />
+                </ContainerItem>
+                <ContainerItem styled={styles.сontainerItem}>
+                  <Input
+                    placeholder="Тема (баг, рекомендация, оценка)*"
+                    value={subject}
+                    onChangeText={value => updateFeedback('subject', value)}
+                  />
+                </ContainerItem>
+                <ContainerItem styled={styles.сontainerItem}>
+                  <Input
+                    placeholder="Сообщение*"
+                    value={message}
+                    onChangeText={value => updateFeedback('message', value)}
+                    multiline
+                    styled={{ minHeight: 150, textAlignVertical: 'top' }}
+                  />
+                </ContainerItem>
+                <Confirm
+                  visible={feedback.modalState}
+                  onClick={this.onConfirm}
+                >
+                  Спасибо! Ваш отзыв отправлен.
+                </Confirm>
+                <View style={styles.errorView}>
+                  <Text style={[styles.defaultText, { color: 'red', textAlign: 'left' }]}>{feedback.feedbackError}</Text>
+                </View>
+              </ScrollView>
+            )}
         </TouchableWithoutFeedback>
       </SafeAreaView>
     );
@@ -80,6 +84,7 @@ class SendFeedback extends Component {
 
 const mapStateToProps = state => ({
   feedback: state.feedback,
+  isLoading: state.isLoading,
 });
 
 const mapDispatchToProps = {
@@ -92,6 +97,7 @@ SendFeedback.propTypes = {
   updateFeedback: PropTypes.func.isRequired,
   feedback: PropTypes.shape({}).isRequired,
   toggleModal: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SendFeedback);

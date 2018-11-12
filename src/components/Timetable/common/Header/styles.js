@@ -10,14 +10,23 @@ export default StyleSheet.create({
   },
   view: {
     alignItems: 'center',
-    justifyContent: 'space-around',
+    // justifyContent: 'space-around',
     flexDirection: 'row',
     paddingVertical: 15,
   },
   headerTextView: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'flex-start',
+  },
+  leftButton: {
+    marginLeft: 15,
+    marginRight: 7,
+  },
+  rightButton: {
+    marginRight: 15,
+    marginLeft: 7,
   },
   title: {
     fontSize: 22,

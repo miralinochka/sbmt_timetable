@@ -74,13 +74,16 @@ class Header extends Component {
     toggleSpinner(false);
   }
 
-  onTickButtonPress = () => {
-    const { toggleModal, userFeedback, setFeedbackError } = this.props;
+  onTickButtonPress = async () => {
+    const { toggleModal, userFeedback, setFeedbackError, sendFeedback, toggleSpinner } = this.props;
     if (this.unfilledFeedbackValues(userFeedback)) {
       setFeedbackError('Пожалуйста, заполните все поля формы.');
     } else if (this.checkValidEmail(userFeedback.email)) {
-      setFeedbackError('');
+      toggleSpinner(true);
+      await sendFeedback(userFeedback);
+      toggleSpinner(false);
       toggleModal(true);
+      setFeedbackError('');
     } else {
       setFeedbackError('Вы ввели некорректный e-mail.');
     }
@@ -110,7 +113,7 @@ class Header extends Component {
       title, view, safeArea, hiddenIcon, backIcon, headerTextView,
     } = styles;
     const { visibleGroupView } = this.state;
-    console.log('header',this.props);
+    console.log('header', this.props);
     return (
       <SafeAreaView style={safeArea}>
         <View style={view}>
@@ -121,6 +124,7 @@ class Header extends Component {
               hideIcon={(subgroups.length < 2) && hiddenIcon}
               onIconPress={this.onGroupIconPress}
               disabled={subgroups.length <= 2}
+              styled={styles.leftButton}
             />
           )
         }
@@ -135,6 +139,7 @@ class Header extends Component {
             <ActionIcon
               icon={require('../../../../images/back.png')} // eslint-disable-line
               backIcon={backIcon}
+              styled={styles.leftButton}
               onIconPress={this.onBackButtonPress}
             />
           )
@@ -158,6 +163,7 @@ class Header extends Component {
                 <ActionIcon
                   icon={require('../../../../images/tick.png')} // eslint-disable-line
                   onIconPress={this.onTickButtonPress}
+                  styled={styles.rightButton}
                 />
               )
               : (
@@ -166,6 +172,7 @@ class Header extends Component {
                   hideIcon={!refresh && hiddenIcon}
                   onIconPress={this.onRefreshButtonPress}
                   disabled={initialRouteName === '_savedTimetable'}
+                  styled={initialRouteName !== '_savedTimetable' && styles.rightButton}
                 />
               )
           }
@@ -193,6 +200,7 @@ Header.propTypes = {
   toggleModal: PropTypes.func.isRequired,
   userFeedback: PropTypes.objectOf(PropTypes.string).isRequired,
   setFeedbackError: PropTypes.func.isRequired,
+  sendFeedback: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -207,6 +215,7 @@ const mapDispatchToProps = {
   toggleSpinner: actions.toggleSpinner,
   toggleModal: actions.toggleModal,
   setFeedbackError: actions.setFeedbackError,
+  sendFeedback: actions.sendFeedback,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
