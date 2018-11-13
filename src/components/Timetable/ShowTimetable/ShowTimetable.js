@@ -59,6 +59,7 @@ class ShowTimetable extends Component {
             timetableForADay={ttItem}
           />);
       }
+      return undefined;
     });
   }
 

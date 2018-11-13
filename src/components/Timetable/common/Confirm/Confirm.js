@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Text, View, Modal,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import ActionIcon from '../Header/ActionIcon';
 import ContainerItem from '../ContainerItem';
 import styles from './styles';
@@ -32,5 +33,10 @@ const Confirm = ({
     </View>
   </Modal>
 );
+
+Confirm.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  visible: PropTypes.bool.isRequired,
+};
 
 export default Confirm;

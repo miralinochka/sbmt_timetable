@@ -47,5 +47,6 @@ export default StyleSheet.create({
   groupViewStyle: {
     position: 'absolute',
     top: '120%',
+    left: '5%',
   },
 });

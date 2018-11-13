@@ -3,7 +3,9 @@ import { TextInput, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
-const Input = ({ onChangeText, placeholder, multiline, styled, value }) => (
+const Input = ({
+  onChangeText, placeholder, multiline, styled, value,
+}) => (
   <View style={styles.container}>
     <TextInput
       autoCorrect={false}
@@ -18,12 +20,14 @@ const Input = ({ onChangeText, placeholder, multiline, styled, value }) => (
 
 Input.defaultProps = {
   multiline: false,
+  value: undefined,
 };
 
 Input.propTypes = {
   onChangeText: PropTypes.func.isRequired,
   placeholder: PropTypes.string.isRequired,
   multiline: PropTypes.bool,
+  value: PropTypes.string,
 };
 
 export default Input;

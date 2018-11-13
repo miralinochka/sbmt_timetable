@@ -25,7 +25,6 @@ class SendFeedback extends Component {
       userName, email, subject, message,
     } = feedback.userData;
 
-    console.log('feedback props', isLoading);
     return (
       <SafeAreaView style={styles.container}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -33,7 +32,9 @@ class SendFeedback extends Component {
             : (
               <ScrollView>
                 <View style={styles.defaultTextView}>
-                  <Text style={styles.defaultText}>Есть вопросы? Заполняйте форму и оставляйте Ваш отзыв!</Text>
+                  <Text style={styles.defaultText}>
+                    Есть вопросы? Заполняйте форму и оставляйте Ваш отзыв!
+                  </Text>
                 </View>
                 <ContainerItem styled={styles.сontainerItem}>
                   <Input

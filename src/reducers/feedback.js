@@ -1,4 +1,6 @@
-import { SEND_FEEDBACK, UPDATE_FEEDBACK, FEEDBACK_ERROR, TOGGLE_MODAL } from '../actions/types';
+import {
+  SEND_FEEDBACK, UPDATE_FEEDBACK, FEEDBACK_ERROR, TOGGLE_MODAL,
+} from '../actions/types';
 
 const initialState = {
   userData: {

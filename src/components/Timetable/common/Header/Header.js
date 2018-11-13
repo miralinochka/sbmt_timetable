@@ -9,6 +9,7 @@ import ContainerItem from '../ContainerItem';
 import Container from '../Container';
 import ActionIcon from './ActionIcon';
 import * as actions from '../../../../actions';
+import * as utils from '../../../../utils';
 import styles from './styles';
 
 class Header extends Component {
@@ -23,7 +24,6 @@ class Header extends Component {
 
   renderGroups = () => {
     const { subgroups } = this.props;
-    console.log('subgroups', subgroups);
     if (Platform.OS === 'ios') {
       return subgroups.map(subgroup => (
         <ContainerItem key={subgroup}>
@@ -40,7 +40,7 @@ class Header extends Component {
     this.setState(prev => ({ visibleGroupView: !prev.visibleGroupView }));
   }
 
-  onGroupIconPress = () => {
+  onGroupButtonPress = () => {
     if (Platform.OS === 'ios') {
       return this.changeGroupView();
     }
@@ -65,20 +65,20 @@ class Header extends Component {
     } = this.props;
     toggleSpinner(true);
     if (initialRouteName === '_searchTimetable') {
-      console.log('add groups');
       await addGroupsAndLecturers();
     } else {
-      console.log('download tt');
       await downloadTimetable(currentGroupOrLecturer);
     }
     toggleSpinner(false);
   }
 
   onTickButtonPress = async () => {
-    const { toggleModal, userFeedback, setFeedbackError, sendFeedback, toggleSpinner } = this.props;
-    if (this.unfilledFeedbackValues(userFeedback)) {
+    const {
+      toggleModal, userFeedback, setFeedbackError, sendFeedback, toggleSpinner,
+    } = this.props;
+    if (utils.unfilledFeedbackValues(userFeedback)) {
       setFeedbackError('Пожалуйста, заполните все поля формы.');
-    } else if (this.checkValidEmail(userFeedback.email)) {
+    } else if (utils.checkValidEmail(userFeedback.email)) {
       toggleSpinner(true);
       await sendFeedback(userFeedback);
       toggleSpinner(false);
@@ -95,16 +95,6 @@ class Header extends Component {
     Actions.timetable();
   }
 
-  checkValidEmail = (email) => {
-    const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    return email.match(mailformat);
-  }
-
-  unfilledFeedbackValues = userFeedback => (
-    Object.values(userFeedback).includes('')
-  );
-
-
   render() {
     const {
       headerText, showGroups, back, subgroups, refresh, initialRouteName, subgroup,
@@ -113,7 +103,6 @@ class Header extends Component {
       title, view, safeArea, hiddenIcon, backIcon, headerTextView,
     } = styles;
     const { visibleGroupView } = this.state;
-    console.log('header', this.props);
     return (
       <SafeAreaView style={safeArea}>
         <View style={view}>
@@ -122,7 +111,7 @@ class Header extends Component {
             <ActionIcon
               icon={require('../../../../images/groups.png')} // eslint-disable-line global-require
               hideIcon={(subgroups.length < 2) && hiddenIcon}
-              onIconPress={this.onGroupIconPress}
+              onIconPress={this.onGroupButtonPress}
               disabled={subgroups.length <= 2}
               styled={styles.leftButton}
             />
@@ -172,7 +161,7 @@ class Header extends Component {
                   hideIcon={!refresh && hiddenIcon}
                   onIconPress={this.onRefreshButtonPress}
                   disabled={initialRouteName === '_savedTimetable'}
-                  styled={initialRouteName !== '_savedTimetable' && styles.rightButton}
+                  styled={initialRouteName !== '_savedTimetable' ? styles.rightButton : {}}
                 />
               )
           }

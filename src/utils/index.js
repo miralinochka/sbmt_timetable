@@ -15,3 +15,13 @@ export const shortenLecturerName = (lecturerName) => {
   const lecturerNameArray = lecturerName.split(' ');
   return lecturerNameArray[2] ? `${lecturerNameArray[0]} ${lecturerNameArray[1][0]}. ${lecturerNameArray[2][0]}.` : `${lecturerNameArray[0]} ${lecturerNameArray[1][0]}.`;
 };
+
+export const checkValidEmail = (email) => {
+  // eslint-disable-next-line no-useless-escape
+  const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  return email.match(mailformat);
+};
+
+export const unfilledFeedbackValues = userFeedback => (
+  Object.values(userFeedback).includes('')
+);
