@@ -6,7 +6,10 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "lint": "eslint ./src/ --fix",
     "test": "jest",
-    "server": "node ./server/server.js"
+    "server": "node ./server/server.js",
+    "ios": "react-native run-ios",
+    "iphone7": "react-native run-ios --simulator=\"iPhone 7\"",
+    "android": "react-native run-android"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -20,7 +23,8 @@
     "react-redux": "^5.0.7",
     "redux": "^4.0.1",
     "redux-persist": "^5.10.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "reactotron-react-native": "^2.1.0"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
@@ -31,8 +35,7 @@
     "eslint-plugin-react": "^7.11.1",
     "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.48.1",
-    "react-test-renderer": "16.6.0-alpha.8af6728",
-    "reactotron-react-native": "^2.1.0"
+    "react-test-renderer": "16.6.0-alpha.8af6728"
   },
   "jest": {
     "preset": "react-native"

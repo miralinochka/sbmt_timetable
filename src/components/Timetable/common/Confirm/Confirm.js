@@ -3,10 +3,10 @@ import {
   Text, View, Modal,
 } from 'react-native';
 import PropTypes from 'prop-types';
+import colors from '@src/colors';
 import ActionIcon from '../Header/ActionIcon';
 import ContainerItem from '../ContainerItem';
 import styles from './styles';
-import colors from '../../../../colors';
 
 const Confirm = ({
   children, onClick, visible,
@@ -24,7 +24,7 @@ const Confirm = ({
         </ContainerItem>
         <ContainerItem styled={[styles.cardItem, { backgroundColor: colors.mainColor }]}>
           <ActionIcon
-            icon={require('../../../../images/tick.png')} // eslint-disable-line
+            icon={require('@src/images/tick.png')} // eslint-disable-line
             onIconPress={onClick}
             styled={styles.iconStyle}
           />

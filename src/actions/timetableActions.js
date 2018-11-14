@@ -4,7 +4,7 @@ import * as utils from '../utils';
 
 export const setTimetableError = () => ({
   type: SET_TIMETABLE_ERROR,
-  spinnerMode: false,
+  payload: { spinnerMode: false },
 });
 
 const checkIfGroup = groupOrLecturerFile => groupOrLecturerFile[0] >= 0
@@ -26,11 +26,13 @@ export const downloadTimetable = groupOrLecturer => async (dispatch) => {
     if (Object.values(timetable)[0]) {
       dispatch({
         type: FETCH_TIMETABLE,
-        groupOrLecturer: groupOrLecturerName,
-        timetable: timetable.length ? timetable : [timetable],
-        filename: groupOrLecturerFile,
-        subgroups,
-        spinnerMode: false,
+        payload: {
+          groupOrLecturer: groupOrLecturerName,
+          timetable: timetable.length ? timetable : [timetable],
+          filename: groupOrLecturerFile,
+          subgroups,
+          spinnerMode: false,
+        },
       });
     } else {
       dispatch(setTimetableError());
@@ -42,8 +44,10 @@ export const downloadTimetable = groupOrLecturer => async (dispatch) => {
 };
 export const setCurrentTimetable = (groupOrLecturer, timetable, subgroups, filename) => ({
   type: SET_CURRENT_TIMETABLE,
-  groupOrLecturer,
-  timetable,
-  subgroups,
-  filename,
+  payload: {
+    groupOrLecturer,
+    timetable,
+    subgroups,
+    filename,
+  },
 });

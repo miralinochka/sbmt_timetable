@@ -6,9 +6,9 @@ import GestureRecognizer from 'react-native-swipe-gestures';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import PropTypes from 'prop-types';
+import Spinner from '@common/Spinner';
 import TimetableItem from './TimetableItem';
 import Calendar from './Calendar';
-import Spinner from '../common/Spinner';
 import styles from './styles';
 
 
@@ -135,8 +135,8 @@ ShowTimetable.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  currentTimetable: state.currentTimetable,
-  timetableError: state.timetableError,
+  currentTimetable: state.timetable.currentTimetable,
+  timetableError: state.timetable.timetableError,
   isLoading: state.isLoading,
 });
 

@@ -91,14 +91,14 @@ class Calendar extends Component {
           <TouchableOpacity onPress={this.prevMonth}>
             <Image
               style={styles.arrowIcon}
-              source={require('../../../../images/backGray.png')} // eslint-disable-line
+              source={require('@src/images/backGray.png')} // eslint-disable-line
             />
           </TouchableOpacity>
           <Text style={styles.monthText}>{this.renderMonth(date)}</Text>
           <TouchableOpacity onPress={this.nextMonth}>
             <Image
               style={[styles.arrowIcon, { transform: [{ scaleX: -1 }] }]}
-              source={require('../../../../images/backGray.png')} // eslint-disable-line
+              source={require('@src/images/backGray.png')} // eslint-disable-line
             />
           </TouchableOpacity>
         </View>
@@ -122,7 +122,7 @@ Calendar.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  timetableError: state.timetableError,
+  timetableError: state.timetable.timetableError,
 });
 
 export default connect(mapStateToProps)(Calendar);

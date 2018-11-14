@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import colors from '../../../../colors';
+import colors from '@src/colors';
 
 export default StyleSheet.create({
   safeArea: {
@@ -10,7 +10,6 @@ export default StyleSheet.create({
   },
   view: {
     alignItems: 'center',
-    // justifyContent: 'space-around',
     flexDirection: 'row',
     paddingVertical: 15,
   },

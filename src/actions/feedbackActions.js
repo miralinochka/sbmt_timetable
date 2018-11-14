@@ -13,16 +13,15 @@ export const sendFeedback = feedback => async (dispatch) => {
 
 export const updateFeedback = (prop, value) => ({
   type: UPDATE_FEEDBACK,
-  prop,
-  value,
+  payload: { prop, value },
 });
 
 export const setFeedbackError = feedbackError => ({
   type: FEEDBACK_ERROR,
-  feedbackError,
+  payload: { feedbackError },
 });
 
 export const toggleModal = modalState => ({
   type: TOGGLE_MODAL,
-  modalState,
+  payload: { modalState },
 });

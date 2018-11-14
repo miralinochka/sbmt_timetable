@@ -2,7 +2,7 @@ import { TOGGLE_SPINNER } from './types';
 
 const toggleSpinner = spinnerMode => ({
   type: TOGGLE_SPINNER,
-  spinnerMode,
+  payload: { spinnerMode },
 });
 
 export default toggleSpinner;

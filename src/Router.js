@@ -3,13 +3,13 @@ import { Scene, Router } from 'react-native-router-flux';
 import { Image } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import ShowTimetable from './components/Timetable/ShowTimetable';
-import SearchTimetable from './components/Timetable/SearchTimetable';
-import SavedTimetable from './components/Timetable/SavedTimetable';
-import SendFeedback from './components/Timetable/SendFeedback';
-import Header from './components/Timetable/common/Header';
-import footerStyle from './components/Timetable/common/Footer';
-import iconStyle from './components/Timetable/common/Header/ActionIcon/styles';
+import ShowTimetable from '@timetable/ShowTimetable';
+import SearchTimetable from '@timetable/SearchTimetable';
+import SavedTimetable from '@timetable/SavedTimetable';
+import SendFeedback from '@timetable/SendFeedback';
+import Header from '@common/Header';
+import footerStyle from '@common/Footer';
+import iconStyle from '@common/Header/ActionIcon/styles';
 import * as actions from './actions';
 
 const SearchIcon = () => (

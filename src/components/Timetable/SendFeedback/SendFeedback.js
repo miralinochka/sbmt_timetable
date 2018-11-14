@@ -5,12 +5,12 @@ import {
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import Input from '@common/Input';
+import ContainerItem from '@common/ContainerItem';
+import Confirm from '@common/Confirm';
+import Spinner from '@common/Spinner';
+import * as actions from '@src/actions';
 import styles from './styles';
-import Input from '../common/Input';
-import ContainerItem from '../common/ContainerItem';
-import Confirm from '../common/Confirm';
-import Spinner from '../common/Spinner';
-import * as actions from '../../../actions';
 
 class SendFeedback extends Component {
   onConfirm = () => {

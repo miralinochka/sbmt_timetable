@@ -5,11 +5,11 @@ import {
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import * as actions from '@src/actions';
+import * as utils from '@src/utils';
 import ContainerItem from '../ContainerItem';
 import Container from '../Container';
 import ActionIcon from './ActionIcon';
-import * as actions from '../../../../actions';
-import * as utils from '../../../../utils';
 import styles from './styles';
 
 class Header extends Component {
@@ -109,7 +109,7 @@ class Header extends Component {
           {
           showGroups && (
             <ActionIcon
-              icon={require('../../../../images/groups.png')} // eslint-disable-line global-require
+              icon={require('@src/images/groups.png')} // eslint-disable-line global-require
               hideIcon={(subgroups.length < 2) && hiddenIcon}
               onIconPress={this.onGroupButtonPress}
               disabled={subgroups.length <= 2}
@@ -126,7 +126,7 @@ class Header extends Component {
           {
           back && (
             <ActionIcon
-              icon={require('../../../../images/back.png')} // eslint-disable-line
+              icon={require('@src/images/back.png')} // eslint-disable-line
               backIcon={backIcon}
               styled={styles.leftButton}
               onIconPress={this.onBackButtonPress}
@@ -150,14 +150,14 @@ class Header extends Component {
             initialRouteName === '_sendFeedback'
               ? (
                 <ActionIcon
-                  icon={require('../../../../images/tick.png')} // eslint-disable-line
+                  icon={require('@src/images/tick.png')} // eslint-disable-line
                   onIconPress={this.onTickButtonPress}
                   styled={styles.rightButton}
                 />
               )
               : (
                 <ActionIcon
-                  icon={require('../../../../images/refresh.png')} // eslint-disable-line
+                  icon={require('@src/images/refresh.png')} // eslint-disable-line
                   hideIcon={!refresh && hiddenIcon}
                   onIconPress={this.onRefreshButtonPress}
                   disabled={initialRouteName === '_savedTimetable'}
@@ -193,8 +193,8 @@ Header.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  subgroups: state.currentGroupOrLecturer.subgroups,
-  currentGroupOrLecturer: state.currentGroupOrLecturer,
+  subgroups: state.timetable.currentGroupOrLecturer.subgroups,
+  currentGroupOrLecturer: state.timetable.currentGroupOrLecturer,
   userFeedback: state.feedback.userData,
 });
 

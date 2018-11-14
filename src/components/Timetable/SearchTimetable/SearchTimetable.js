@@ -3,13 +3,13 @@ import { SafeAreaView, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
-import Input from '../common/Input';
-import ContainerItem from '../common/ContainerItem';
+import Input from '@common/Input';
+import ContainerItem from '@common/ContainerItem';
+import Spinner from '@common/Spinner';
+import * as actions from '@src/actions';
+import * as utils from '@src/utils';
+import ListItem from '@common/ListItem';
 import Switch from './Switch';
-import Spinner from '../common/Spinner';
-import * as actions from '../../../actions';
-import * as utils from '../../../utils';
-import ListItem from '../common/ListItem';
 import styles from './styles';
 
 const items = ['Группа', 'Преподаватель'];
@@ -55,7 +55,6 @@ class SearchTimetable extends Component {
 
   onGroupPress = async (groupOrLecturer) => {
     const { downloadTimetable, toggleSpinner } = this.props;
-    console.log('groupOrLecturer', groupOrLecturer);
     const lecturerName = groupOrLecturer.name && utils.shortenLecturerName(groupOrLecturer.name);
     toggleSpinner(true);
     Actions.reset('_timetable', { headerText: groupOrLecturer.number ? `${groupOrLecturer.number} гр.` : lecturerName });
@@ -65,7 +64,7 @@ class SearchTimetable extends Component {
   render() {
     const { searchItem } = this.state;
     const { isLoading } = this.props;
-    console.log('search', this.props);
+
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <Switch toggleSearch={this.toggleSearch} items={items} searchItem={searchItem} />
@@ -104,8 +103,8 @@ SearchTimetable.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  groups: state.searchItems.groups,
-  lecturers: state.searchItems.lecturers,
+  groups: state.groupsAndLecturers.groups,
+  lecturers: state.groupsAndLecturers.lecturers,
   isLoading: state.isLoading,
 });
 

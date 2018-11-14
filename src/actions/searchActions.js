@@ -9,8 +9,7 @@ const addGroupsAndLecturers = () => async (dispatch) => {
     groups.sort(utils.comparator);
     dispatch({
       type: ADD_GROUPS_AND_LECTURERS,
-      groups,
-      lecturers,
+      payload: { groups, lecturers },
     });
   } catch (e) {
     console.log('error', e);

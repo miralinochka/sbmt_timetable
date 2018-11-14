@@ -1,12 +1,11 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import PropTypes from 'prop-types';
+import colors from '@src/colors';
+import ContainerItem from '@common/ContainerItem';
 import styles from './styles';
-import ContainerItem from '../../common/ContainerItem';
-import colors from '../../../../colors';
 
 const TimetableItem = ({ timetableForADay }) => {
-  console.log('timetableForADay', timetableForADay);
   const {
     time, subject, building, room, lecturer, type, subgroup, group,
   } = timetableForADay;

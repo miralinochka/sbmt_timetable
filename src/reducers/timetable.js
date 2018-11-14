@@ -1,5 +1,6 @@
+import { combineReducers } from 'redux';
 import {
-  FETCH_TIMETABLE, SET_TIMETABLE_ERROR, SET_CURRENT_TIMETABLE, TOGGLE_SPINNER,
+  FETCH_TIMETABLE, SET_TIMETABLE_ERROR, SET_CURRENT_TIMETABLE,
 } from '../actions/types';
 
 const currentGroupOrLecturerInitialState = {
@@ -7,7 +8,7 @@ const currentGroupOrLecturerInitialState = {
   subgroups: [],
 };
 
-export const timetables = (state = {}, action) => {
+export const savedTimetables = (state = {}, action) => {
   switch (action.type) {
     case FETCH_TIMETABLE:
       if (Object.keys(state).length > 9) {
@@ -19,19 +20,19 @@ export const timetables = (state = {}, action) => {
         delete newState[theEarliestTimetable];
         return {
           ...newState,
-          [action.groupOrLecturer]: {
-            timetable: action.timetable,
+          [action.payload.groupOrLecturer]: {
+            timetable: action.payload.timetable,
             createdOn: new Date(),
-            filename: action.filename,
+            filename: action.payload.filename,
           },
         };
       }
       return {
         ...state,
-        [action.groupOrLecturer]: {
-          timetable: action.timetable,
+        [action.payload.groupOrLecturer]: {
+          timetable: action.payload.timetable,
           createdOn: new Date(),
-          filename: action.filename,
+          filename: action.payload.filename,
         },
       };
     default:
@@ -43,7 +44,7 @@ export const currentTimetable = (state = [], action) => {
   switch (action.type) {
     case FETCH_TIMETABLE:
     case SET_CURRENT_TIMETABLE:
-      return action.timetable;
+      return action.payload.timetable;
     case SET_TIMETABLE_ERROR:
       return [];
     default:
@@ -56,9 +57,9 @@ export const currentGroupOrLecturer = (state = currentGroupOrLecturerInitialStat
     case FETCH_TIMETABLE:
     case SET_CURRENT_TIMETABLE:
       return {
-        name: action.groupOrLecturer,
-        subgroups: action.subgroups,
-        filename: action.filename,
+        name: action.payload.groupOrLecturer,
+        subgroups: action.payload.subgroups,
+        filename: action.payload.filename,
       };
     case SET_TIMETABLE_ERROR:
       return currentGroupOrLecturerInitialState;
@@ -73,19 +74,15 @@ export const timetableError = (state = 'Расписание не найдено
       return 'Расписание не найдено:(';
     case FETCH_TIMETABLE:
     case SET_CURRENT_TIMETABLE:
-      return action.error || '';
+      return action.payload.error || '';
     default:
       return state;
   }
 };
 
-export const isLoading = (state = false, action) => {
-  switch (action.type) {
-    case TOGGLE_SPINNER:
-    case FETCH_TIMETABLE:
-    case SET_TIMETABLE_ERROR:
-      return action.spinnerMode;
-    default:
-      return state;
-  }
-};
+export default combineReducers({
+  savedTimetables,
+  currentTimetable,
+  timetableError,
+  currentGroupOrLecturer,
+});

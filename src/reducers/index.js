@@ -1,16 +1,12 @@
 import { combineReducers } from 'redux';
-import searchItems from './searchItems';
-import {
-  timetables, currentTimetable, timetableError, currentGroupOrLecturer, isLoading,
-} from './timetable';
+import groupsAndLecturers from './groupsAndLecturers';
+import timetable from './timetable';
+import isLoading from './isLoading';
 import feedback from './feedback';
 
 export default combineReducers({
   isLoading,
-  searchItems,
-  timetables,
-  currentTimetable,
-  timetableError,
-  currentGroupOrLecturer,
+  groupsAndLecturers,
+  timetable,
   feedback,
 });

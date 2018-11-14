@@ -3,9 +3,9 @@ import { SafeAreaView, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import * as actions from '../../../actions';
-import * as utils from '../../../utils';
-import ListItem from '../common/ListItem';
+import * as actions from '@src/actions';
+import * as utils from '@src/utils';
+import ListItem from '@common/ListItem';
 
 class SavedTimetable extends Component {
   onGroupPress = (group, timetableObject) => {
@@ -16,13 +16,13 @@ class SavedTimetable extends Component {
   }
 
   renderSavedTimetable = () => {
-    const { timetables } = this.props;
-    return Object.keys(timetables).map(item => (
+    const { savedTimetables } = this.props;
+    return Object.keys(savedTimetables).map(item => (
       <ListItem
         key={item}
         listItem={item}
         savedTT
-        onGroupPress={() => this.onGroupPress(item, timetables[item])}
+        onGroupPress={() => this.onGroupPress(item, savedTimetables[item])}
       />
     ));
   }
@@ -40,7 +40,7 @@ class SavedTimetable extends Component {
 
 SavedTimetable.propTypes = {
   setCurrentTimetable: PropTypes.func.isRequired,
-  timetables: PropTypes.shape({
+  savedTimetables: PropTypes.shape({
     timetable: PropTypes.arrayOf(PropTypes.shape({})),
     createdOn: PropTypes.shape({}),
     filename: PropTypes.string,
@@ -48,7 +48,7 @@ SavedTimetable.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  timetables: state.timetables,
+  savedTimetables: state.timetable.savedTimetables,
 });
 
 const mapDispatchToProps = {

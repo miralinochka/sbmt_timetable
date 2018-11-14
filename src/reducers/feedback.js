@@ -15,14 +15,20 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case SEND_FEEDBACK:
-      return { ...state, userData: action.feedback };
+      return { ...state, userData: action.payload.feedback };
     case UPDATE_FEEDBACK:
-      return { ...state, userData: { ...state.userData, [action.prop]: action.value } };
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          [action.payload.prop]: action.payload.value,
+        },
+      };
     case FEEDBACK_ERROR:
-      return { ...state, feedbackError: action.feedbackError };
+      return { ...state, feedbackError: action.payload.feedbackError };
     case TOGGLE_MODAL:
       if (action.modalState === false) return initialState;
-      return { ...state, modalState: action.modalState };
+      return { ...state, modalState: action.payload.modalState };
     default:
       return state;
   }
