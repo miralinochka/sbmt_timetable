@@ -7,11 +7,12 @@ const currentGroupOrLecturerInitialState = {
   name: '',
   subgroups: [],
 };
+const MAX_SAVED_TIMETABLES = 9;
 
 export const savedTimetables = (state = {}, action) => {
   switch (action.type) {
     case FETCH_TIMETABLE:
-      if (Object.keys(state).length > 9) {
+      if (Object.keys(state).length > MAX_SAVED_TIMETABLES) {
         const theEarliestTimetableDate = Math.min(...Object.values(state)
           .map(value => value.createdOn));
         const theEarliestTimetable = Object.keys(state)

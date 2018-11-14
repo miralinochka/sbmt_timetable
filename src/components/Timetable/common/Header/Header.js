@@ -6,16 +6,46 @@ import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import * as actions from '@src/actions';
-import * as utils from '@src/utils';
 import ContainerItem from '../ContainerItem';
 import Container from '../Container';
 import ActionIcon from './ActionIcon';
 import styles from './styles';
 
+export const eventTypes = {
+  SEND_FEEDBACK: 'SEND_FEEDBACK',
+};
+
 class Header extends Component {
+  static eventTypes = eventTypes;
+
+  static subscribers = {};
+
+  static subscribe(cb, event) {
+    if (typeof cb !== 'function') {
+      throw new Error('cb is not a function!');
+    }
+    if (!eventTypes[event]) {
+      throw new Error(`not supported event type ${event}`);
+    }
+    Header.subscribers[event] = cb;
+  }
+
+  static unsubscribe(event) {
+    if (!eventTypes[event]) {
+      throw new Error(`not supported event type ${event}`);
+    }
+    Header.subscribers[event] = undefined;
+  }
+
   state = {
     visibleGroupView: false,
   }
+
+  createEvent = (event) => {
+    if (typeof Header.subscribers[event] === 'function') {
+      Header.subscribers[event]();
+    }
+  };
 
   changeTimetableView = (subgroup) => {
     Actions.refresh({ subgroup });
@@ -73,25 +103,10 @@ class Header extends Component {
   }
 
   onTickButtonPress = async () => {
-    const {
-      toggleModal, userFeedback, setFeedbackError, sendFeedback, toggleSpinner,
-    } = this.props;
-    if (utils.unfilledFeedbackValues(userFeedback)) {
-      setFeedbackError('Пожалуйста, заполните все поля формы.');
-    } else if (utils.checkValidEmail(userFeedback.email)) {
-      toggleSpinner(true);
-      await sendFeedback(userFeedback);
-      toggleSpinner(false);
-      toggleModal(true);
-      setFeedbackError('');
-    } else {
-      setFeedbackError('Вы ввели некорректный e-mail.');
-    }
+    this.createEvent(eventTypes.SEND_FEEDBACK);
   }
 
   onBackButtonPress = () => {
-    const { initialRouteName, toggleModal } = this.props;
-    if (initialRouteName === '_sendFeedback') toggleModal(false);
     Actions.timetable();
   }
 
@@ -186,10 +201,6 @@ Header.propTypes = {
   subgroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   subgroup: PropTypes.string,
   initialRouteName: PropTypes.string.isRequired,
-  toggleModal: PropTypes.func.isRequired,
-  userFeedback: PropTypes.objectOf(PropTypes.string).isRequired,
-  setFeedbackError: PropTypes.func.isRequired,
-  sendFeedback: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

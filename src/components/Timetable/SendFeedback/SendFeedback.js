@@ -9,21 +9,74 @@ import Input from '@common/Input';
 import ContainerItem from '@common/ContainerItem';
 import Confirm from '@common/Confirm';
 import Spinner from '@common/Spinner';
+import Header from '@common/Header';
 import * as actions from '@src/actions';
+import * as utils from '@src/utils';
 import styles from './styles';
 
 class SendFeedback extends Component {
+  state = {
+    userFeedback: {
+      userName: '',
+      email: '',
+      subject: '',
+      message: '',
+    },
+    feedbackError: '',
+    modalState: false,
+  }
+
+  componentDidMount() {
+    Header.subscribe(this.onSend, Header.eventTypes.SEND_FEEDBACK);
+  }
+
+  componentWillUnmount() {
+    Header.unsubscribe(Header.eventTypes.SEND_FEEDBACK);
+  }
+
+  updateFeedback = (prop, value) => {
+    this.setState(prevState => ({
+      userFeedback: { ...prevState.userFeedback, [prop]: value },
+    }));
+  }
+
+  setFeedbackError = (feedbackError) => {
+    this.setState({ feedbackError });
+  }
+
+  toggleModal = (modalState) => {
+    this.setState({ modalState });
+  }
+
+  onSend = async () => {
+    const {
+      sendFeedback, toggleSpinner,
+    } = this.props;
+    const { userFeedback } = this.state;
+    if (utils.unfilledFeedbackValues(userFeedback)) {
+      this.setFeedbackError('Пожалуйста, заполните все поля формы.');
+    } else if (utils.checkValidEmail(userFeedback.email)) {
+      toggleSpinner(true);
+      await sendFeedback(userFeedback);
+      toggleSpinner(false);
+      this.toggleModal(true);
+      this.setFeedbackError('');
+    } else {
+      this.setFeedbackError('Вы ввели некорректный e-mail.');
+    }
+  };
+
   onConfirm = () => {
-    const { toggleModal } = this.props;
-    toggleModal(false);
+    this.toggleModal(false);
     Actions.timetable();
   };
 
   render() {
-    const { updateFeedback, feedback, isLoading } = this.props;
+    const { isLoading } = this.props;
+    const { userFeedback, feedbackError, modalState } = this.state;
     const {
       userName, email, subject, message,
-    } = feedback.userData;
+    } = userFeedback;
 
     return (
       <SafeAreaView style={styles.container}>
@@ -40,40 +93,40 @@ class SendFeedback extends Component {
                   <Input
                     placeholder="Имя*"
                     value={userName}
-                    onChangeText={value => updateFeedback('userName', value)}
+                    onChangeText={value => this.updateFeedback('userName', value)}
                   />
                 </ContainerItem>
                 <ContainerItem styled={styles.сontainerItem}>
                   <Input
                     placeholder="E-mail*"
                     value={email}
-                    onChangeText={value => updateFeedback('email', value)}
+                    onChangeText={value => this.updateFeedback('email', value)}
                   />
                 </ContainerItem>
                 <ContainerItem styled={styles.сontainerItem}>
                   <Input
                     placeholder="Тема (баг, рекомендация, оценка)*"
                     value={subject}
-                    onChangeText={value => updateFeedback('subject', value)}
+                    onChangeText={value => this.updateFeedback('subject', value)}
                   />
                 </ContainerItem>
                 <ContainerItem styled={styles.сontainerItem}>
                   <Input
                     placeholder="Сообщение*"
                     value={message}
-                    onChangeText={value => updateFeedback('message', value)}
+                    onChangeText={value => this.updateFeedback('message', value)}
                     multiline
                     styled={{ minHeight: 150, textAlignVertical: 'top' }}
                   />
                 </ContainerItem>
                 <Confirm
-                  visible={feedback.modalState}
+                  visible={modalState}
                   onClick={this.onConfirm}
                 >
                   Спасибо! Ваш отзыв отправлен.
                 </Confirm>
                 <View style={styles.errorView}>
-                  <Text style={[styles.defaultText, { color: 'red', textAlign: 'left' }]}>{feedback.feedbackError}</Text>
+                  <Text style={[styles.defaultText, { color: 'red', textAlign: 'left' }]}>{feedbackError}</Text>
                 </View>
               </ScrollView>
             )}
@@ -82,6 +135,11 @@ class SendFeedback extends Component {
     );
   }
 }
+SendFeedback.propTypes = {
+  feedback: PropTypes.shape({}).isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  sendFeedback: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = state => ({
   feedback: state.feedback,
@@ -89,16 +147,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  updateFeedback: actions.updateFeedback,
   toggleModal: actions.toggleModal,
-  setFeedbackError: actions.setFeedbackError,
-};
-
-SendFeedback.propTypes = {
-  updateFeedback: PropTypes.func.isRequired,
-  feedback: PropTypes.shape({}).isRequired,
-  toggleModal: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
+  toggleSpinner: actions.toggleSpinner,
+  sendFeedback: actions.sendFeedback,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SendFeedback);

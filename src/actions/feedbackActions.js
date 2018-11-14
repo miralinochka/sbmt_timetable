@@ -1,5 +1,5 @@
 import {
-  SEND_FEEDBACK, UPDATE_FEEDBACK, FEEDBACK_ERROR, TOGGLE_MODAL,
+  SEND_FEEDBACK, FEEDBACK_ERROR, TOGGLE_MODAL,
 } from './types';
 import * as api from '../api';
 
@@ -10,11 +10,6 @@ export const sendFeedback = feedback => async (dispatch) => {
     feedback,
   });
 };
-
-export const updateFeedback = (prop, value) => ({
-  type: UPDATE_FEEDBACK,
-  payload: { prop, value },
-});
 
 export const setFeedbackError = feedbackError => ({
   type: FEEDBACK_ERROR,
