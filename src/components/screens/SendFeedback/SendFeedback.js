@@ -40,14 +40,15 @@ class SendFeedback extends Component {
     userFeedback: { ...prevState.userFeedback, [prop]: value },
   }));
 
-  setFeedbackError = (feedbackError) => this.setState({ feedbackError });
+  setFeedbackError = feedbackError => this.setState({ feedbackError });
 
-  toggleModal = (modalState) => this.setState({ modalState });
+  toggleModal = modalState => this.setState({ modalState });
 
   onSend = async () => {
     const {
-      toggleSpinner,
+      toggleSpinner
     } = this.props;
+  
     const { userFeedback } = this.state;
     // if (utils.unfilledFeedbackValues(userFeedback)) {
     //   this.setFeedbackError('Пожалуйста, заполните все поля формы.');
@@ -59,6 +60,7 @@ class SendFeedback extends Component {
     //   this.setFeedbackError('');
     // } else {
     //   this.setFeedbackError('Вы ввели некорректный e-mail.');
+    // utils.errorCatch(dispatch);
     // }
     this.toggleModal(true);
   };

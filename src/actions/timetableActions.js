@@ -39,7 +39,7 @@ export const downloadTimetable = groupOrLecturer => async (dispatch) => {
     }
   } catch (e) {
     console.log('error', e);
-    dispatch(setTimetableError());
+    utils.errorCatch(dispatch);
   }
 };
 export const setCurrentTimetable = (groupOrLecturer, timetable, subgroups, filename) => ({

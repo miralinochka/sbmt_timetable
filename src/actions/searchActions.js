@@ -13,6 +13,7 @@ const addGroupsAndLecturers = () => async (dispatch) => {
     });
   } catch (e) {
     console.log('error', e);
+    utils.errorCatch(dispatch);
   }
 };
 

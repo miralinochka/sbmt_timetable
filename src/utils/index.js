@@ -1,4 +1,5 @@
 import { NetInfo } from 'react-native';
+import * as actions from '../actions';
 
 export const comparator = (first, second) => {
   if (first.number < second.number) { return -1; }
@@ -28,4 +29,12 @@ export const unfilledFeedbackValues = userFeedback => (
   Object.values(userFeedback).includes('')
 );
 
-export const checkInternetConnection = () => Promise.resolve(NetInfo.isConnected.fetch());
+export const checkInternetConnection = async () => {
+  const isConnected = await NetInfo.isConnected.fetch();
+  return isConnected;
+};
+
+export const errorCatch = (dispatch) => {
+  if (checkInternetConnection()) dispatch(actions.setTimetableError());
+  else dispatch(actions.setError('Отсутствует Интернет-соединение'));
+};

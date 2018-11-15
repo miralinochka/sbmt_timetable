@@ -67,7 +67,11 @@ class SearchTimetable extends Component {
 
     return (
       <SafeAreaView style={generalStyles.fullSize}>
-        <Switch toggleSearch={this.toggleSearch} searchItems={searchItems} searchItem={searchItem} />
+        <Switch
+          toggleSearch={this.toggleSearch}
+          searchItems={searchItems}
+          searchItem={searchItem}
+        />
         <ContainerItem styled={styles.сontainerItem}>
           <Input
             placeholder="Поиск..."
@@ -78,7 +82,9 @@ class SearchTimetable extends Component {
           isLoading ? <Spinner />
             : (
               <FlatList
-                data={searchItem === searchItems.group ? this.displayGroups() : this.displayLecturers()}
+                data={searchItem === searchItems.group
+                  ? this.displayGroups()
+                  : this.displayLecturers()}
                 keyboardDismissMode="onDrag"
                 scrollsToTop
                 renderItem={({ item }) => (
