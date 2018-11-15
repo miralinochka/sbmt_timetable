@@ -206,16 +206,12 @@ Header.propTypes = {
 const mapStateToProps = state => ({
   subgroups: state.timetable.currentGroupOrLecturer.subgroups,
   currentGroupOrLecturer: state.timetable.currentGroupOrLecturer,
-  userFeedback: state.feedback.userData,
 });
 
 const mapDispatchToProps = {
   downloadTimetable: actions.downloadTimetable,
   addGroupsAndLecturers: actions.addGroupsAndLecturers,
   toggleSpinner: actions.toggleSpinner,
-  toggleModal: actions.toggleModal,
-  setFeedbackError: actions.setFeedbackError,
-  sendFeedback: actions.sendFeedback,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

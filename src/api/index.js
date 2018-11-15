@@ -20,6 +20,6 @@ export const getLecturerTimetable = async (lecturerFile) => {
   return data.lecturer.lesson;
 };
 
-export const postFeedback = (userFeedback) => {
+export const sendFeedback = (userFeedback) => {
   axios.post('https://salty-inlet-18567.herokuapp.com/feedback/send', userFeedback);
 };

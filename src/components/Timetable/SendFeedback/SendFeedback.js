@@ -12,6 +12,7 @@ import Spinner from '@common/Spinner';
 import Header from '@common/Header';
 import * as actions from '@src/actions';
 import * as utils from '@src/utils';
+import * as api from '@src/api';
 import styles from './styles';
 
 class SendFeedback extends Component {
@@ -21,6 +22,7 @@ class SendFeedback extends Component {
       email: '',
       subject: '',
       message: '',
+      date: new Date().toISOString(),
     },
     feedbackError: '',
     modalState: false,
@@ -50,14 +52,14 @@ class SendFeedback extends Component {
 
   onSend = async () => {
     const {
-      sendFeedback, toggleSpinner,
+      toggleSpinner,
     } = this.props;
     const { userFeedback } = this.state;
     if (utils.unfilledFeedbackValues(userFeedback)) {
       this.setFeedbackError('Пожалуйста, заполните все поля формы.');
     } else if (utils.checkValidEmail(userFeedback.email)) {
       toggleSpinner(true);
-      await sendFeedback(userFeedback);
+      await api.sendFeedback(userFeedback);
       toggleSpinner(false);
       this.toggleModal(true);
       this.setFeedbackError('');
@@ -136,20 +138,15 @@ class SendFeedback extends Component {
   }
 }
 SendFeedback.propTypes = {
-  feedback: PropTypes.shape({}).isRequired,
   isLoading: PropTypes.bool.isRequired,
-  sendFeedback: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  feedback: state.feedback,
   isLoading: state.isLoading,
 });
 
 const mapDispatchToProps = {
-  toggleModal: actions.toggleModal,
   toggleSpinner: actions.toggleSpinner,
-  sendFeedback: actions.sendFeedback,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SendFeedback);
