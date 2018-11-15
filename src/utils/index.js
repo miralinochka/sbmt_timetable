@@ -1,3 +1,5 @@
+import { NetInfo } from 'react-native';
+
 export const comparator = (first, second) => {
   if (first.number < second.number) { return -1; }
   if (first.number > second.number) { return 1; }
@@ -25,3 +27,5 @@ export const checkValidEmail = (email) => {
 export const unfilledFeedbackValues = userFeedback => (
   Object.values(userFeedback).includes('')
 );
+
+export const checkInternetConnection = () => Promise.resolve(NetInfo.isConnected.fetch());

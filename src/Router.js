@@ -1,10 +1,10 @@
 import React from 'react';
 import { Scene, Router } from 'react-native-router-flux';
 import { Image } from 'react-native';
-import ShowTimetable from '@timetable/ShowTimetable';
-import SearchTimetable from '@timetable/SearchTimetable';
-import SavedTimetable from '@timetable/SavedTimetable';
-import SendFeedback from '@timetable/SendFeedback';
+import ShowTimetable from '@screens/ShowTimetable';
+import SearchTimetable from '@screens/SearchTimetable';
+import SavedTimetable from '@screens/SavedTimetable';
+import SendFeedback from '@screens/SendFeedback';
 import Header from '@common/Header';
 import footerStyle from '@common/Footer';
 import iconStyle from '@common/Header/ActionIcon/styles';
