@@ -1,4 +1,3 @@
-import { FEEDBACK_ERROR } from './types';
 import * as utils from '../utils';
 
 const showFeedbackError = e => (dispatch) => {

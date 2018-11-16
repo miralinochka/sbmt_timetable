@@ -9,7 +9,9 @@ export const setTimetableError = () => ({
 
 export const downloadTimetable = (groupOrLecturer, updatedOn) => async (dispatch) => {
   const groupOrLecturerFile = groupOrLecturer.filename;
-  let groupOrLecturerName = groupOrLecturer.number || groupOrLecturer.name || groupOrLecturer.groupOrLecturerName;
+  let groupOrLecturerName = groupOrLecturer.number
+    || groupOrLecturer.name
+    || groupOrLecturer.groupOrLecturerName;
   let subgroups = [];
   let timetable = [];
   try {
@@ -40,7 +42,9 @@ export const downloadTimetable = (groupOrLecturer, updatedOn) => async (dispatch
   dispatch(toggleSpinner(false));
 };
 
-export const setCurrentTimetable = ({ groupOrLecturerName, timetable, subgroups, filename }) => ({
+export const setCurrentTimetable = ({
+  groupOrLecturerName, timetable, subgroups, filename,
+}) => ({
   type: SET_CURRENT_TIMETABLE,
   payload: {
     groupOrLecturerName,

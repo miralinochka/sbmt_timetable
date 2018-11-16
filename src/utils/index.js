@@ -37,12 +37,9 @@ export const checkConnectionToUpdateSavedTt = async () => {
   return status;
 };
 
-export const checkInternetConnection = (errorStatus) => {
-  return errorStatus === 0;
-};
+export const checkInternetConnection = errorStatus => errorStatus === 0;
 
 export const errorCatch = error => (dispatch) => {
-  console.log(error);
   const errorStatus = error !== undefined ? error.status : null;
   if (checkInternetConnection(errorStatus)) {
     DropDownHolder.alert('error', 'Ошибка сети', 'Проверьте Интернет-соединение');
