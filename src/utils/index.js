@@ -34,7 +34,6 @@ export const unfilledFeedbackValues = userFeedback => (
 
 export const checkConnectionToUpdateSavedTt = async () => {
   const status = await NetInfo.isConnected.fetch();
-  console.log(status)
   return status;
 };
 
@@ -43,7 +42,7 @@ export const checkInternetConnection = (errorStatus) => {
 };
 
 export const errorCatch = error => (dispatch) => {
-  console.log(error)
+  console.log(error);
   const errorStatus = error !== undefined ? error.status : null;
   if (checkInternetConnection(errorStatus)) {
     DropDownHolder.alert('error', 'Ошибка сети', 'Проверьте Интернет-соединение');

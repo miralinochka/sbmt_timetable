@@ -45,24 +45,23 @@ class SendFeedback extends Component {
   toggleModal = modalState => this.setState({ modalState });
 
   onSend = async () => {
-    const {
-      toggleSpinner
-    } = this.props;
-  
+    const { toggleSpinner, showFeedbackError } = this.props;
     const { userFeedback } = this.state;
-    // if (utils.unfilledFeedbackValues(userFeedback)) {
-    //   this.setFeedbackError('Пожалуйста, заполните все поля формы.');
-    // } else if (utils.checkValidEmail(userFeedback.email)) {
-    //   toggleSpinner(true);
-    //   await api.sendFeedback(userFeedback);
-    //   toggleSpinner(false);
-    //   this.toggleModal(true);
-    //   this.setFeedbackError('');
-    // } else {
-    //   this.setFeedbackError('Вы ввели некорректный e-mail.');
-    // utils.errorCatch(dispatch);
-    // }
-    this.toggleModal(true);
+    try {
+      if (utils.unfilledFeedbackValues(userFeedback)) {
+        this.setFeedbackError('Пожалуйста, заполните все поля формы.');
+      } else if (utils.checkValidEmail(userFeedback.email)) {
+        toggleSpinner(true);
+        await api.sendFeedback(userFeedback);
+        toggleSpinner(false);
+        this.setState({ userFeedback: {}, feedbackError: '' });
+        this.toggleModal(true);
+      } else {
+        this.setFeedbackError('Вы ввели некорректный e-mail.');
+      }
+    } catch (e) {
+      showFeedbackError(e);
+    }
   };
 
   onModal = () => {
@@ -144,6 +143,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   toggleSpinner: actions.toggleSpinner,
+  showFeedbackError: actions.showFeedbackError,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SendFeedback);
