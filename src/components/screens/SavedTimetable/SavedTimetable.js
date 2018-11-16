@@ -8,11 +8,23 @@ import * as utils from '@src/utils';
 import ListItem from '@common/ListItem';
 
 class SavedTimetable extends Component {
-  onGroupPress = (group, timetableObject) => {
-    const { setCurrentTimetable } = this.props;
+  onSavedTtPress = async (pressedTTItem, timetableObject) => {
+    const { setCurrentTimetable, downloadTimetable, toggleSpinner } = this.props;
     const subgroups = utils.getSubgroups(timetableObject.timetable);
-    setCurrentTimetable(group, timetableObject.timetable, subgroups, timetableObject.filename);
-    Actions.reset('_timetable', { subgroups, headerText: group[0] > 0 ? `${group} гр.` : group });
+    const chosenGroupOrLecturer = {
+      groupOrLecturerName: pressedTTItem,
+      timetable: timetableObject.timetable,
+      subgroups,
+      filename: timetableObject.filename,
+    };
+    if (await utils.checkConnectionToUpdateSavedTt()) {
+      toggleSpinner(true);
+      Actions.reset('_timetable', { subgroups, headerText: pressedTTItem[0] > 0 ? `${pressedTTItem} гр.` : pressedTTItem });
+      await downloadTimetable(chosenGroupOrLecturer, new Date());
+    } else {
+      setCurrentTimetable({ ...chosenGroupOrLecturer });
+      Actions.reset('_timetable', { subgroups, headerText: pressedTTItem[0] > 0 ? `${pressedTTItem} гр.` : pressedTTItem });
+    }
   }
 
   renderSavedTimetable = () => {
@@ -22,7 +34,7 @@ class SavedTimetable extends Component {
         key={item}
         listItem={item}
         savedTT
-        onGroupPress={() => this.onGroupPress(item, savedTimetables[item])}
+        onSavedTtPress={() => this.onSavedTtPress(item, savedTimetables[item])}
       />
     ));
   }
@@ -53,5 +65,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   setCurrentTimetable: actions.setCurrentTimetable,
+  downloadTimetable: actions.downloadTimetable,
+  toggleSpinner: actions.toggleSpinner,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SavedTimetable);

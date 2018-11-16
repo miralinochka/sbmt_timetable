@@ -28,7 +28,6 @@ class SearchTimetable extends Component {
     const { addGroupsAndLecturers, toggleSpinner } = this.props;
     toggleSpinner(true);
     await addGroupsAndLecturers();
-    toggleSpinner(false);
   }
 
   toggleSearch = () => this.setState(({ searchItem }) => ({
@@ -53,7 +52,7 @@ class SearchTimetable extends Component {
     ));
   }
 
-  onGroupPress = async (groupOrLecturer) => {
+  onSavedTtPress = async (groupOrLecturer) => {
     const { downloadTimetable, toggleSpinner } = this.props;
     const lecturerName = groupOrLecturer.name && utils.shortenLecturerName(groupOrLecturer.name);
     toggleSpinner(true);
@@ -90,7 +89,7 @@ class SearchTimetable extends Component {
                 renderItem={({ item }) => (
                   <ListItem
                     listItem={item}
-                    onGroupPress={() => this.onGroupPress(item)}
+                    onSavedTtPress={() => this.onSavedTtPress(item)}
                   />
                 )}
                 keyExtractor={(item, index) => index.toString()}

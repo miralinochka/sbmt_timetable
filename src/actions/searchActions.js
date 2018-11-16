@@ -1,6 +1,7 @@
 import * as api from '../api';
 import { ADD_GROUPS_AND_LECTURERS } from './types';
 import * as utils from '../utils';
+import toggleSpinner from './loadingActions';
 
 const addGroupsAndLecturers = () => async (dispatch) => {
   try {
@@ -12,9 +13,9 @@ const addGroupsAndLecturers = () => async (dispatch) => {
       payload: { groups, lecturers },
     });
   } catch (e) {
-    console.log('error', e);
-    utils.errorCatch(dispatch);
+    dispatch(utils.errorCatch(e.request || e));
   }
+  dispatch(toggleSpinner(false));
 };
 
 export default addGroupsAndLecturers;

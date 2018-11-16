@@ -73,7 +73,6 @@ const RouterComponent = () => (
         component={SendFeedback}
         headerText="Напишите нам"
         back
-
       />
     </Scene>
   </Router>

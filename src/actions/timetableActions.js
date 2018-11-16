@@ -1,22 +1,19 @@
 import { FETCH_TIMETABLE, SET_TIMETABLE_ERROR, SET_CURRENT_TIMETABLE } from './types';
 import * as api from '../api';
 import * as utils from '../utils';
+import toggleSpinner from './loadingActions';
 
 export const setTimetableError = () => ({
   type: SET_TIMETABLE_ERROR,
-  payload: { spinnerMode: false },
 });
 
-const checkIfGroup = groupOrLecturerFile => groupOrLecturerFile[0] >= 0
-  && groupOrLecturerFile[0] <= 9;
-
-export const downloadTimetable = groupOrLecturer => async (dispatch) => {
+export const downloadTimetable = (groupOrLecturer, updatedOn) => async (dispatch) => {
   const groupOrLecturerFile = groupOrLecturer.filename;
-  let groupOrLecturerName = groupOrLecturer.number || groupOrLecturer.name;
+  let groupOrLecturerName = groupOrLecturer.number || groupOrLecturer.name || groupOrLecturer.groupOrLecturerName;
   let subgroups = [];
   let timetable = [];
   try {
-    if (checkIfGroup(groupOrLecturerFile)) {
+    if (utils.checkIfGroup(groupOrLecturerFile)) {
       timetable = await api.getGroupTimetable(groupOrLecturerFile);
       subgroups = utils.getSubgroups(timetable);
     } else {
@@ -27,25 +24,26 @@ export const downloadTimetable = groupOrLecturer => async (dispatch) => {
       dispatch({
         type: FETCH_TIMETABLE,
         payload: {
-          groupOrLecturer: groupOrLecturerName,
+          groupOrLecturerName,
           timetable: timetable.length ? timetable : [timetable],
           filename: groupOrLecturerFile,
           subgroups,
-          spinnerMode: false,
+          upDatedOn: updatedOn,
         },
       });
     } else {
       dispatch(setTimetableError());
     }
   } catch (e) {
-    console.log('error', e);
-    utils.errorCatch(dispatch);
+    dispatch(utils.errorCatch(e.request || e));
   }
+  dispatch(toggleSpinner(false));
 };
-export const setCurrentTimetable = (groupOrLecturer, timetable, subgroups, filename) => ({
+
+export const setCurrentTimetable = ({ groupOrLecturerName, timetable, subgroups, filename }) => ({
   type: SET_CURRENT_TIMETABLE,
   payload: {
-    groupOrLecturer,
+    groupOrLecturerName,
     timetable,
     subgroups,
     filename,

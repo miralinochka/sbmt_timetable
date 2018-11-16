@@ -68,6 +68,7 @@ class ShowTimetable extends Component {
   render() {
     const { currentTimetable, timetableError, isLoading } = this.props;
     const { currentDate } = this.state;
+    console.log('Show tt props', this.props)
     return (
       <SafeAreaView style={generalStyles.fullSize}>
         {isLoading ? <Spinner />

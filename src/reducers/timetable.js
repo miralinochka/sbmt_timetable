@@ -6,6 +6,7 @@ import {
 const currentGroupOrLecturerInitialState = {
   name: '',
   subgroups: [],
+  updatedOn: undefined,
 };
 const MAX_SAVED_TIMETABLES = 9;
 
@@ -21,7 +22,7 @@ export const savedTimetables = (state = {}, action) => {
         delete newState[theEarliestTimetable];
         return {
           ...newState,
-          [action.payload.groupOrLecturer]: {
+          [action.payload.groupOrLecturerName]: {
             timetable: action.payload.timetable,
             createdOn: new Date(),
             filename: action.payload.filename,
@@ -30,7 +31,7 @@ export const savedTimetables = (state = {}, action) => {
       }
       return {
         ...state,
-        [action.payload.groupOrLecturer]: {
+        [action.payload.groupOrLecturerName]: {
           timetable: action.payload.timetable,
           createdOn: new Date(),
           filename: action.payload.filename,
@@ -58,7 +59,7 @@ export const currentGroupOrLecturer = (state = currentGroupOrLecturerInitialStat
     case FETCH_TIMETABLE:
     case SET_CURRENT_TIMETABLE:
       return {
-        name: action.payload.groupOrLecturer,
+        groupOrLecturerName: action.payload.groupOrLecturerName,
         subgroups: action.payload.subgroups,
         filename: action.payload.filename,
       };

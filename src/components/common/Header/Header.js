@@ -105,9 +105,8 @@ class Header extends Component {
     if (initialRouteName === '_searchTimetable') {
       await addGroupsAndLecturers();
     } else {
-      await downloadTimetable(currentGroupOrLecturer);
+      await downloadTimetable(currentGroupOrLecturer, new Date());
     }
-    toggleSpinner(false);
   }
 
   onTickButtonPress = async () => this.createEvent(eventTypes.SEND_FEEDBACK);
