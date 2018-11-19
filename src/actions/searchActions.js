@@ -1,6 +1,6 @@
-import * as api from '../api';
+import * as api from '@api';
 import { ADD_GROUPS_AND_LECTURERS } from './types';
-import * as utils from '../utils';
+import * as utils from '@utils';
 import toggleSpinner from './loadingActions';
 
 const addGroupsAndLecturers = () => async (dispatch) => {

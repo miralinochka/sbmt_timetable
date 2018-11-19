@@ -1,39 +1,16 @@
 import React from 'react';
 import { Scene, Router } from 'react-native-router-flux';
-import { Image } from 'react-native';
+import CardStackStyleInterpolator from 'react-navigation-stack/dist/views/StackView/StackViewStyleInterpolator';
 import ShowTimetable from '@screens/ShowTimetable';
 import SearchTimetable from '@screens/SearchTimetable';
 import SavedTimetable from '@screens/SavedTimetable';
 import SendFeedback from '@screens/SendFeedback';
 import Header from '@common/Header';
+import {
+  SearchIcon, TimetableIcon, BookmarkIcon, FeedbackIcon,
+} from '@common/TabIcons';
 import footerStyle from '@common/Footer';
-import iconStyle from '@common/Header/ActionIcon/styles';
 
-const SearchIcon = () => (
-  <Image
-    style={iconStyle.icon}
-    source={require('./images/search.png')} // eslint-disable-line 
-  />
-);
-const TimetableIcon = () => (
-
-  <Image
-    style={iconStyle.icon}
-    source={require('./images/calendar.png')} // eslint-disable-line 
-  />
-);
-const BookmarkIcon = () => (
-  <Image
-    style={iconStyle.icon}
-    source={require('./images/bookmark.png')} // eslint-disable-line 
-  />
-);
-const FeedbackIcon = () => (
-  <Image
-    style={iconStyle.icon}
-    source={require('./images/chat.png')} // eslint-disable-line 
-  />
-);
 const RouterComponent = () => (
   <Router>
     <Scene
@@ -42,6 +19,7 @@ const RouterComponent = () => (
       tabs
       tabBarStyle={footerStyle.viewStyle}
       showLabel={false}
+      transitionConfig={() => ({ screenInterpolator: CardStackStyleInterpolator.forHorizontal })}
     >
       <Scene
         key="searchTimetable"

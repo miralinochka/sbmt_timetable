@@ -1,6 +1,6 @@
 import {
   TOGGLE_SPINNER,
-} from '../actions/types';
+} from '@actions/types';
 
 const isLoading = (state = false, action) => {
   switch (action.type) {

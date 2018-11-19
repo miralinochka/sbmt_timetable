@@ -1,4 +1,4 @@
-import { ADD_GROUPS_AND_LECTURERS } from '../actions/types';
+import { ADD_GROUPS_AND_LECTURERS } from '@actions/types';
 
 const initialState = {
   groups: [],

@@ -1,10 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import DropdownAlert from 'react-native-dropdownalert';
-import Router from './Router';
+import DropDown from '@common/DropDown';
+import Router from './Navigation';
 import configureStore from './store';
-import DropDownHolder from './DropDownHolder';
-
 
 const { store } = configureStore({});
 
@@ -13,7 +11,7 @@ const App = () => (
     <Provider store={store}>
       <Router />
     </Provider>
-    <DropdownAlert ref={ref => DropDownHolder.setDropDown(ref)} />
+    <DropDown />
   </React.Fragment>
 );
 

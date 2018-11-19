@@ -1,6 +1,6 @@
 import { FETCH_TIMETABLE, SET_TIMETABLE_ERROR, SET_CURRENT_TIMETABLE } from './types';
-import * as api from '../api';
-import * as utils from '../utils';
+import * as api from '@api';
+import * as utils from '@utils';
 import toggleSpinner from './loadingActions';
 
 export const setTimetableError = () => ({

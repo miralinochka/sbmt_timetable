@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import {
   FETCH_TIMETABLE, SET_TIMETABLE_ERROR, SET_CURRENT_TIMETABLE,
-} from '../actions/types';
+} from '@actions/types';
 
 const currentGroupOrLecturerInitialState = {
   name: '',

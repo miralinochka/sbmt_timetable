@@ -1,6 +1,6 @@
 import { NetInfo } from 'react-native';
-import * as actions from '../actions';
-import DropDownHolder from '../DropDownHolder';
+import * as actions from '@actions';
+import DropDownHolder from '../DropDown/DropDownHolder';
 
 export const comparator = (first, second) => {
   if (first.number < second.number) { return -1; }

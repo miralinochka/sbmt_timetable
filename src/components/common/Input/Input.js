@@ -1,8 +1,8 @@
 import React from 'react';
 import { TextInput, View } from 'react-native';
 import PropTypes from 'prop-types';
-import generalStyles from '@src/styles/general';
-import styles from './styles';
+import generalStyles from '@styles/general';
+import styles from '@styles';
 
 const Input = ({
   onChangeText, placeholder, multiline, styled, value,

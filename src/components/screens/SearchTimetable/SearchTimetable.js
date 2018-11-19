@@ -6,12 +6,12 @@ import PropTypes from 'prop-types';
 import Input from '@common/Input';
 import ContainerItem from '@common/ContainerItem';
 import Spinner from '@common/Spinner';
-import * as actions from '@src/actions';
-import * as utils from '@src/utils';
+import * as actions from '@actions';
+import * as utils from '@utils';
 import ListItem from '@common/ListItem';
-import generalStyles from '@src/styles/general';
+import generalStyles from '@styles/general';
 import Switch from './Switch';
-import styles from './styles';
+import styles from '@styles';
 
 const searchItems = {
   group: 'Группа',

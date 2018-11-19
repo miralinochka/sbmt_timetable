@@ -7,10 +7,10 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import Spinner from '@common/Spinner';
-import generalStyles from '@src/styles/general';
+import generalStyles from '@styles/general';
 import TimetableItem from './TimetableItem';
 import Calendar from './Calendar';
-import styles from './styles';
+import styles from '@styles';
 
 const config = {
   velocityThreshold: 0.3,
@@ -44,7 +44,7 @@ class ShowTimetable extends Component {
             timetableForADay={ttItem}
           />);
       }
-      return undefined;
+      return null;
     });
   }
 

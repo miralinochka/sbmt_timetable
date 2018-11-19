@@ -10,10 +10,10 @@ import ContainerItem from '@common/ContainerItem';
 import ModalWindow from '@common/ModalWindow';
 import Spinner from '@common/Spinner';
 import Header from '@common/Header';
-import * as actions from '@src/actions';
-import * as utils from '@src/utils';
-import * as api from '@src/api';
-import styles from './styles';
+import * as actions from '@actions';
+import * as utils from '@utils';
+import * as api from '@api';
+import styles from '@styles';
 
 class SendFeedback extends Component {
   state = {

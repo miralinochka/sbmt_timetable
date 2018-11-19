@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import GestureRecognizer from 'react-native-swipe-gestures';
-import styles from './styles';
+import styles from '@styles';
 
 const weekdays = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
 const monthArray = [
@@ -36,7 +36,6 @@ class Calendar extends Component {
   renderMonth = date => `${monthArray[date.month()]}, ${date.year()}`;
 
   renderWeek = (currentDate) => {
-    const { chosenDay, onDayChange } = this.props;
     const days = [];
     const startOfWeek = currentDate.clone().startOf('isoWeek');
     const endOfWeek = currentDate.clone().endOf('isoWeek');
@@ -45,29 +44,31 @@ class Calendar extends Component {
       days.push(day);
       day = day.clone().add(1, 'd');
     }
-    return days.map((dayNumber, index) => {
-      const isCurrentDay = moment().year() === dayNumber.year()
-        && moment().month() === dayNumber.month()
-        && moment().date() === dayNumber.date();
-      const isChosenDay = chosenDay.year() === dayNumber.year()
-        && chosenDay.month() === dayNumber.month()
-        && chosenDay.date() === dayNumber.date();
-      return (
-        <View key={dayNumber} style={styles.weekdayView}>
-          <Text style={styles.weekdayText}>{weekdays[index]}</Text>
-          <TouchableOpacity
-            style={[styles.dayView, isChosenDay && styles.currentDay]}
-            onPress={() => onDayChange(dayNumber)}
-          >
-            <Text style={[styles.weekdayText, isCurrentDay && { fontWeight: '500', opacity: 1 }]}>{dayNumber.date()}</Text>
-          </TouchableOpacity>
-        </View>
-      );
-    });
+    return days.map((dayNumber, index) => this.renderDay(dayNumber, index));
+  }
+
+  renderDay = (dayNumber, index) => {
+    const { chosenDay, onDayChange } = this.props;
+    const isCurrentDay = moment().year() === dayNumber.year()
+      && moment().month() === dayNumber.month()
+      && moment().date() === dayNumber.date();
+    const isChosenDay = chosenDay.year() === dayNumber.year()
+      && chosenDay.month() === dayNumber.month()
+      && chosenDay.date() === dayNumber.date();
+    return (
+      <View key={dayNumber} style={styles.weekdayView}>
+        <Text style={styles.weekdayText}>{weekdays[index]}</Text>
+        <TouchableOpacity
+          style={[styles.dayView, isChosenDay && styles.currentDay]}
+          onPress={() => onDayChange(dayNumber)}
+        >
+          <Text style={[styles.weekdayText, isCurrentDay && { fontWeight: '500', opacity: 1 }]}>{dayNumber.date()}</Text>
+        </TouchableOpacity>
+      </View>
+    );
   }
 
   nextMonth = () => this.setState(prev => ({ date: prev.date.add(1, 'M') }));
-
 
   prevMonth = () => this.setState(prev => ({ date: prev.date.subtract(1, 'M') }));
 
@@ -84,14 +85,14 @@ class Calendar extends Component {
           <TouchableOpacity onPress={this.prevMonth}>
             <Image
               style={styles.arrowIcon}
-              source={require('@src/images/backGray.png')} // eslint-disable-line
+              source={require('@images/backGray.png')} // eslint-disable-line
             />
           </TouchableOpacity>
           <Text style={styles.monthText}>{this.renderMonth(date)}</Text>
           <TouchableOpacity onPress={this.nextMonth}>
             <Image
               style={[styles.arrowIcon, { transform: [{ scaleX: -1 }] }]}
-              source={require('@src/images/backGray.png')} // eslint-disable-line
+              source={require('@images/backGray.png')} // eslint-disable-line
             />
           </TouchableOpacity>
         </View>

@@ -3,10 +3,10 @@ import {
   Text, View, Modal,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import colors from '@src/styles/colors';
+import colors from '@styles/colors';
 import ActionIcon from '../Header/ActionIcon';
 import ContainerItem from '../ContainerItem';
-import styles from './styles';
+import styles from '@styles';
 
 const ModalWindow = ({
   children, onClick, visible,
@@ -24,7 +24,7 @@ const ModalWindow = ({
         </ContainerItem>
         <ContainerItem styled={[styles.cardItem, { backgroundColor: colors.mainColor }]}>
           <ActionIcon
-            icon={require('@src/images/tick.png')} // eslint-disable-line
+            icon={require('@images/tick.png')} // eslint-disable-line
             onIconPress={onClick}
             styled={styles.iconStyle}
           />

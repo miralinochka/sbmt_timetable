@@ -3,8 +3,8 @@ import { SafeAreaView, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import * as actions from '@src/actions';
-import * as utils from '@src/utils';
+import * as actions from '@actions';
+import * as utils from '@utils';
 import ListItem from '@common/ListItem';
 
 class SavedTimetable extends Component {

@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import ContainerItem from '../ContainerItem';
-import styles from './styles';
+import styles from '@styles';
 
 const renderSubtitle = ({ listItem }) => ((listItem.speciality)
   ? (`${listItem.speciality}, ${listItem.course} курс, ${listItem.form}`)

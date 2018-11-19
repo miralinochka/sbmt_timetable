@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-import colors from '@src/styles/colors';
-import generalStyles from '@src/styles/general';
+import colors from '@styles/colors';
+import generalStyles from '@styles/general';
 
 export default StyleSheet.create({
   safeArea: {

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import PropTypes from 'prop-types';
-import colors from '@src/styles/colors';
+import colors from '@styles/colors';
 import ContainerItem from '@common/ContainerItem';
-import styles from './styles';
+import styles from '@styles';
 
 const TimetableItem = ({ timetableForADay }) => {
   const {
@@ -34,9 +34,7 @@ const TimetableItem = ({ timetableForADay }) => {
           {
             subgroup && subgroup[0] > 0 && subgroup[0] < 9 && (
             <Text style={styles.place}>
-              {subgroup[0]}
-              {' '}
-подгр.
+              {`${subgroup[0]} подгр.`}
             </Text>
             )
           }
@@ -44,17 +42,10 @@ const TimetableItem = ({ timetableForADay }) => {
         <View style={[styles.rectangle, { backgroundColor: generateBC(subjectTypeFormatted) }]} />
         <View style={styles.containerLecturer}>
           <Text style={styles.subject}>
-            {subject}
-            {' '}
-(
-            {subjectTypeFormatted}
-)
+            {`${subject} (${subjectTypeFormatted})`}
           </Text>
           <Text style={styles.place}>
-            {building}
-, ауд
-            {' '}
-            {room}
+            {`${building}, ауд ${room}`}
           </Text>
         </View>
       </View>

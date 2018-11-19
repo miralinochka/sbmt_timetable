@@ -1,4 +1,5 @@
 import axios from 'axios';
+import config from '../config/config.json';
 
 export const fetchAllGroupsTimetable = async () => {
   const { data } = await axios.get('http://timetable.sbmt.by/groups/');
@@ -11,13 +12,13 @@ export const fetchAllLecturersTimetable = async () => {
 };
 
 export const getGroupTimetable = async (groupFile) => {
-  const { data } = await axios.get(`https://salty-inlet-18567.herokuapp.com/parse?query=/shedule/group/${groupFile}`);
+  const { data } = await axios.get(`${config.serverApi}/parse?query=/shedule/group/${groupFile}`);
   return data.schedule.lesson;
 };
 
 export const getLecturerTimetable = async (lecturerFile) => {
-  const { data } = await axios.get(`https://salty-inlet-18567.herokuapp.com/parse?query=/shedule/lecturer/${lecturerFile}`);
+  const { data } = await axios.get(`${config.serverApi}/parse?query=/shedule/lecturer/${lecturerFile}`);
   return data.lecturer.lesson;
 };
 
-export const sendFeedback = userFeedback => axios.post('https://salty-inlet-18567.herokuapp.com/feedback/send', userFeedback);
+export const sendFeedback = userFeedback => axios.post(`${config.serverApi}/feedback/send`, userFeedback);

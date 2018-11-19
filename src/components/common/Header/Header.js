@@ -5,11 +5,11 @@ import {
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import * as actions from '@src/actions';
+import * as actions from '@actions';
 import ContainerItem from '../ContainerItem';
 import Container from '../Container';
 import ActionIcon from './ActionIcon';
-import styles from './styles';
+import styles from '@styles';
 
 export const eventTypes = {
   SEND_FEEDBACK: 'SEND_FEEDBACK',
@@ -135,7 +135,7 @@ class Header extends Component {
           {
           showGroups && (
             <ActionIcon
-              icon={require('@src/images/groups.png')} // eslint-disable-line global-require
+              icon={require('@images/groups.png')} // eslint-disable-line global-require
               hideIcon={(subgroups.length < 2) && hiddenIcon}
               onIconPress={this.onGroupButtonPress}
               disabled={subgroups.length <= 2}
@@ -152,7 +152,7 @@ class Header extends Component {
           {
           back && (
             <ActionIcon
-              icon={require('@src/images/back.png')} // eslint-disable-line
+              icon={require('@images/back.png')} // eslint-disable-line
               backIcon={backIcon}
               styled={leftButton}
               onIconPress={this.onBackButtonPress}
@@ -168,14 +168,14 @@ class Header extends Component {
             initialRouteName === '_sendFeedback'
               ? (
                 <ActionIcon
-                  icon={require('@src/images/tick.png')} // eslint-disable-line
+                  icon={require('@images/tick.png')} // eslint-disable-line
                   onIconPress={this.onTickButtonPress}
                   styled={rightButton}
                 />
               )
               : (
                 <ActionIcon
-                  icon={require('@src/images/refresh.png')} // eslint-disable-line
+                  icon={require('@images/refresh.png')} // eslint-disable-line
                   hideIcon={!refresh && hiddenIcon}
                   onIconPress={this.onRefreshButtonPress}
                   disabled={initialRouteName === '_savedTimetable'}

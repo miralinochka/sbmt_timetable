@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import generalStyles from '@src/styles/general';
+import generalStyles from '@styles/general';
 
 export default StyleSheet.create({
   cardItem: {
