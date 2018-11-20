@@ -15,8 +15,8 @@ export default function configureStore(initialState) {
   const persistor = persistStore(store);
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept('./reducers', () => {
-      const nextRootReducer = require('./reducers'); // eslint-disable-line 
+    module.hot.accept('../reducers', () => {
+      const nextRootReducer = require('../reducers'); // eslint-disable-line 
       store.replaceReducer(nextRootReducer);
     });
   }

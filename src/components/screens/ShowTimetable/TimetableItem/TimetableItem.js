@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 import colors from '@styles/colors';
 import ContainerItem from '@common/ContainerItem';
-import styles from '@styles';
+import styles from './styles';
 
 const TimetableItem = ({ timetableForADay }) => {
   const {

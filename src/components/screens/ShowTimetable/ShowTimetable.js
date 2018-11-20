@@ -10,7 +10,7 @@ import Spinner from '@common/Spinner';
 import generalStyles from '@styles/general';
 import TimetableItem from './TimetableItem';
 import Calendar from './Calendar';
-import styles from '@styles';
+import styles from './styles';
 
 const config = {
   velocityThreshold: 0.3,

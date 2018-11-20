@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import colors from '@styles/colors';
 import ActionIcon from '../Header/ActionIcon';
 import ContainerItem from '../ContainerItem';
-import styles from '@styles';
+import styles from './styles';
 
 const ModalWindow = ({
   children, onClick, visible,

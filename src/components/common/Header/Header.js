@@ -9,7 +9,7 @@ import * as actions from '@actions';
 import ContainerItem from '../ContainerItem';
 import Container from '../Container';
 import ActionIcon from './ActionIcon';
-import styles from '@styles';
+import styles from './styles';
 
 export const eventTypes = {
   SEND_FEEDBACK: 'SEND_FEEDBACK',

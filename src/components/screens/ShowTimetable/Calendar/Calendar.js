@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import GestureRecognizer from 'react-native-swipe-gestures';
-import styles from '@styles';
+import styles from './styles';
 
 const weekdays = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
 const monthArray = [

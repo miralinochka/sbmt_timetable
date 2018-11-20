@@ -13,7 +13,7 @@ import Header from '@common/Header';
 import * as actions from '@actions';
 import * as utils from '@utils';
 import * as api from '@api';
-import styles from '@styles';
+import styles from './styles';
 
 class SendFeedback extends Component {
   state = {

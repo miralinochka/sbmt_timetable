@@ -11,7 +11,7 @@ import * as utils from '@utils';
 import ListItem from '@common/ListItem';
 import generalStyles from '@styles/general';
 import Switch from './Switch';
-import styles from '@styles';
+import styles from './styles';
 
 const searchItems = {
   group: 'Группа',
