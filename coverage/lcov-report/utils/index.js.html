@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for utils/index.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">All files</a> / <a href="index.html">utils</a> index.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">77.46% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>55/71</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">47.37% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>9/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">72.22% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>13/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">83.33% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>35/42</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { NetInfo } from 'react-native';
+import * as actions from '@actions';
+import DropDownHolder from '@common/DropDown/DropDownHolder';
+import { Actions } from 'react-native-router-flux';
+&nbsp;
+export const comparator = (first, second) =&gt; {
+  if (first.number &lt; second.number) { return -1; }
+  if (first.number &gt; second.number) { return 1; }
+  return 0;
+};
+&nbsp;
+export const getTimetableState = <span class="fstat-no" title="function not covered" >(state, action) =&gt;</span> ({<span class="cstat-no" title="statement not covered" ></span>
+  ...state,
+  [action.payload.groupOrLecturerName]: {
+    timetable: action.payload.timetable,
+    createdOn: new Date(),
+    filename: action.payload.filename,
+  },
+});
+&nbsp;
+export const getEarliestTimetableDate = state =&gt; Math.min(...Object.values(state)
+  .map(value =&gt; value.createdOn));
+&nbsp;
+export const getEarliestTimetable = state =&gt; Object.keys(state)
+  .find(key =&gt; +(state[key].createdOn) === getEarliestTimetableDate(state));
+&nbsp;
+export const getSubgroups = timetable =&gt; timetable
+  .map(item =&gt; item.subgroup)
+  .filter((subgr, index, array) =&gt; array.indexOf(subgr) === index);
+&nbsp;
+export const checkIfGroup = groupOrLecturerFile =&gt; (
+  groupOrLecturerFile &amp;&amp; (groupOrLecturerFile[0] &gt;= 0
+    &amp;&amp; groupOrLecturerFile[0] &lt;= 9)
+);
+&nbsp;
+export const shortenLecturerName = (lecturerName) =&gt; {
+  const lecturerNameArray = lecturerName.split(' ');
+  return lecturerNameArray[2] ? `${lecturerNameArray[0]} ${lecturerNameArray[1][0]}. ${lecturerNameArray[2][0]}.` : `${lecturerNameArray[0]} ${lecturerNameArray[1][0]}.`;
+};
+&nbsp;
+export const checkValidEmail = (email) =&gt; {
+  // eslint-disable-next-line no-useless-escape
+  const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  return !!email.match(mailformat);
+};
+&nbsp;
+export const checkUnfilledFeedbackValues = userFeedback =&gt; (
+  Object.values(userFeedback).includes('')
+);
+&nbsp;
+export const checkConnectionToUpdateSavedTt = <span class="fstat-no" title="function not covered" >async () =&gt; {<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span></span></span></span>
+  const status = await NetInfo.isConnected.fetch();<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span>
+  return status;<span class="cstat-no" title="statement not covered" ></span>
+};
+&nbsp;
+export const checkNoInternetConnection = errorStatus =&gt; errorStatus === 0;
+&nbsp;
+export const errorCatch = <span class="fstat-no" title="function not covered" >(error, gro</span>upOrLecturerName) =&gt; (dispatc<span class="cstat-no" title="statement not covered" >h) =&gt; {<span class="fstat-no" title="function not covered" ></span></span>
+  const errorStatus = <span class="cstat-no" title="statement not covered" >error !== undefined ? error.status : null;</span>
+  if<span class="cstat-no" title="statement not covered" > (checkNoInternetConnection(errorStatus)) {</span>
+    Dr<span class="cstat-no" title="statement not covered" >opDownHolder.alert('error', 'Ошибка сети', 'Проверьте Интернет-соединение');</span>
+  } else {
+    di<span class="cstat-no" title="statement not covered" >spatch(actions.setTimetableError());</span>
+    Ac<span class="cstat-no" title="statement not covered" >tions.reset('_timetable', { headerText: checkIfGroup(groupOrLecturerName) ? `${groupOrLecturerName} гр.` : groupOrLecturerName });</span>
+  }
+  di<span class="cstat-no" title="statement not covered" >spatch(actions.toggleSpinner(false));</span>
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 21 2018 17:14:57 GMT+0300 (Moscow Standard Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

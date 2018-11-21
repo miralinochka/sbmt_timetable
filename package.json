@@ -42,6 +42,10 @@
   },
   "jest": {
     "preset": "react-native",
-    "cacheDirectory": "./cache"
+    "cacheDirectory": "./cache",
+    "transform" : { "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js" },
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-native|react-navigation)/"
+    ]
   }
 }

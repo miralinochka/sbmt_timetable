@@ -1,0 +1,86 @@
+0761aa8b29526790194fe35d659a5ac7
+"use strict";var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");Object.defineProperty(exports, "__esModule", { value: true });exports.getActiveStateExceptDrawer = getActiveStateExceptDrawer;exports.isActiveRoute = isActiveRoute;exports.getRouteNameByKey = getRouteNameByKey;exports.getActiveState = getActiveState;exports.getParent = getParent;exports.inject = inject;exports.popPrevious = popPrevious;var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread"));function getActiveStateExceptDrawer(param) {
+  var state = param;
+  if (!state.routes) {
+    return state;
+  }
+  if (state.routes[state.index].routeName === 'DrawerOpen') {
+    return getActiveState(state.routes[0]);
+  }
+  return getActiveState(state.routes[state.index]);
+}
+
+function isActiveRoute(state, routeName) {
+  if (state.routeName === routeName) {
+    return true;
+  }
+  if (!state.routes) {
+    return state.routeName === routeName;
+  }
+  if (state.routes[state.index].routeName === 'DrawerOpen') {
+    return isActiveRoute(state.routes[0], routeName);
+  }
+  return isActiveRoute(state.routes[state.index], routeName);
+}
+
+function getRouteNameByKey(state, key) {
+  if (state.key === key) {
+    return state.routeName;
+  }
+  if (!state.routes) {
+    return state.routeName;
+  }
+  if (state.routes[state.index].key === key) {
+    return state.routes[state.index].routeName;
+  }
+  return getRouteNameByKey(state.routes[state.index], key);
+}
+
+function getActiveState(param, parent) {
+  var state = param;
+  if (!state.routes) {
+    return (0, _objectSpread2.default)({}, state, { parent: parent });
+  }
+  return getActiveState(state.routes[state.index], (0, _objectSpread2.default)({}, state, { parent: parent }));
+}
+
+function getParent(state, routeName, parent) {
+  if (state.routeName === routeName) {
+    return parent;
+  }
+  if (!state.routes) {
+    return null;
+  }
+  for (var i = 0; i < state.routes.length; i += 1) {
+    var res = getParent(state.routes[i], routeName, state);
+    if (res) {
+      return res;
+    }
+  }
+  return null;
+}
+
+function inject(state, key, index, routes) {
+  if (!state.routes) {
+    return state;
+  }
+  if (state.key === key) {
+    if (routes) {
+      return (0, _objectSpread2.default)({}, state, { routes: routes, index: index });
+    }
+    return (0, _objectSpread2.default)({}, state, { index: index });
+  }
+  return (0, _objectSpread2.default)({}, state, { routes: state.routes.map(function (x) {return inject(x, key, index, routes);}) });
+}
+
+function popPrevious(state, routeName) {
+  var parent = getParent(state, routeName);var
+
+  key = parent.key,index = parent.index;
+  if (index) {
+    var routes = (0, _toConsumableArray2.default)(parent.routes.slice(0, index - 1)).concat((0, _toConsumableArray2.default)(parent.routes.slice(index)));
+    var newState = inject(state, key, index - 1, routes);
+    return newState;
+  }
+  return state;
+}

@@ -48,8 +48,7 @@ class Header extends Component {
   };
 
   changeTimetableView = (subgroup) => {
-    Actions.refresh({ subgroup });
-    console.log('subgroup', subgroup);
+    Actions.reset('_timetable', { subgroup });
     this.setState({ visibleGroupView: false });
   };
 
@@ -130,7 +129,6 @@ class Header extends Component {
       rightButton,
     } = styles;
     const { visibleGroupView } = this.state;
-    console.log('header', this.props, this.state)
     return (
       <SafeAreaView style={safeArea}>
         <View style={view}>

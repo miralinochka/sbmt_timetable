@@ -1,0 +1,53 @@
+3b2648353c5cc0edef67d6d8d5831da6
+'use strict';
+
+
+
+function InterceptorManager() {
+  this.handlers = [];
+}
+
+
+
+
+
+
+
+
+
+InterceptorManager.prototype.use = function use(fulfilled, rejected) {
+  this.handlers.push({
+    fulfilled: fulfilled,
+    rejected: rejected });
+
+  return this.handlers.length - 1;
+};
+
+
+
+
+
+
+InterceptorManager.prototype.eject = function eject(id) {
+  if (this.handlers[id]) {
+    this.handlers[id] = null;
+  }
+};
+
+
+
+
+
+
+
+
+
+InterceptorManager.prototype.forEach = function forEach(fn) {
+  require('./../utils').forEach(this.handlers, function forEachHandler(h) {
+    if (h !== null) {
+      fn(h);
+    }
+  });
+};
+
+module.exports = InterceptorManager;

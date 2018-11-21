@@ -48,7 +48,7 @@ class SendFeedback extends Component {
     const { toggleSpinner, showFeedbackError } = this.props;
     const { userFeedback } = this.state;
     try {
-      if (utils.unfilledFeedbackValues(userFeedback)) {
+      if (utils.checkUnfilledFeedbackValues(userFeedback)) {
         this.setFeedbackError('Пожалуйста, заполните все поля формы.');
       } else if (utils.checkValidEmail(userFeedback.email)) {
         toggleSpinner(true);

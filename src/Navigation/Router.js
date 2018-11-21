@@ -6,6 +6,8 @@ import SearchTimetable from '@screens/SearchTimetable';
 import SavedTimetable from '@screens/SavedTimetable';
 import SendFeedback from '@screens/SendFeedback';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { sceneNames } from '@constants';
 import Header from '@common/Header';
 import {
   SearchIcon, TimetableIcon, BookmarkIcon, FeedbackIcon,
@@ -16,10 +18,9 @@ const renderHeaderText = (currentGroupOrLecturerName) => {
   if (currentGroupOrLecturerName) {
     if (currentGroupOrLecturerName[0] > 0) return `${currentGroupOrLecturerName} гр.`;
     return currentGroupOrLecturerName;
-  } else {
-    return 'Расписание занятий';
   }
-}
+  return 'Расписание занятий';
+};
 
 const RouterComponent = ({ currentGroupOrLecturerName }) => (
   <Router>
@@ -32,15 +33,15 @@ const RouterComponent = ({ currentGroupOrLecturerName }) => (
       transitionConfig={() => ({ screenInterpolator: CardStackStyleInterpolator.forHorizontal })}
     >
       <Scene
-        key="searchTimetable"
+        key={sceneNames.searchTimetable.route}
         icon={SearchIcon}
         component={SearchTimetable}
-        headerText="Найти расписание"
+        headerText={sceneNames.searchTimetable.title}
         refresh
         back
       />
       <Scene
-        key="timetable"
+        key={sceneNames.timetable.route}
         icon={TimetableIcon}
         component={ShowTimetable}
         headerText={renderHeaderText(currentGroupOrLecturerName)}
@@ -49,17 +50,17 @@ const RouterComponent = ({ currentGroupOrLecturerName }) => (
         initial
       />
       <Scene
-        key="savedTimetable"
+        key={sceneNames.savedTimetable.route}
         icon={BookmarkIcon}
         component={SavedTimetable}
-        headerText="Сохраненное расписание"
+        headerText={sceneNames.savedTimetable.title}
         back
       />
       <Scene
-        key="sendFeedback"
+        key={sceneNames.sendFeedback.route}
         icon={FeedbackIcon}
         component={SendFeedback}
-        headerText="Напишите нам"
+        headerText={sceneNames.sendFeedback.title}
         back
       />
     </Scene>
@@ -69,5 +70,13 @@ const RouterComponent = ({ currentGroupOrLecturerName }) => (
 const mapStateToProps = state => ({
   currentGroupOrLecturerName: state.timetable.currentGroupOrLecturer.groupOrLecturerName,
 });
+
+RouterComponent.defaultProps = {
+  currentGroupOrLecturerName: '',
+};
+
+RouterComponent.propTypes = {
+  currentGroupOrLecturerName: PropTypes.string,
+};
 
 export default connect(mapStateToProps)(RouterComponent);

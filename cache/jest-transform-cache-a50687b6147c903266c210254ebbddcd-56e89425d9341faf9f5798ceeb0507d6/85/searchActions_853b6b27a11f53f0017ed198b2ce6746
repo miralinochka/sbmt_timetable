@@ -1,0 +1,638 @@
+edf08d27b6acd807a9e26185464238f8
+"use strict";
+
+/* istanbul ignore next */var cov_13jzvf9ug6 = function () {
+            var path = "/Users/mac-185-71/Projects/sbmt_timetable/src/actions/searchActions.js",
+                hash = "814967fb372f80e5a88df60eee4fa94829bc0e4f",
+                Function = function () {}.constructor,
+                global = new Function('return this')(),
+                gcv = "__coverage__",
+                coverageData = {
+                        path: "/Users/mac-185-71/Projects/sbmt_timetable/src/actions/searchActions.js",
+                        statementMap: {
+                                    "0": {
+                                                start: {
+                                                            line: 1,
+                                                            column: 43
+                                                },
+                                                end: {
+                                                            line: 1,
+                                                            column: 99
+                                                }
+                                    },
+                                    "1": {
+                                                start: {
+                                                            line: 1,
+                                                            column: 129
+                                                },
+                                                end: {
+                                                            line: 1,
+                                                            column: 184
+                                                }
+                                    },
+                                    "2": {
+                                                start: {
+                                                            line: 1,
+                                                            column: 185
+                                                },
+                                                end: {
+                                                            line: 1,
+                                                            column: 247
+                                                }
+                                    },
+                                    "3": {
+                                                start: {
+                                                            line: 1,
+                                                            column: 247
+                                                },
+                                                end: {
+                                                            line: 1,
+                                                            column: 272
+                                                }
+                                    },
+                                    "4": {
+                                                start: {
+                                                            line: 1,
+                                                            column: 291
+                                                },
+                                                end: {
+                                                            line: 1,
+                                                            column: 352
+                                                }
+                                    },
+                                    "5": {
+                                                start: {
+                                                            line: 1,
+                                                            column: 363
+                                                },
+                                                end: {
+                                                            line: 1,
+                                                            column: 403
+                                                }
+                                    },
+                                    "6": {
+                                                start: {
+                                                            line: 2,
+                                                            column: 13
+                                                },
+                                                end: {
+                                                            line: 2,
+                                                            column: 31
+                                                }
+                                    },
+                                    "7": {
+                                                start: {
+                                                            line: 3,
+                                                            column: 12
+                                                },
+                                                end: {
+                                                            line: 3,
+                                                            column: 54
+                                                }
+                                    },
+                                    "8": {
+                                                start: {
+                                                            line: 4,
+                                                            column: 22
+                                                },
+                                                end: {
+                                                            line: 4,
+                                                            column: 73
+                                                }
+                                    },
+                                    "9": {
+                                                start: {
+                                                            line: 6,
+                                                            column: 28
+                                                },
+                                                end: {
+                                                            line: 18,
+                                                            column: 131
+                                                }
+                                    },
+                                    "10": {
+                                                start: {
+                                                            line: 6,
+                                                            column: 62
+                                                },
+                                                end: {
+                                                            line: 18,
+                                                            column: 130
+                                                }
+                                    },
+                                    "11": {
+                                                start: {
+                                                            line: 6,
+                                                            column: 119
+                                                },
+                                                end: {
+                                                            line: 18,
+                                                            column: 128
+                                                }
+                                    },
+                                    "12": {
+                                                start: {
+                                                            line: 6,
+                                                            column: 182
+                                                },
+                                                end: {
+                                                            line: 18,
+                                                            column: 102
+                                                }
+                                    },
+                                    "13": {
+                                                start: {
+                                                            line: 6,
+                                                            column: 193
+                                                },
+                                                end: {
+                                                            line: 18,
+                                                            column: 101
+                                                }
+                                    },
+                                    "14": {
+                                                start: {
+                                                            line: 6,
+                                                            column: 240
+                                                },
+                                                end: {
+                                                            line: 6,
+                                                            column: 258
+                                                }
+                                    },
+                                    "15": {
+                                                start: {
+                                                            line: 6,
+                                                            column: 258
+                                                },
+                                                end: {
+                                                            line: 6,
+                                                            column: 276
+                                                }
+                                    },
+                                    "16": {
+                                                start: {
+                                                            line: 6,
+                                                            column: 276
+                                                },
+                                                end: {
+                                                            line: 8,
+                                                            column: 43
+                                                }
+                                    },
+                                    "17": {
+                                                start: {
+                                                            line: 8,
+                                                            column: 50
+                                                },
+                                                end: {
+                                                            line: 8,
+                                                            column: 73
+                                                }
+                                    },
+                                    "18": {
+                                                start: {
+                                                            line: 8,
+                                                            column: 73
+                                                },
+                                                end: {
+                                                            line: 8,
+                                                            column: 91
+                                                }
+                                    },
+                                    "19": {
+                                                start: {
+                                                            line: 8,
+                                                            column: 91
+                                                },
+                                                end: {
+                                                            line: 9,
+                                                            column: 46
+                                                }
+                                    },
+                                    "20": {
+                                                start: {
+                                                            line: 9,
+                                                            column: 53
+                                                },
+                                                end: {
+                                                            line: 9,
+                                                            column: 79
+                                                }
+                                    },
+                                    "21": {
+                                                start: {
+                                                            line: 10,
+                                                            column: 12
+                                                },
+                                                end: {
+                                                            line: 10,
+                                                            column: 42
+                                                }
+                                    },
+                                    "22": {
+                                                start: {
+                                                            line: 11,
+                                                            column: 12
+                                                },
+                                                end: {
+                                                            line: 13,
+                                                            column: 67
+                                                }
+                                    },
+                                    "23": {
+                                                start: {
+                                                            line: 13,
+                                                            column: 67
+                                                },
+                                                end: {
+                                                            line: 13,
+                                                            column: 86
+                                                }
+                                    },
+                                    "24": {
+                                                start: {
+                                                            line: 13,
+                                                            column: 86
+                                                },
+                                                end: {
+                                                            line: 13,
+                                                            column: 92
+                                                }
+                                    },
+                                    "25": {
+                                                start: {
+                                                            line: 13,
+                                                            column: 100
+                                                },
+                                                end: {
+                                                            line: 13,
+                                                            column: 119
+                                                }
+                                    },
+                                    "26": {
+                                                start: {
+                                                            line: 13,
+                                                            column: 119
+                                                },
+                                                end: {
+                                                            line: 13,
+                                                            column: 154
+                                                }
+                                    },
+                                    "27": {
+                                                start: {
+                                                            line: 16,
+                                                            column: 12
+                                                },
+                                                end: {
+                                                            line: 16,
+                                                            column: 75
+                                                }
+                                    },
+                                    "28": {
+                                                start: {
+                                                            line: 18,
+                                                            column: 12
+                                                },
+                                                end: {
+                                                            line: 18,
+                                                            column: 58
+                                                }
+                                    },
+                                    "29": {
+                                                start: {
+                                                            line: 18,
+                                                            column: 77
+                                                },
+                                                end: {
+                                                            line: 18,
+                                                            column: 100
+                                                }
+                                    },
+                                    "30": {
+                                                start: {
+                                                            line: 21,
+                                                            column: 0
+                                                },
+                                                end: {
+                                                            line: 21,
+                                                            column: 21
+                                                }
+                                    },
+                                    "31": {
+                                                start: {
+                                                            line: 21,
+                                                            column: 22
+                                                },
+                                                end: {
+                                                            line: 21,
+                                                            column: 49
+                                                }
+                                    }
+                        },
+                        fnMap: {
+                                    "0": {
+                                                name: "addGroupsAndLecturers",
+                                                decl: {
+                                                            start: {
+                                                                        line: 6,
+                                                                        column: 37
+                                                            },
+                                                            end: {
+                                                                        line: 6,
+                                                                        column: 58
+                                                            }
+                                                },
+                                                loc: {
+                                                            start: {
+                                                                        line: 6,
+                                                                        column: 61
+                                                            },
+                                                            end: {
+                                                                        line: 18,
+                                                                        column: 131
+                                                            }
+                                                },
+                                                line: 6
+                                    },
+                                    "1": {
+                                                name: "_callee",
+                                                decl: {
+                                                            start: {
+                                                                        line: 6,
+                                                                        column: 78
+                                                            },
+                                                            end: {
+                                                                        line: 6,
+                                                                        column: 85
+                                                            }
+                                                },
+                                                loc: {
+                                                            start: {
+                                                                        line: 6,
+                                                                        column: 96
+                                                            },
+                                                            end: {
+                                                                        line: 18,
+                                                                        column: 129
+                                                            }
+                                                },
+                                                line: 6
+                                    },
+                                    "2": {
+                                                name: "_callee$",
+                                                decl: {
+                                                            start: {
+                                                                        line: 6,
+                                                                        column: 162
+                                                            },
+                                                            end: {
+                                                                        line: 6,
+                                                                        column: 170
+                                                            }
+                                                },
+                                                loc: {
+                                                            start: {
+                                                                        line: 6,
+                                                                        column: 181
+                                                            },
+                                                            end: {
+                                                                        line: 18,
+                                                                        column: 103
+                                                            }
+                                                },
+                                                line: 6
+                                    }
+                        },
+                        branchMap: {
+                                    "0": {
+                                                loc: {
+                                                            start: {
+                                                                        line: 6,
+                                                                        column: 193
+                                                            },
+                                                            end: {
+                                                                        line: 18,
+                                                                        column: 101
+                                                            }
+                                                },
+                                                type: "switch",
+                                                locations: [{
+                                                            start: {
+                                                                        line: 6,
+                                                                        column: 233
+                                                            },
+                                                            end: {
+                                                                        line: 8,
+                                                                        column: 43
+                                                            }
+                                                }, {
+                                                            start: {
+                                                                        line: 8,
+                                                                        column: 43
+                                                            },
+                                                            end: {
+                                                                        line: 9,
+                                                                        column: 46
+                                                            }
+                                                }, {
+                                                            start: {
+                                                                        line: 9,
+                                                                        column: 46
+                                                            },
+                                                            end: {
+                                                                        line: 13,
+                                                                        column: 92
+                                                            }
+                                                }, {
+                                                            start: {
+                                                                        line: 13,
+                                                                        column: 92
+                                                            },
+                                                            end: {
+                                                                        line: 16,
+                                                                        column: 75
+                                                            }
+                                                }, {
+                                                            start: {
+                                                                        line: 16,
+                                                                        column: 75
+                                                            },
+                                                            end: {
+                                                                        line: 18,
+                                                                        column: 58
+                                                            }
+                                                }, {
+                                                            start: {
+                                                                        line: 18,
+                                                                        column: 58
+                                                            },
+                                                            end: {
+                                                                        line: 18,
+                                                                        column: 66
+                                                            }
+                                                }, {
+                                                            start: {
+                                                                        line: 18,
+                                                                        column: 66
+                                                            },
+                                                            end: {
+                                                                        line: 18,
+                                                                        column: 100
+                                                            }
+                                                }],
+                                                line: 6
+                                    },
+                                    "1": {
+                                                loc: {
+                                                            start: {
+                                                                        line: 16,
+                                                                        column: 38
+                                                            },
+                                                            end: {
+                                                                        line: 16,
+                                                                        column: 72
+                                                            }
+                                                },
+                                                type: "binary-expr",
+                                                locations: [{
+                                                            start: {
+                                                                        line: 16,
+                                                                        column: 38
+                                                            },
+                                                            end: {
+                                                                        line: 16,
+                                                                        column: 57
+                                                            }
+                                                }, {
+                                                            start: {
+                                                                        line: 16,
+                                                                        column: 61
+                                                            },
+                                                            end: {
+                                                                        line: 16,
+                                                                        column: 72
+                                                            }
+                                                }],
+                                                line: 16
+                                    }
+                        },
+                        s: {
+                                    "0": 0,
+                                    "1": 0,
+                                    "2": 0,
+                                    "3": 0,
+                                    "4": 0,
+                                    "5": 0,
+                                    "6": 0,
+                                    "7": 0,
+                                    "8": 0,
+                                    "9": 0,
+                                    "10": 0,
+                                    "11": 0,
+                                    "12": 0,
+                                    "13": 0,
+                                    "14": 0,
+                                    "15": 0,
+                                    "16": 0,
+                                    "17": 0,
+                                    "18": 0,
+                                    "19": 0,
+                                    "20": 0,
+                                    "21": 0,
+                                    "22": 0,
+                                    "23": 0,
+                                    "24": 0,
+                                    "25": 0,
+                                    "26": 0,
+                                    "27": 0,
+                                    "28": 0,
+                                    "29": 0,
+                                    "30": 0,
+                                    "31": 0
+                        },
+                        f: {
+                                    "0": 0,
+                                    "1": 0,
+                                    "2": 0
+                        },
+                        b: {
+                                    "0": [0, 0, 0, 0, 0, 0, 0],
+                                    "1": [0, 0]
+                        },
+                        _coverageSchema: "332fd63041d2c1bcb487cc26dd0d5f7d97098a6c"
+            },
+                coverage = global[gcv] || (global[gcv] = {});
+
+            if (coverage[path] && coverage[path].hash === hash) {
+                        return coverage[path];
+            }
+
+            coverageData.hash = hash;
+            return coverage[path] = coverageData;
+}();
+
+var _interopRequireWildcard = /* istanbul ignore next */(cov_13jzvf9ug6.s[0]++, require("@babel/runtime/helpers/interopRequireWildcard"));var _interopRequireDefault = /* istanbul ignore next */(cov_13jzvf9ug6.s[1]++, require("@babel/runtime/helpers/interopRequireDefault")); /* istanbul ignore next */cov_13jzvf9ug6.s[2]++;
+Object.defineProperty(exports, "__esModule", { value: true }); /* istanbul ignore next */cov_13jzvf9ug6.s[3]++;
+exports.default = void 0;var _regenerator = /* istanbul ignore next */(cov_13jzvf9ug6.s[4]++, _interopRequireDefault(require("@babel/runtime/regenerator")));var api = /* istanbul ignore next */(cov_13jzvf9ug6.s[5]++, _interopRequireWildcard(require("@api")));
+var _types = /* istanbul ignore next */(cov_13jzvf9ug6.s[6]++, require("./types"));
+var utils = /* istanbul ignore next */(cov_13jzvf9ug6.s[7]++, _interopRequireWildcard(require("@utils")));
+var _loadingActions = /* istanbul ignore next */(cov_13jzvf9ug6.s[8]++, _interopRequireDefault(require("./loadingActions")));
+
+/* istanbul ignore next */cov_13jzvf9ug6.s[9]++;
+var addGroupsAndLecturers = function addGroupsAndLecturers() {
+            /* istanbul ignore next */cov_13jzvf9ug6.f[0]++;
+            cov_13jzvf9ug6.s[10]++;
+            return function _callee(dispatch) {
+                        /* istanbul ignore next */cov_13jzvf9ug6.f[1]++;
+                        var groups, lecturers; /* istanbul ignore next */cov_13jzvf9ug6.s[11]++;
+                        return _regenerator.default.async(function _callee$(_context) {
+                                    /* istanbul ignore next */cov_13jzvf9ug6.f[2]++;
+                                    cov_13jzvf9ug6.s[12]++;
+                                    while (1) {
+                                                /* istanbul ignore next */cov_13jzvf9ug6.s[13]++;
+                                                switch (_context.prev = _context.next) {case 0:
+                                                                        /* istanbul ignore next */cov_13jzvf9ug6.b[0][0]++;
+                                                                        cov_13jzvf9ug6.s[14]++;
+                                                                        _context.prev = 0; /* istanbul ignore next */cov_13jzvf9ug6.s[15]++;
+                                                                        _context.next = 3; /* istanbul ignore next */cov_13jzvf9ug6.s[16]++;
+                                                                        return _regenerator.default.awrap(api.fetchAllGroupsTimetable());case 3:
+                                                                        /* istanbul ignore next */cov_13jzvf9ug6.b[0][1]++;
+                                                                        cov_13jzvf9ug6.s[17]++;
+                                                                        groups = _context.sent; /* istanbul ignore next */cov_13jzvf9ug6.s[18]++;
+                                                                        _context.next = 6; /* istanbul ignore next */cov_13jzvf9ug6.s[19]++;
+                                                                        return _regenerator.default.awrap(api.fetchAllLecturersTimetable());case 6:
+                                                                        /* istanbul ignore next */cov_13jzvf9ug6.b[0][2]++;
+                                                                        cov_13jzvf9ug6.s[20]++;
+                                                                        lecturers = _context.sent;
+                                                                        /* istanbul ignore next */cov_13jzvf9ug6.s[21]++;
+                                                                        groups.sort(utils.comparator);
+                                                                        /* istanbul ignore next */cov_13jzvf9ug6.s[22]++;
+                                                                        dispatch({
+                                                                                    type: _types.ADD_GROUPS_AND_LECTURERS,
+                                                                                    payload: { groups: groups, lecturers: lecturers } }); /* istanbul ignore next */cov_13jzvf9ug6.s[23]++;
+                                                                        _context.next = 14; /* istanbul ignore next */cov_13jzvf9ug6.s[24]++;
+                                                                        break;case 11:
+                                                                        /* istanbul ignore next */cov_13jzvf9ug6.b[0][3]++;
+                                                                        cov_13jzvf9ug6.s[25]++;
+                                                                        _context.prev = 11; /* istanbul ignore next */cov_13jzvf9ug6.s[26]++;
+                                                                        _context.t0 = _context["catch"](0);
+
+                                                                        /* istanbul ignore next */cov_13jzvf9ug6.s[27]++;
+                                                                        dispatch(utils.errorCatch( /* istanbul ignore next */(cov_13jzvf9ug6.b[1][0]++, _context.t0.request) || /* istanbul ignore next */(cov_13jzvf9ug6.b[1][1]++, _context.t0)));case 14:
+                                                                        /* istanbul ignore next */cov_13jzvf9ug6.b[0][4]++;
+                                                                        cov_13jzvf9ug6.s[28]++;
+
+
+                                                                        dispatch((0, _loadingActions.default)(false));case 15:
+                                                                        /* istanbul ignore next */cov_13jzvf9ug6.b[0][5]++;
+                                                            case "end":
+                                                                        /* istanbul ignore next */cov_13jzvf9ug6.b[0][6]++;
+                                                                        cov_13jzvf9ug6.s[29]++;
+                                                                        return _context.stop();}
+                                    }
+                        }, null, this, [[0, 11]]);
+            };
+};var _default = /* istanbul ignore next */(cov_13jzvf9ug6.s[30]++, addGroupsAndLecturers); /* istanbul ignore next */cov_13jzvf9ug6.s[31]++;
+exports.default = _default;

@@ -1,0 +1,27 @@
+e443f650542c8cf5a756306f2a776081
+"use strict";var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+var _reactNative = require("react-native");var _jsxFileName = "/Users/mac-185-71/Projects/sbmt_timetable/node_modules/react-native-router-flux/src/OverlayRenderer.js";var _default =
+
+function _default(_ref) {var navigationConfig = _ref.navigationConfig,descriptors = _ref.descriptors;var
+  initialRouteName = navigationConfig.initialRouteName,order = navigationConfig.order,contentComponent = navigationConfig.contentComponent;
+  var ContentComponent = contentComponent || _reactNative.View;
+  var descriptor = descriptors[initialRouteName];
+  var Component = descriptor.getComponent();
+
+  var overlays = [];
+  for (var i = 0; i < order.length; i += 1) {
+    var routeName = order[i];
+    if (initialRouteName !== routeName) {
+      var Overlay = descriptors[routeName].getComponent();
+      overlays.push(_react.default.createElement(Overlay, { key: routeName, navigation: descriptors[routeName].navigation, __source: { fileName: _jsxFileName, lineNumber: 17 } }));
+    }
+  }
+  return (
+    _react.default.createElement(ContentComponent, { style: { flex: 1 }, __source: { fileName: _jsxFileName, lineNumber: 21 } },
+    _react.default.createElement(Component, { navigation: descriptor.navigation, __source: { fileName: _jsxFileName, lineNumber: 22 } }),
+    overlays));
+
+
+};exports.default = _default;

@@ -1,0 +1,67 @@
+2d90912849532ff23dfda8ae50c29f30
+"use strict";var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread"));var _react = _interopRequireDefault(require("react"));
+var _reactNative = require("react-native");
+var _reactNavigation = require("react-navigation");
+
+
+
+
+
+var _TabView = _interopRequireDefault(require("./views/TabView"));
+var _TabBarTop = _interopRequireDefault(require("./views/TabBarTop"));
+var _TabBarBottom = _interopRequireDefault(require("./views/TabBarBottom"));
+
+var createTabNavigator = function createTabNavigator(routeConfigs) {var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  var tabsConfig = (0, _objectSpread2.default)({}, createTabNavigator.Presets.Default, config);
+
+  var router = (0, _reactNavigation.TabRouter)(routeConfigs, tabsConfig);
+
+  var navigator = (0, _reactNavigation.createNavigator)(_TabView.default, router, tabsConfig);
+
+  return (0, _reactNavigation.createNavigationContainer)(navigator);
+};
+
+var Presets = {
+  iOSBottomTabs: {
+    tabBarComponent: _TabBarBottom.default,
+    tabBarPosition: 'bottom',
+    swipeEnabled: false,
+    animationEnabled: false,
+    initialLayout: undefined },
+
+  AndroidTopTabs: {
+    tabBarComponent: _TabBarTop.default,
+    tabBarPosition: 'top',
+    swipeEnabled: true,
+    animationEnabled: true,
+    initialLayout: undefined } };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+createTabNavigator.Presets = {
+  iOSBottomTabs: Presets.iOSBottomTabs,
+  AndroidTopTabs: Presets.AndroidTopTabs,
+  Default:
+  _reactNative.Platform.OS === 'ios' ? Presets.iOSBottomTabs : Presets.AndroidTopTabs };var _default =
+
+
+createTabNavigator;exports.default = _default;

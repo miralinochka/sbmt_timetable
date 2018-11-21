@@ -18,11 +18,11 @@ export const getTimetableState = (state, action) => ({
   },
 });
 
-const getErliestTimetableDate = state => Math.min(...Object.values(state)
+export const getEarliestTimetableDate = state => Math.min(...Object.values(state)
   .map(value => value.createdOn));
 
 export const getEarliestTimetable = state => Object.keys(state)
-  .find(key => +(state[key].createdOn) === getErliestTimetableDate(state));
+  .find(key => +(state[key].createdOn) === getEarliestTimetableDate(state));
 
 export const getSubgroups = timetable => timetable
   .map(item => item.subgroup)
@@ -41,10 +41,10 @@ export const shortenLecturerName = (lecturerName) => {
 export const checkValidEmail = (email) => {
   // eslint-disable-next-line no-useless-escape
   const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  return email.match(mailformat);
+  return !!email.match(mailformat);
 };
 
-export const unfilledFeedbackValues = userFeedback => (
+export const checkUnfilledFeedbackValues = userFeedback => (
   Object.values(userFeedback).includes('')
 );
 
@@ -53,11 +53,11 @@ export const checkConnectionToUpdateSavedTt = async () => {
   return status;
 };
 
-export const checkInternetConnection = errorStatus => errorStatus === 0;
+export const checkNoInternetConnection = errorStatus => errorStatus === 0;
 
 export const errorCatch = (error, groupOrLecturerName) => (dispatch) => {
   const errorStatus = error !== undefined ? error.status : null;
-  if (checkInternetConnection(errorStatus)) {
+  if (checkNoInternetConnection(errorStatus)) {
     DropDownHolder.alert('error', 'Ошибка сети', 'Проверьте Интернет-соединение');
   } else {
     dispatch(actions.setTimetableError());

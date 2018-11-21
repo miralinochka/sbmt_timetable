@@ -1,0 +1,97 @@
+4c23d387714c15906110b5f8679f460f
+'use strict';
+
+
+
+
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded' };
+
+
+function setContentTypeIfUnset(headers, value) {
+  if (!require('./utils').isUndefined(headers) && require('./utils').isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+
+function getDefaultAdapter() {
+  var adapter;
+  if (typeof XMLHttpRequest !== 'undefined') {
+
+    adapter = require('./adapters/xhr');
+  } else if (typeof process !== 'undefined') {
+
+    adapter = require('./adapters/http');
+  }
+  return adapter;
+}
+
+var defaults = {
+  adapter: getDefaultAdapter(),
+
+  transformRequest: [function transformRequest(data, headers) {
+    require('./helpers/normalizeHeaderName')(headers, 'Content-Type');
+    if (require('./utils').isFormData(data) ||
+    require('./utils').isArrayBuffer(data) ||
+    require('./utils').isBuffer(data) ||
+    require('./utils').isStream(data) ||
+    require('./utils').isFile(data) ||
+    require('./utils').isBlob(data))
+    {
+      return data;
+    }
+    if (require('./utils').isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (require('./utils').isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+    if (require('./utils').isObject(data)) {
+      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
+      return JSON.stringify(data);
+    }
+    return data;
+  }],
+
+  transformResponse: [function transformResponse(data) {
+
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data);
+      } catch (e) {}
+    }
+    return data;
+  }],
+
+
+
+
+
+  timeout: 0,
+
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  maxContentLength: -1,
+
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  } };
+
+
+defaults.headers = {
+  common: {
+    'Accept': 'application/json, text/plain, */*' } };
+
+
+
+require('./utils').forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+
+require('./utils').forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = require('./utils').merge(DEFAULT_CONTENT_TYPE);
+});
+
+module.exports = defaults;
