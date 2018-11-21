@@ -8,8 +8,8 @@ const renderSubtitle = ({ listItem }) => ((listItem.speciality)
   ? (`${listItem.speciality}, ${listItem.course} курс, ${listItem.form}`)
   : (`Кафедра ${listItem.department}, ${listItem.position.toLowerCase()}`));
 
-const ListItem = ({ listItem, onSavedTtPress, savedTT }) => (
-  <TouchableOpacity onPress={onSavedTtPress}>
+const ListItem = ({ listItem, onGroupOrLecturerPress, savedTT }) => (
+  <TouchableOpacity onPress={onGroupOrLecturerPress}>
     <View>
       <ContainerItem styled={[styles.container, savedTT && { paddingVertical: 15 }]}>
         <Text style={styles.title}>
@@ -29,7 +29,7 @@ ListItem.defaultProps = {
 ListItem.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   listItem: PropTypes.any,
-  onSavedTtPress: PropTypes.func.isRequired,
+  onGroupOrLecturerPress: PropTypes.func.isRequired,
   savedTT: PropTypes.bool,
 };
 

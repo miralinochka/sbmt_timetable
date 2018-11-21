@@ -114,7 +114,7 @@ class SendFeedback extends Component {
                     value={message}
                     onChangeText={value => this.updateFeedback('message', value)}
                     multiline
-                    styled={{ minHeight: 150, textAlignVertical: 'top' }}
+                    styled={styles.inputMessage}
                   />
                 </ContainerItem>
                 <ModalWindow
@@ -124,7 +124,7 @@ class SendFeedback extends Component {
                   Спасибо! Ваш отзыв отправлен.
                 </ModalWindow>
                 <View style={styles.errorView}>
-                  <Text style={[styles.defaultText, { color: 'red', textAlign: 'left' }]}>{feedbackError}</Text>
+                  <Text style={[styles.defaultText, styles.errorText]}>{feedbackError}</Text>
                 </View>
               </ScrollView>
             )}

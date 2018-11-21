@@ -8,6 +8,7 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import Spinner from '@common/Spinner';
 import generalStyles from '@styles/general';
+// import { Actions } from 'react-native-router-flux';
 import TimetableItem from './TimetableItem';
 import Calendar from './Calendar';
 import styles from './styles';
@@ -21,6 +22,14 @@ class ShowTimetable extends Component {
   state = {
     currentDate: moment(),
   }
+
+  // componentDidMount() {
+  //   const { currentGroupOrLecturerName } = this.props;
+  //   if (currentGroupOrLecturerName) {
+  //     Actions.refresh({ headerText: currentGroupOrLecturerName});
+  //     console.log('refreshed');
+  //   }
+  // }
 
   onSwipeLeftTimetable = () => this.setState(prevState => ({ currentDate: prevState.currentDate.add(1, 'd') }));
 
@@ -68,7 +77,7 @@ class ShowTimetable extends Component {
   render() {
     const { currentTimetable, timetableError, isLoading } = this.props;
     const { currentDate } = this.state;
-    console.log('Show tt props', this.props)
+    console.log('Show tt props', this.props);
     return (
       <SafeAreaView style={generalStyles.fullSize}>
         {isLoading ? <Spinner />
@@ -121,6 +130,7 @@ ShowTimetable.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  currentGroupOrLecturerName: state.timetable.currentGroupOrLecturer.groupOrLecturerName,
   currentTimetable: state.timetable.currentTimetable,
   timetableError: state.timetable.timetableError,
   isLoading: state.isLoading,

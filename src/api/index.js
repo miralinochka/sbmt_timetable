@@ -12,13 +12,13 @@ export const fetchAllLecturersTimetable = async () => {
 };
 
 export const getGroupTimetable = async (groupFile) => {
-  const { data } = await axios.get(`${config.serverApi}/parse?query=/shedule/group/${groupFile}`);
+  const { data } = await axios.get(`${config.serverApi}${config.query.groupTimetableQuery}${groupFile}`);
   return data.schedule.lesson;
 };
 
 export const getLecturerTimetable = async (lecturerFile) => {
-  const { data } = await axios.get(`${config.serverApi}/parse?query=/shedule/lecturer/${lecturerFile}`);
+  const { data } = await axios.get(`${config.serverApi}${config.query.lecturerTimetableQuery}${lecturerFile}`);
   return data.lecturer.lesson;
 };
 
-export const sendFeedback = userFeedback => axios.post(`${config.serverApi}/feedback/send`, userFeedback);
+export const sendFeedback = userFeedback => axios.post(`${config.serverApi}${config.query.sendFeedbackQuery}`, userFeedback);

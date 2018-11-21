@@ -8,7 +8,7 @@ import * as utils from '@utils';
 import ListItem from '@common/ListItem';
 
 class SavedTimetable extends Component {
-  onSavedTtPress = async (pressedTTItem, timetableObject) => {
+  onGroupOrLecturerPress = async (pressedTTItem, timetableObject) => {
     const { setCurrentTimetable, downloadTimetable, toggleSpinner } = this.props;
     const subgroups = utils.getSubgroups(timetableObject.timetable);
     const chosenGroupOrLecturer = {
@@ -19,7 +19,6 @@ class SavedTimetable extends Component {
     };
     if (await utils.checkConnectionToUpdateSavedTt()) {
       toggleSpinner(true);
-      Actions.reset('_timetable', { subgroups, headerText: pressedTTItem[0] > 0 ? `${pressedTTItem} гр.` : pressedTTItem });
       await downloadTimetable(chosenGroupOrLecturer, new Date());
     } else {
       setCurrentTimetable({ ...chosenGroupOrLecturer });
@@ -34,7 +33,7 @@ class SavedTimetable extends Component {
         key={item}
         listItem={item}
         savedTT
-        onSavedTtPress={() => this.onSavedTtPress(item, savedTimetables[item])}
+        onGroupOrLecturerPress={() => this.onGroupOrLecturerPress(item, savedTimetables[item])}
       />
     ));
   }

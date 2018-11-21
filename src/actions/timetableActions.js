@@ -1,3 +1,4 @@
+import { Actions } from 'react-native-router-flux';
 import { FETCH_TIMETABLE, SET_TIMETABLE_ERROR, SET_CURRENT_TIMETABLE } from './types';
 import * as api from '@api';
 import * as utils from '@utils';
@@ -18,9 +19,11 @@ export const downloadTimetable = (groupOrLecturer, updatedOn) => async (dispatch
     if (utils.checkIfGroup(groupOrLecturerFile)) {
       timetable = await api.getGroupTimetable(groupOrLecturerFile);
       subgroups = utils.getSubgroups(timetable);
+      Actions.reset('_timetable', { subgroups, headerText: `${groupOrLecturerName} гр.` });
     } else {
       timetable = await api.getLecturerTimetable(groupOrLecturerFile);
       groupOrLecturerName = utils.shortenLecturerName(groupOrLecturerName);
+      Actions.reset('_timetable', { headerText: groupOrLecturerName });
     }
     if (Object.values(timetable)[0]) {
       dispatch({
@@ -37,7 +40,7 @@ export const downloadTimetable = (groupOrLecturer, updatedOn) => async (dispatch
       dispatch(setTimetableError());
     }
   } catch (e) {
-    dispatch(utils.errorCatch(e.request || e));
+    dispatch(utils.errorCatch(e.request || e, groupOrLecturerName));
   }
   dispatch(toggleSpinner(false));
 };

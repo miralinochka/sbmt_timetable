@@ -19,11 +19,16 @@ export default StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 20,
   },
-  defaultIconSize: {
-
-  },
   errorView: {
     alignItems: 'flex-start',
     paddingVertical: 10,
+  },
+  errorText: {
+    color: 'red',
+    textAlign: 'left',
+  },
+  inputMessage: {
+    minHeight: 150,
+    textAlignVertical: 'top',
   },
 });

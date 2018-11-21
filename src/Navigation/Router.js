@@ -5,13 +5,23 @@ import ShowTimetable from '@screens/ShowTimetable';
 import SearchTimetable from '@screens/SearchTimetable';
 import SavedTimetable from '@screens/SavedTimetable';
 import SendFeedback from '@screens/SendFeedback';
+import { connect } from 'react-redux';
 import Header from '@common/Header';
 import {
   SearchIcon, TimetableIcon, BookmarkIcon, FeedbackIcon,
 } from '@common/TabIcons';
 import footerStyle from '@common/Footer';
 
-const RouterComponent = () => (
+const renderHeaderText = (currentGroupOrLecturerName) => {
+  if (currentGroupOrLecturerName) {
+    if (currentGroupOrLecturerName[0] > 0) return `${currentGroupOrLecturerName} гр.`;
+    return currentGroupOrLecturerName;
+  } else {
+    return 'Расписание занятий';
+  }
+}
+
+const RouterComponent = ({ currentGroupOrLecturerName }) => (
   <Router>
     <Scene
       key="root"
@@ -33,7 +43,7 @@ const RouterComponent = () => (
         key="timetable"
         icon={TimetableIcon}
         component={ShowTimetable}
-        headerText="Расписание занятий"
+        headerText={renderHeaderText(currentGroupOrLecturerName)}
         showGroups
         refresh
         initial
@@ -56,5 +66,8 @@ const RouterComponent = () => (
   </Router>
 );
 
+const mapStateToProps = state => ({
+  currentGroupOrLecturerName: state.timetable.currentGroupOrLecturer.groupOrLecturerName,
+});
 
-export default RouterComponent;
+export default connect(mapStateToProps)(RouterComponent);

@@ -1,3 +1,8 @@
 {
-  "serverApi": "https://salty-inlet-18567.herokuapp.com"
+  "serverApi": "https://salty-inlet-18567.herokuapp.com",
+  "query": {
+    "groupTimetableQuery": "/parse?query=/shedule/group/",
+    "lecturerTimetableQuery": "/parse?query=/shedule/lecturer/",
+    "sendFeedbackQuery": "/feedback/send"
+  }
 }

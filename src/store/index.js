@@ -7,11 +7,12 @@ import rootReducer from '../reducers';
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: ['isLoading'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 export default function configureStore(initialState) {
-  const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
+  const store = createStore(persistedReducer, initialState, applyMiddleware(thunk));
   const persistor = persistStore(store);
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

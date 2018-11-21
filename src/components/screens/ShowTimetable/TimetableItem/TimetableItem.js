@@ -10,7 +10,7 @@ const TimetableItem = ({ timetableForADay }) => {
     time, subject, building, room, lecturer, type, subgroup, group,
   } = timetableForADay;
   const subjectType = type.toLowerCase().trim().split(' ');
-  const subjectTypeFormatted = subjectType.reduce((prevWord, nextWord) => (
+  const subjectTypeShort = subjectType.reduce((prevWord, nextWord) => (
     prevWord + nextWord[0]
   ), '');
   const generateBC = (subjectTypeForm) => {
@@ -39,10 +39,10 @@ const TimetableItem = ({ timetableForADay }) => {
             )
           }
         </View>
-        <View style={[styles.rectangle, { backgroundColor: generateBC(subjectTypeFormatted) }]} />
+        <View style={[styles.rectangle, { backgroundColor: generateBC(subjectTypeShort) }]} />
         <View style={styles.containerLecturer}>
           <Text style={styles.subject}>
-            {`${subject} (${subjectTypeFormatted})`}
+            {`${subject} (${subjectTypeShort})`}
           </Text>
           <Text style={styles.place}>
             {`${building}, ауд ${room}`}

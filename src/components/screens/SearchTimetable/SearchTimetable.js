@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { SafeAreaView, FlatList } from 'react-native';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 import Input from '@common/Input';
 import ContainerItem from '@common/ContainerItem';
 import Spinner from '@common/Spinner';
 import * as actions from '@actions';
-import * as utils from '@utils';
 import ListItem from '@common/ListItem';
 import generalStyles from '@styles/general';
 import Switch from './Switch';
@@ -24,10 +22,10 @@ class SearchTimetable extends Component {
     inputText: '',
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     const { addGroupsAndLecturers, toggleSpinner } = this.props;
     toggleSpinner(true);
-    await addGroupsAndLecturers();
+    addGroupsAndLecturers();
   }
 
   toggleSearch = () => this.setState(({ searchItem }) => ({
@@ -52,13 +50,20 @@ class SearchTimetable extends Component {
     ));
   }
 
-  onSavedTtPress = async (groupOrLecturer) => {
+  onGroupOrLecturerPress = async (groupOrLecturer) => {
     const { downloadTimetable, toggleSpinner } = this.props;
-    const lecturerName = groupOrLecturer.name && utils.shortenLecturerName(groupOrLecturer.name);
     toggleSpinner(true);
-    Actions.reset('_timetable', { headerText: groupOrLecturer.number ? `${groupOrLecturer.number} гр.` : lecturerName });
     await downloadTimetable(groupOrLecturer);
   }
+
+  renderFlatListItem = ({ item }) => (
+    <ListItem
+      listItem={item}
+      onGroupOrLecturerPress={() => this.onGroupOrLecturerPress(item)}
+    />
+  )
+
+  keyExtractorFunction = index => index.toString();
 
   render() {
     const { searchItem } = this.state;
@@ -86,13 +91,8 @@ class SearchTimetable extends Component {
                   : this.displayLecturers()}
                 keyboardDismissMode="onDrag"
                 scrollsToTop
-                renderItem={({ item }) => (
-                  <ListItem
-                    listItem={item}
-                    onSavedTtPress={() => this.onSavedTtPress(item)}
-                  />
-                )}
-                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item }) => this.renderFlatListItem({ item })}
+                keyExtractor={(item, index) => this.keyExtractorFunction(index)}
               />
             )
         }
@@ -105,6 +105,8 @@ SearchTimetable.propTypes = {
   groups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   lecturers: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   isLoading: PropTypes.bool.isRequired,
+  addGroupsAndLecturers: PropTypes.func.isRequired,
+  toggleSpinner: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -114,8 +116,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  addGroupsAndLecturers: actions.addGroupsAndLecturers,
   downloadTimetable: actions.downloadTimetable,
   toggleSpinner: actions.toggleSpinner,
+  addGroupsAndLecturers: actions.addGroupsAndLecturers,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SearchTimetable);

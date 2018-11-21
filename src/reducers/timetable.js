@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import * as utils from '@utils';
 import {
   FETCH_TIMETABLE, SET_TIMETABLE_ERROR, SET_CURRENT_TIMETABLE,
 } from '@actions/types';
@@ -14,29 +15,12 @@ export const savedTimetables = (state = {}, action) => {
   switch (action.type) {
     case FETCH_TIMETABLE:
       if (Object.keys(state).length > MAX_SAVED_TIMETABLES) {
-        const theEarliestTimetableDate = Math.min(...Object.values(state)
-          .map(value => value.createdOn));
-        const theEarliestTimetable = Object.keys(state)
-          .find(key => +(state[key].createdOn) === theEarliestTimetableDate);
+        const theEarliestTimetable = utils.getEarliestTimetable(state);
         const newState = { ...state };
         delete newState[theEarliestTimetable];
-        return {
-          ...newState,
-          [action.payload.groupOrLecturerName]: {
-            timetable: action.payload.timetable,
-            createdOn: new Date(),
-            filename: action.payload.filename,
-          },
-        };
+        return utils.getTimetableState(newState, action);
       }
-      return {
-        ...state,
-        [action.payload.groupOrLecturerName]: {
-          timetable: action.payload.timetable,
-          createdOn: new Date(),
-          filename: action.payload.filename,
-        },
-      };
+      return utils.getTimetableState(state, action);
     default:
       return state;
   }

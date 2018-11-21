@@ -1,12 +1,28 @@
 import { NetInfo } from 'react-native';
 import * as actions from '@actions';
 import DropDownHolder from '@common/DropDown/DropDownHolder';
+import { Actions } from 'react-native-router-flux';
 
 export const comparator = (first, second) => {
   if (first.number < second.number) { return -1; }
   if (first.number > second.number) { return 1; }
   return 0;
 };
+
+export const getTimetableState = (state, action) => ({
+  ...state,
+  [action.payload.groupOrLecturerName]: {
+    timetable: action.payload.timetable,
+    createdOn: new Date(),
+    filename: action.payload.filename,
+  },
+});
+
+const getErliestTimetableDate = state => Math.min(...Object.values(state)
+  .map(value => value.createdOn));
+
+export const getEarliestTimetable = state => Object.keys(state)
+  .find(key => +(state[key].createdOn) === getErliestTimetableDate(state));
 
 export const getSubgroups = timetable => timetable
   .map(item => item.subgroup)
@@ -39,12 +55,13 @@ export const checkConnectionToUpdateSavedTt = async () => {
 
 export const checkInternetConnection = errorStatus => errorStatus === 0;
 
-export const errorCatch = error => (dispatch) => {
+export const errorCatch = (error, groupOrLecturerName) => (dispatch) => {
   const errorStatus = error !== undefined ? error.status : null;
   if (checkInternetConnection(errorStatus)) {
     DropDownHolder.alert('error', 'Ошибка сети', 'Проверьте Интернет-соединение');
   } else {
     dispatch(actions.setTimetableError());
+    Actions.reset('_timetable', { headerText: checkIfGroup(groupOrLecturerName) ? `${groupOrLecturerName} гр.` : groupOrLecturerName });
   }
   dispatch(actions.toggleSpinner(false));
 };
