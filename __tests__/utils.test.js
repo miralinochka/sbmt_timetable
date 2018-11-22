@@ -10,20 +10,20 @@ describe('utils', () => {
   it('gets erliest timetable date', () => {
     const date = new Date().setDate(0);
     expect(utils.getEarliestTimetableDate({
-      '651': {
+      651: {
         timetable: {},
         createdOn: date,
-        filename: 'q'
+        filename: 'q',
       },
-      '652': {
+      652: {
         timetable: {},
         createdOn: new Date().setDate(15),
-        filename: 'q'
+        filename: 'q',
       },
-      '654': {
+      654: {
         timetable: {},
         createdOn: new Date().setDate(11),
-        filename: 'q'
+        filename: 'q',
       },
     })).toBe(date);
   });
@@ -31,33 +31,45 @@ describe('utils', () => {
   it('gets erliest timetable', () => {
     const date = new Date().setDate(0);
     expect(utils.getEarliestTimetable({
-      '651': {
+      651: {
         timetable: {},
         createdOn: date,
-        filename: 'q'
+        filename: 'q',
       },
-      '652': {
+      652: {
         timetable: {},
         createdOn: new Date().setDate(15),
-        filename: 'q'
+        filename: 'q',
       },
-      '654': {
+      654: {
         timetable: {},
         createdOn: new Date().setDate(11),
-        filename: 'q'
+        filename: 'q',
       },
     })).toBe('651');
   });
 
   it('gets subgroups', () => {
     expect(utils.getSubgroups([
-      {date: "03.09.2018", day: "Пн", time: "10:20", subgroup: "вся группа"},
-      {date: "03.09.2018", day: "Пн", time: "10:20", subgroup: "1 подгруппа"},
-      {date: "03.09.2018", day: "Пн", time: "10:20", subgroup: "2 подгруппа"},
-      {date: "03.09.2018", day: "Пн", time: "10:20", subgroup: "вся группа"},
-      {date: "03.09.2018", day: "Пн", time: "10:20", subgroup: "1 подгруппа"},
-      {date: "03.09.2018", day: "Пн", time: "10:20", subgroup: "2 подгруппа"},
-    ])).toEqual(["вся группа", "1 подгруппа", "2 подгруппа"]);
+      {
+        date: '03.09.2018', day: 'Пн', time: '10:20', subgroup: 'вся группа',
+      },
+      {
+        date: '03.09.2018', day: 'Пн', time: '10:20', subgroup: '1 подгруппа',
+      },
+      {
+        date: '03.09.2018', day: 'Пн', time: '10:20', subgroup: '2 подгруппа',
+      },
+      {
+        date: '03.09.2018', day: 'Пн', time: '10:20', subgroup: 'вся группа',
+      },
+      {
+        date: '03.09.2018', day: 'Пн', time: '10:20', subgroup: '1 подгруппа',
+      },
+      {
+        date: '03.09.2018', day: 'Пн', time: '10:20', subgroup: '2 подгруппа',
+      },
+    ])).toEqual(['вся группа', '1 подгруппа', '2 подгруппа']);
   });
 
   it('checks if it is a group', () => {
@@ -123,4 +135,4 @@ describe('utils', () => {
     expect(utils.checkNoInternetConnection(null)).toEqual(false);
     expect(utils.checkNoInternetConnection(0)).toBe(true);
   });
-})
+});

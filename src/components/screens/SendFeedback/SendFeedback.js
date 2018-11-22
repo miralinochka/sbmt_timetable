@@ -75,7 +75,6 @@ class SendFeedback extends Component {
     const {
       userName, email, subject, message,
     } = userFeedback;
-
     return (
       <SafeAreaView style={styles.container}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

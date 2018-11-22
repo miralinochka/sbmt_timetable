@@ -23,14 +23,6 @@ class ShowTimetable extends Component {
     currentDate: moment(),
   }
 
-  // componentDidMount() {
-  //   const { currentGroupOrLecturerName } = this.props;
-  //   if (currentGroupOrLecturerName) {
-  //     Actions.refresh({ headerText: currentGroupOrLecturerName});
-  //     console.log('refreshed');
-  //   }
-  // }
-
   onSwipeLeftTimetable = () => this.setState(prevState => ({ currentDate: prevState.currentDate.add(1, 'd') }));
 
   onSwipeRightTimetable = () => this.setState(prevState => ({ currentDate: prevState.currentDate.subtract(1, 'd') }));
@@ -77,7 +69,6 @@ class ShowTimetable extends Component {
   render() {
     const { currentTimetable, timetableError, isLoading } = this.props;
     const { currentDate } = this.state;
-    console.log('Show tt props', this.props);
     return (
       <SafeAreaView style={generalStyles.fullSize}>
         {isLoading ? <Spinner />

@@ -10,6 +10,7 @@ import ContainerItem from '../ContainerItem';
 import Container from '../Container';
 import ActionIcon from './ActionIcon';
 import styles from './styles';
+import { sceneNames } from '@constants';
 
 export const eventTypes = {
   SEND_FEEDBACK: 'SEND_FEEDBACK',
@@ -102,7 +103,7 @@ class Header extends Component {
       addGroupsAndLecturers,
     } = this.props;
     toggleSpinner(true);
-    if (initialRouteName === '_searchTimetable') {
+    if (initialRouteName === sceneNames.searchTimetable.name) {
       await addGroupsAndLecturers();
     } else {
       await downloadTimetable(currentGroupOrLecturer, new Date());
@@ -165,7 +166,7 @@ class Header extends Component {
           </View>
 
           {
-            initialRouteName === '_sendFeedback'
+            initialRouteName === sceneNames.sendFeedback.name
               ? (
                 <ActionIcon
                   icon={require('@images/tick.png')} // eslint-disable-line
@@ -178,8 +179,8 @@ class Header extends Component {
                   icon={require('@images/refresh.png')} // eslint-disable-line
                   hideIcon={!refresh && hiddenIcon}
                   onIconPress={this.onRefreshButtonPress}
-                  disabled={initialRouteName === '_savedTimetable'}
-                  styled={initialRouteName !== '_savedTimetable' ? rightButton : {}}
+                  disabled={initialRouteName === sceneNames.savedTimetable.name}
+                  styled={initialRouteName !== sceneNames.savedTimetable.name ? rightButton : {}}
                 />
               )
           }

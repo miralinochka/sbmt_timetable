@@ -1,6 +1,6 @@
 import React from 'react';
 import { Scene, Router } from 'react-native-router-flux';
-import CardStackStyleInterpolator from 'react-navigation-stack/dist/views/StackView/StackViewStyleInterpolator';
+import StackViewStyleInterpolator from 'react-navigation-stack/dist/views/StackView/StackViewStyleInterpolator';
 import ShowTimetable from '@screens/ShowTimetable';
 import SearchTimetable from '@screens/SearchTimetable';
 import SavedTimetable from '@screens/SavedTimetable';
@@ -30,7 +30,7 @@ const RouterComponent = ({ currentGroupOrLecturerName }) => (
       tabs
       tabBarStyle={footerStyle.viewStyle}
       showLabel={false}
-      transitionConfig={() => ({ screenInterpolator: CardStackStyleInterpolator.forHorizontal })}
+      transitionConfig={() => ({ screenInterpolator: screenProps => StackViewStyleInterpolator.forHorizontal(screenProps) })}
     >
       <Scene
         key={sceneNames.searchTimetable.route}

@@ -6,6 +6,7 @@ import { Actions } from 'react-native-router-flux';
 import * as actions from '@actions';
 import * as utils from '@utils';
 import ListItem from '@common/ListItem';
+import { sceneNames } from '@constants';
 
 class SavedTimetable extends Component {
   onGroupOrLecturerPress = async (pressedTTItem, timetableObject) => {
@@ -22,7 +23,7 @@ class SavedTimetable extends Component {
       await downloadTimetable(chosenGroupOrLecturer, new Date());
     } else {
       setCurrentTimetable({ ...chosenGroupOrLecturer });
-      Actions.reset('_timetable', { subgroups, headerText: pressedTTItem[0] > 0 ? `${pressedTTItem} гр.` : pressedTTItem });
+      Actions.reset(sceneNames.timetable.name, { subgroups, headerText: pressedTTItem[0] > 0 ? `${pressedTTItem} гр.` : pressedTTItem });
     }
   }
 

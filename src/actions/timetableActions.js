@@ -3,6 +3,7 @@ import { FETCH_TIMETABLE, SET_TIMETABLE_ERROR, SET_CURRENT_TIMETABLE } from './t
 import * as api from '@api';
 import * as utils from '@utils';
 import toggleSpinner from './loadingActions';
+import { sceneNames } from '@constants';
 
 export const setTimetableError = () => ({
   type: SET_TIMETABLE_ERROR,
@@ -19,11 +20,11 @@ export const downloadTimetable = (groupOrLecturer, updatedOn) => async (dispatch
     if (utils.checkIfGroup(groupOrLecturerFile)) {
       timetable = await api.getGroupTimetable(groupOrLecturerFile);
       subgroups = utils.getSubgroups(timetable);
-      Actions.reset('_timetable', { subgroups, headerText: `${groupOrLecturerName} гр.` });
+      Actions.reset(sceneNames.timetable.name, { subgroups, headerText: `${groupOrLecturerName} гр.` });
     } else {
       timetable = await api.getLecturerTimetable(groupOrLecturerFile);
       groupOrLecturerName = utils.shortenLecturerName(groupOrLecturerName);
-      Actions.reset('_timetable', { headerText: groupOrLecturerName });
+      Actions.reset(sceneNames.timetable.name, { headerText: groupOrLecturerName });
     }
     if (Object.values(timetable)[0]) {
       dispatch({
