@@ -8,7 +8,6 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import Spinner from '@common/Spinner';
 import generalStyles from '@styles/general';
-// import { Actions } from 'react-native-router-flux';
 import TimetableItem from './TimetableItem';
 import Calendar from './Calendar';
 import styles from './styles';

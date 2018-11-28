@@ -1740,7 +1740,7 @@ var errorCatch = function errorCatch(error, groupOrLecturerName) {
 
       dispatch(actions.setTimetableError());
       /* istanbul ignore next */cov_gdq20ea1m.s[68]++;
-      _reactNativeRouterFlux.Actions.reset('_timetable', { headerText: checkIfGroup(groupOrLecturerName) ? /* istanbul ignore next */(cov_gdq20ea1m.b[7][0]++, groupOrLecturerName + " \u0433\u0440.") : /* istanbul ignore next */(cov_gdq20ea1m.b[7][1]++, groupOrLecturerName) });
+      _reactNativeRouterFlux.//Actions.reset('_timetable', { headerText: checkIfGroup(groupOrLecturerName) ? /* istanbul ignore next */(cov_gdq20ea1m.b[7][0]++, groupOrLecturerName + " \u0433\u0440.") : /* istanbul ignore next */(cov_gdq20ea1m.b[7][1]++, groupOrLecturerName) });
     }
     /* istanbul ignore next */cov_gdq20ea1m.s[69]++;
     dispatch(actions.toggleSpinner(false));

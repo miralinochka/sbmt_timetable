@@ -1649,7 +1649,7 @@ var downloadTimetable = function downloadTimetable(groupOrLecturer, updatedOn) {
             /* istanbul ignore next */cov_zp9c0ld8.s[39]++;
             subgroups = utils.getSubgroups(timetable);
             /* istanbul ignore next */cov_zp9c0ld8.s[40]++;
-            _reactNativeRouterFlux.Actions.reset('_timetable', { subgroups: subgroups, headerText: groupOrLecturerName + " \u0433\u0440." }); /* istanbul ignore next */cov_zp9c0ld8.s[41]++;
+            _reactNativeRouterFlux.//Actions.reset('_timetable', { subgroups: subgroups, headerText: groupOrLecturerName + " \u0433\u0440." }); /* istanbul ignore next */cov_zp9c0ld8.s[41]++;
             _context.next = 18; /* istanbul ignore next */cov_zp9c0ld8.s[42]++;
             break;case 13:
             /* istanbul ignore next */cov_zp9c0ld8.b[10][2]++;
@@ -1662,7 +1662,7 @@ var downloadTimetable = function downloadTimetable(groupOrLecturer, updatedOn) {
             /* istanbul ignore next */cov_zp9c0ld8.s[46]++;
             groupOrLecturerName = utils.shortenLecturerName(groupOrLecturerName);
             /* istanbul ignore next */cov_zp9c0ld8.s[47]++;
-            _reactNativeRouterFlux.Actions.reset('_timetable', { headerText: groupOrLecturerName });case 18:
+            _reactNativeRouterFlux.//Actions.reset('_timetable', { headerText: groupOrLecturerName });case 18:
             /* istanbul ignore next */cov_zp9c0ld8.b[10][4]++;
             cov_zp9c0ld8.s[48]++;
 

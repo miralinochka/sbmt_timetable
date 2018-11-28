@@ -10,9 +10,9 @@ const { store, persistor } = configureStore({});
 const App = () => (
   <React.Fragment>
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      {/* <PersistGate loading={null} persistor={persistor}> */}
         <Router />
-      </PersistGate>
+      {/* </PersistGate> */}
     </Provider>
     <DropDown />
   </React.Fragment>

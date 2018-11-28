@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { SafeAreaView, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
 import * as actions from '@actions';
 import * as utils from '@utils';
 import ListItem from '@common/ListItem';
@@ -23,7 +22,7 @@ class SavedTimetable extends Component {
       await downloadTimetable(chosenGroupOrLecturer, new Date());
     } else {
       setCurrentTimetable({ ...chosenGroupOrLecturer });
-      Actions.reset(sceneNames.timetable.name, { subgroups, headerText: pressedTTItem[0] > 0 ? `${pressedTTItem} гр.` : pressedTTItem });
+      //Actions.reset(sceneNames.timetable.name, { subgroups, headerText: pressedTTItem[0] > 0 ? `${pressedTTItem} гр.` : pressedTTItem });
     }
   }
 

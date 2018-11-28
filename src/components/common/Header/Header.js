@@ -3,7 +3,7 @@ import {
   Text, TouchableOpacity, View, SafeAreaView, Platform,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { Actions } from 'react-native-router-flux';
+//import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import * as actions from '@actions';
 import ContainerItem from '../ContainerItem';

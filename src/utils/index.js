@@ -1,7 +1,6 @@
 import { NetInfo } from 'react-native';
 import * as actions from '@actions';
 import DropDownHolder from '@common/DropDown/DropDownHolder';
-import { Actions } from 'react-native-router-flux';
 import { sceneNames } from '@constants';
 
 export const comparator = (first, second) => {
@@ -62,7 +61,7 @@ export const errorCatch = (error, groupOrLecturerName) => (dispatch) => {
     DropDownHolder.alert('error', 'Ошибка сети', 'Проверьте Интернет-соединение');
   } else {
     dispatch(actions.setTimetableError());
-    Actions.reset(sceneNames.timetable.name, { headerText: checkIfGroup(groupOrLecturerName) ? `${groupOrLecturerName} гр.` : groupOrLecturerName });
+    //Actions.reset(sceneNames.timetable.name, { headerText: checkIfGroup(groupOrLecturerName) ? `${groupOrLecturerName} гр.` : groupOrLecturerName });
   }
   dispatch(actions.toggleSpinner(false));
 };

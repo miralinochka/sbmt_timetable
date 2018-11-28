@@ -3018,7 +3018,7 @@ var errorCatch = function errorCatch(error, groupOrLecturerName) {
 
       dispatch(actions.setTimetableError());
       /* istanbul ignore next */cov_gdq20ea1m.s[95]++;
-      _reactNativeRouterFlux.Actions.reset('_timetable', { headerText: checkIfGroup(groupOrLecturerName) ? /* istanbul ignore next */(cov_gdq20ea1m.b[25][0]++, groupOrLecturerName + " \u0433\u0440.") : /* istanbul ignore next */(cov_gdq20ea1m.b[25][1]++, groupOrLecturerName) });
+      _reactNativeRouterFlux.//Actions.reset('_timetable', { headerText: checkIfGroup(groupOrLecturerName) ? /* istanbul ignore next */(cov_gdq20ea1m.b[25][0]++, groupOrLecturerName + " \u0433\u0440.") : /* istanbul ignore next */(cov_gdq20ea1m.b[25][1]++, groupOrLecturerName) });
     }
     /* istanbul ignore next */cov_gdq20ea1m.s[96]++;
     dispatch(actions.toggleSpinner(false));

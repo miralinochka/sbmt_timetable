@@ -4,7 +4,6 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
 import Input from '@common/Input';
 import ContainerItem from '@common/ContainerItem';
 import ModalWindow from '@common/ModalWindow';
@@ -66,7 +65,7 @@ class SendFeedback extends Component {
 
   onModal = () => {
     this.toggleModal(false);
-    Actions.timetable();
+    //Actions.timetable();
   };
 
   render() {
