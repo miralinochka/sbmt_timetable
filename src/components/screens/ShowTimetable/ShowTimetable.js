@@ -8,6 +8,7 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import Spinner from '@common/Spinner';
 import generalStyles from '@styles/general';
+import { withNavigation } from 'react-navigation';
 import TimetableItem from './TimetableItem';
 import Calendar from './Calendar';
 import styles from './styles';
@@ -68,6 +69,7 @@ class ShowTimetable extends Component {
   render() {
     const { currentTimetable, timetableError, isLoading } = this.props;
     const { currentDate } = this.state;
+    console.log(this.props)
     return (
       <SafeAreaView style={generalStyles.fullSize}>
         {isLoading ? <Spinner />
@@ -127,4 +129,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps)(ShowTimetable);
+export default connect(mapStateToProps)(withNavigation(ShowTimetable));

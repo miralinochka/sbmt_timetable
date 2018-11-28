@@ -1,7 +1,8 @@
 import React from 'react';
 import {
-  createBottomTabNavigator, createAppContainer, TabNavigator, createStackNavigator,
+  createBottomTabNavigator, TabNavigator, createStackNavigator,
 } from 'react-navigation';
+// import StackViewStyleInterpolator from 'react-navigation-stack/dist/views/StackView/StackViewStyleInterpolator'
 import ShowTimetable from '@screens/ShowTimetable';
 import SearchTimetable from '@screens/SearchTimetable';
 import SavedTimetable from '@screens/SavedTimetable';
@@ -12,8 +13,9 @@ import { sceneNames } from '@constants';
 import {
   SearchIcon, TimetableIcon, BookmarkIcon, FeedbackIcon,
 } from '@common/TabIcons';
+import Header from '@common/Header';
 import footerStyle from '@common/Footer';
-import CustomHeader from './CustomHeader';
+import colors from '@styles/colors';
 
 // const renderHeaderText = (currentGroupOrLecturerName) => {
 //   if (currentGroupOrLecturerName) {
@@ -23,91 +25,15 @@ import CustomHeader from './CustomHeader';
 //   return 'Расписание занятий';
 // };
 
-// const RouterComponent = ({ currentGroupOrLecturerName }) => (
-//   <Router>
-//     <Scene
-//       key="root"
-//       navBar={Header}
-//       tabs
-//       tabBarStyle={footerStyle.viewStyle}
-//       showLabel={false}
-//       transitionConfig={() => ({ screenInterpolator: screenProps => StackViewStyleInterpolator.forHorizontal(screenProps) })}
-//     >
-//       <Scene
-//         key={sceneNames.searchTimetable.route}
-//         icon={SearchIcon}
-//         component={SearchTimetable}
-//         headerText={sceneNames.searchTimetable.title}
-//         refresh
-//         back
-//       />
-//       <Scene
-//         key={sceneNames.timetable.route}
-//         icon={TimetableIcon}
-//         component={ShowTimetable}
-//         headerText={renderHeaderText(currentGroupOrLecturerName)}
-//         showGroups
-//         refresh
-//         initial
-//       />
-//       <Scene
-//         key={sceneNames.savedTimetable.route}
-//         icon={BookmarkIcon}
-//         component={SavedTimetable}
-//         headerText={sceneNames.savedTimetable.title}
-//         back
-//       />
-//       <Scene
-//         key={sceneNames.sendFeedback.route}
-//         icon={FeedbackIcon}
-//         component={SendFeedback}
-//         headerText={sceneNames.sendFeedback.title}
-//         back
-//       />
-//     </Scene>
-//   </Router>
-// );
-
-const headerDefaultNavigationConfig = {
-  header: props => <CustomHeader {...props} />,
-  headerStyle: {
-    backgroundColor: 'transparent',
-  },
-  headerTitleStyle: {
-    fontWeight: 'bold',
-    color: '#fff',
-    fontSize: 18,
-    zIndex: 1,
-    lineHeight: 23,
-  },
-  headerTintColor: '#fff',
-};
-
-// const Search = createStackNavigator({ SearchTimetable });
-// Search.navigationOptions = {
-//   title: 'Найти расписание',
-// };
-
-const AppNavigator = createBottomTabNavigator({
+const Tabs = createBottomTabNavigator({
+  // ShowTimetable: createStackNavigator({ShowTimetable}),
+  // SearchTimetable: createStackNavigator({SearchTimetable}),
+  // SavedTimetable: createStackNavigator({SavedTimetable}),
+  // SendFeedback: createStackNavigator({SendFeedback}),
+  ShowTimetable,
   SearchTimetable,
-  ShowTimetable: {
-    screen: ShowTimetable,
-    navigationOptions: () => ({
-      tabBarIcon: () => <TimetableIcon />,
-    }),
-  },
-  SavedTimetable: {
-    screen: SavedTimetable,
-    navigationOptions: () => ({
-      tabBarIcon: () => <BookmarkIcon />,
-    }),
-  },
-  SendFeedback: {
-    screen: SendFeedback,
-    navigationOptions: () => ({
-      tabBarIcon: () => <FeedbackIcon />,
-    }),
-  },
+  SavedTimetable,
+  SendFeedback,
 },
 {
   initialRouteName: 'ShowTimetable',
@@ -117,7 +43,45 @@ const AppNavigator = createBottomTabNavigator({
   },
   tabBarPosition: 'bottom',
   swipeEnabled: false,
+  navigationOptions: ({ navigation }) => ({
+    header: props => <Header {...props} />,
+    tabBarIcon: () => {
+      const { routeName } = navigation.state;
+      switch (routeName) {
+        case 'SearchTimetable':
+          return <SearchIcon />;
+        case 'ShowTimetable':
+          return <TimetableIcon />;
+        case 'SavedTimetable':
+          return <BookmarkIcon />;
+        default:
+          return <FeedbackIcon />;
+      }
+    },
+  }),
 });
+
+Tabs.navigationOptions = ({ navigation }) => {
+  let title;
+  const focusedRouteName = navigation.state.routes[navigation.state.index].routeName;
+  switch (focusedRouteName) {
+    case 'SearchTimetable':
+      title = 'Найти расписание';
+      break;
+    case 'ShowTimetable':
+      title = 'Расписание занятий';
+      break;
+    case 'SavedTimetable':
+      title = 'Сохраненное расписание';
+      break;
+    default:
+      title = 'Напишите нам';
+      break;
+  }
+  return {
+    title,
+  };
+};
 
 // const mapStateToProps = state => ({
 //   currentGroupOrLecturerName: state.timetable.currentGroupOrLecturer.groupOrLecturerName,
@@ -131,4 +95,16 @@ const AppNavigator = createBottomTabNavigator({
 //   currentGroupOrLecturerName: PropTypes.string,
 // };
 
-export default createAppContainer(AppNavigator);
+export default createStackNavigator(
+  {
+    Tabs,
+  },
+  {
+    headerMode: 'screen',
+    navigationOptions: ({ navigation }) => console.log(navigation) || ({
+      header: props => console.log(props) || <Header {...props} />,
+    }),
+  },
+);
+
+// export default Tabs;

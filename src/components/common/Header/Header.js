@@ -3,7 +3,6 @@ import {
   Text, TouchableOpacity, View, SafeAreaView, Platform,
 } from 'react-native';
 import PropTypes from 'prop-types';
-//import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import * as actions from '@actions';
 import ContainerItem from '../ContainerItem';
@@ -49,7 +48,7 @@ class Header extends Component {
   };
 
   changeTimetableView = (subgroup) => {
-    Actions.reset('_timetable', { subgroup });
+    this.props.navigation.setParams({ subgroup });
     this.setState({ visibleGroupView: false });
   };
 
@@ -80,6 +79,7 @@ class Header extends Component {
   changeGroupView = () => this.setState(prev => ({ visibleGroupView: !prev.visibleGroupView }));
 
   onGroupButtonPress = () => {
+    const { navigation } = this.props;
     if (Platform.OS === 'ios') {
       return this.changeGroupView();
     }
@@ -87,11 +87,11 @@ class Header extends Component {
     if (subgroup) {
       const subIndex = subgroups.indexOf(subgroup);
       if (subIndex !== subgroups.length - 1) {
-        return Actions.refresh({ subgroup: subgroups[subIndex + 1] });
+        return navigation.setParams({ subgroup: subgroups[subIndex + 1] });
       }
-      return Actions.refresh({ subgroup: subgroups[0] });
+      return navigation.setParams({ subgroup: subgroups[0] });
     }
-    return Actions.refresh({ subgroup: subgroups[1] });
+    return navigation.setParams({ subgroup: subgroups[1] });
   }
 
   onRefreshButtonPress = async () => {
@@ -112,14 +112,18 @@ class Header extends Component {
 
   onTickButtonPress = async () => this.createEvent(eventTypes.SEND_FEEDBACK);
 
-  onBackButtonPress = () => Actions.timetable();
+  onBackButtonPress = () => this.props.navigation.navigate('ShowTimetable');
+
+  hideRefreshButton = initialRouteName => initialRouteName === sceneNames.savedTimetable.name;
+
+  showBackButton = initialRouteName => initialRouteName !== sceneNames.timetable.name;
 
   render() {
     const {
-      headerText, showGroups, back, subgroups, refresh, initialRouteName, subgroup,
+      subgroups, subgroup, scene,
     } = this.props;
     const {
-      title,
+      headerText,
       view,
       safeArea,
       hiddenIcon,
@@ -130,11 +134,16 @@ class Header extends Component {
       rightButton,
     } = styles;
     const { visibleGroupView } = this.state;
+    const title = scene.descriptor.options.title;
+    const initialRouteName = scene.route.routes[scene.route.index].routeName;
+    console.log('title', title, 'initialRouteName', initialRouteName);
+
+    console.log(this.props);
     return (
       <SafeAreaView style={safeArea}>
         <View style={view}>
           {
-          showGroups && (
+          initialRouteName === sceneNames.timetable.name && (
             <ActionIcon
               icon={require('@images/groups.png')} // eslint-disable-line global-require
               hideIcon={(subgroups.length < 2) && hiddenIcon}
@@ -151,7 +160,7 @@ class Header extends Component {
           </Container>
           )}
           {
-          back && (
+          this.showBackButton(initialRouteName) && (
             <ActionIcon
               icon={require('@images/back.png')} // eslint-disable-line
               backIcon={backIcon}
@@ -161,7 +170,7 @@ class Header extends Component {
           )
         }
           <View style={headerTextView}>
-            <Text style={title}>{headerText}</Text>
+            <Text style={headerText}>{title}</Text>
             {this.renderShortSubgroupName(subgroup)}
           </View>
 
@@ -177,10 +186,10 @@ class Header extends Component {
               : (
                 <ActionIcon
                   icon={require('@images/refresh.png')} // eslint-disable-line
-                  hideIcon={!refresh && hiddenIcon}
+                  hideIcon={this.hideRefreshButton(initialRouteName) && hiddenIcon}
                   onIconPress={this.onRefreshButtonPress}
-                  disabled={initialRouteName === sceneNames.savedTimetable.name}
-                  styled={initialRouteName !== sceneNames.savedTimetable.name ? rightButton : {}}
+                  disabled={this.hideRefreshButton(initialRouteName)}
+                  styled={this.hideRefreshButton(initialRouteName) ? {} : rightButton}
                 />
               )
           }
@@ -191,20 +200,12 @@ class Header extends Component {
 }
 
 Header.defaultProps = {
-  showGroups: null,
-  back: null,
-  refresh: null,
   subgroup: '',
 };
 
 Header.propTypes = {
-  headerText: PropTypes.string.isRequired,
-  showGroups: PropTypes.bool,
-  back: PropTypes.bool,
-  refresh: PropTypes.bool,
   subgroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   subgroup: PropTypes.string,
-  initialRouteName: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({

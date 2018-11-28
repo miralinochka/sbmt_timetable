@@ -22,7 +22,7 @@
     "react-native": "0.57.3",
     "react-native-dropdownalert": "^3.7.0",
     "react-native-swipe-gestures": "^1.0.2",
-    "react-navigation": "^3.0.0",
+    "react-navigation": "^2.18.3",
     "react-redux": "^5.0.7",
     "reactotron-react-native": "^2.1.0",
     "redux": "^4.0.1",
