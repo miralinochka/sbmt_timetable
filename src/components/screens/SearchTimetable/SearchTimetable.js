@@ -17,6 +17,10 @@ const searchItems = {
 };
 
 class SearchTimetable extends Component {
+  static navigationOptions = {
+    title: 'Найти расписание',
+  }
+
   state = {
     searchItem: searchItems.group,
     inputText: '',

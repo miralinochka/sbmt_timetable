@@ -15,13 +15,13 @@ import {
 import footerStyle from '@common/Footer';
 import CustomHeader from './CustomHeader';
 
-const renderHeaderText = (currentGroupOrLecturerName) => {
-  if (currentGroupOrLecturerName) {
-    if (currentGroupOrLecturerName[0] > 0) return `${currentGroupOrLecturerName} гр.`;
-    return currentGroupOrLecturerName;
-  }
-  return 'Расписание занятий';
-};
+// const renderHeaderText = (currentGroupOrLecturerName) => {
+//   if (currentGroupOrLecturerName) {
+//     if (currentGroupOrLecturerName[0] > 0) return `${currentGroupOrLecturerName} гр.`;
+//     return currentGroupOrLecturerName;
+//   }
+//   return 'Расписание занятий';
+// };
 
 // const RouterComponent = ({ currentGroupOrLecturerName }) => (
 //   <Router>
@@ -83,26 +83,16 @@ const headerDefaultNavigationConfig = {
   headerTintColor: '#fff',
 };
 
-const Search = createStackNavigator({
-  Search: {
-    screen: SearchTimetable,
-    navigationOptions: {
-      headerTitle: 'Tab 2 Screen',
-    },
-  },
-},
-{
-  navigationOptions: {
-    ...headerDefaultNavigationConfig,
-  },
-});
+// const Search = createStackNavigator({ SearchTimetable });
+// Search.navigationOptions = {
+//   title: 'Найти расписание',
+// };
 
 const AppNavigator = createBottomTabNavigator({
-  SearchTimetable: Search,
+  SearchTimetable,
   ShowTimetable: {
     screen: ShowTimetable,
     navigationOptions: () => ({
-      title: 'fdfdf',
       tabBarIcon: () => <TimetableIcon />,
     }),
   },
