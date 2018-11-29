@@ -11,7 +11,8 @@
     "server": "node ./server/server.js",
     "ios": "react-native run-ios",
     "iphone7": "react-native run-ios --simulator=\"iPhone 7\"",
-    "android": "react-native run-android"
+    "android": "react-native run-android",
+    "postinstall": "node ./patchers/gesturePatcher"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -43,7 +44,9 @@
   "jest": {
     "preset": "react-native",
     "cacheDirectory": "./cache",
-    "transform" : { "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js" },
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
+    },
     "transformIgnorePatterns": [
       "node_modules/(?!react-native|react-navigation)/"
     ]

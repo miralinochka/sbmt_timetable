@@ -10,6 +10,14 @@ export const comparator = (first, second) => {
   return 0;
 };
 
+export const renderHeaderText = (currentGroupOrLecturerName) => {
+  if (currentGroupOrLecturerName) {
+    if (currentGroupOrLecturerName[0] > 0) return `${currentGroupOrLecturerName} гр.`;
+    return currentGroupOrLecturerName;
+  }
+  return 'Расписание занятий';
+};
+
 export const getTimetableState = (state, action) => ({
   ...state,
   [action.payload.groupOrLecturerName]: {

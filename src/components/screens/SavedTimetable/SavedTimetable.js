@@ -6,6 +6,7 @@ import { Actions } from 'react-native-router-flux';
 import * as actions from '@actions';
 import * as utils from '@utils';
 import ListItem from '@common/ListItem';
+import Spinner from '@common/Spinner';
 import { sceneNames } from '@constants';
 
 class SavedTimetable extends Component {
@@ -40,11 +41,16 @@ class SavedTimetable extends Component {
   }
 
   render() {
+    const { isLoading } = this.props;
     return (
       <SafeAreaView>
-        <ScrollView>
-          {this.renderSavedTimetable()}
-        </ScrollView>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <ScrollView>
+            {this.renderSavedTimetable()}
+          </ScrollView>
+        )}
       </SafeAreaView>
     );
   }
@@ -57,10 +63,12 @@ SavedTimetable.propTypes = {
     createdOn: PropTypes.shape({}),
     filename: PropTypes.string,
   }).isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   savedTimetables: state.timetable.savedTimetables,
+  isLoading: state.isLoading,
 });
 
 const mapDispatchToProps = {

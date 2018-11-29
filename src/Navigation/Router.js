@@ -1,6 +1,6 @@
 import React from 'react';
 import { Scene, Router } from 'react-native-router-flux';
-import StackViewStyleInterpolator from 'react-navigation-stack/dist/views/StackView/StackViewStyleInterpolator';
+import StackViewStyleInterpolator from 'react-navigation-stack';
 import ShowTimetable from '@screens/ShowTimetable';
 import SearchTimetable from '@screens/SearchTimetable';
 import SavedTimetable from '@screens/SavedTimetable';
@@ -13,14 +13,8 @@ import {
   SearchIcon, TimetableIcon, BookmarkIcon, FeedbackIcon,
 } from '@common/TabIcons';
 import footerStyle from '@common/Footer';
+import * as utils from '@utils';
 
-const renderHeaderText = (currentGroupOrLecturerName) => {
-  if (currentGroupOrLecturerName) {
-    if (currentGroupOrLecturerName[0] > 0) return `${currentGroupOrLecturerName} гр.`;
-    return currentGroupOrLecturerName;
-  }
-  return 'Расписание занятий';
-};
 
 const RouterComponent = ({ currentGroupOrLecturerName }) => (
   <Router>
@@ -30,8 +24,18 @@ const RouterComponent = ({ currentGroupOrLecturerName }) => (
       tabs
       tabBarStyle={footerStyle.viewStyle}
       showLabel={false}
-      transitionConfig={() => ({ screenInterpolator: screenProps => StackViewStyleInterpolator.forHorizontal(screenProps) })}
+      transitionConfig={() => ({ screenInterpolator: StackViewStyleInterpolator.forInitial })}
     >
+      <Scene
+        key={sceneNames.timetable.route}
+        icon={TimetableIcon}
+        component={ShowTimetable}
+        headerText={utils.renderHeaderText(currentGroupOrLecturerName)}
+        showGroups
+        refresh
+        initial
+        transitionConfig={() => ({ screenInterpolator: StackViewStyleInterpolator.forInitial })}
+      />
       <Scene
         key={sceneNames.searchTimetable.route}
         icon={SearchIcon}
@@ -39,15 +43,6 @@ const RouterComponent = ({ currentGroupOrLecturerName }) => (
         headerText={sceneNames.searchTimetable.title}
         refresh
         back
-      />
-      <Scene
-        key={sceneNames.timetable.route}
-        icon={TimetableIcon}
-        component={ShowTimetable}
-        headerText={renderHeaderText(currentGroupOrLecturerName)}
-        showGroups
-        refresh
-        initial
       />
       <Scene
         key={sceneNames.savedTimetable.route}
