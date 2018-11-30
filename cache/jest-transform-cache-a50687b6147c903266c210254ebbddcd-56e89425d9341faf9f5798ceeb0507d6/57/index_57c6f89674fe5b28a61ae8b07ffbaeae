@@ -1,0 +1,83 @@
+91d70375dfab6d32d572ec68b614e336
+"use strict";
+
+/* istanbul ignore next */var cov_ahbxo6gqh = function () {
+  var path = "/Users/mac-185-71/Projects/sbmt_timetable/src/constants/index.js",
+      hash = "e64ff7dd13840ce3bf8ce401252b0ca1f4a8b44b",
+      Function = function () {}.constructor,
+      global = new Function('return this')(),
+      gcv = "__coverage__",
+      coverageData = {
+    path: "/Users/mac-185-71/Projects/sbmt_timetable/src/constants/index.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 1,
+          column: 13
+        },
+        end: {
+          line: 1,
+          column: 75
+        }
+      },
+      "1": {
+        start: {
+          line: 1,
+          column: 75
+        },
+        end: {
+          line: 1,
+          column: 103
+        }
+      },
+      "2": {
+        start: {
+          line: 1,
+          column: 120
+        },
+        end: {
+          line: 5,
+          column: 89
+        }
+      },
+      "3": {
+        start: {
+          line: 5,
+          column: 90
+        },
+        end: {
+          line: 5,
+          column: 122
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "332fd63041d2c1bcb487cc26dd0d5f7d97098a6c"
+  },
+      coverage = global[gcv] || (global[gcv] = {});
+
+  if (coverage[path] && coverage[path].hash === hash) {
+    return coverage[path];
+  }
+
+  coverageData.hash = hash;
+  return coverage[path] = coverageData;
+}();
+
+cov_ahbxo6gqh.s[0]++;
+Object.defineProperty(exports, "__esModule", { value: true }); /* istanbul ignore next */cov_ahbxo6gqh.s[1]++;
+exports.sceneNames = void 0;var sceneNames = /* istanbul ignore next */(cov_ahbxo6gqh.s[2]++, {
+  timetable: { route: 'timetable', name: '_timetable', title: 'Расписание занятий' },
+  searchTimetable: { route: 'searchTimetable', name: '_searchTimetable', title: 'Найти расписание' },
+  savedTimetable: { route: 'savedTimetable', name: '_savedTimetable', title: 'Сохраненное расписание' },
+  sendFeedback: { route: 'sendFeedback', name: '_sendFeedback', title: 'Напишите нам' } }); /* istanbul ignore next */cov_ahbxo6gqh.s[3]++;
+exports.sceneNames = sceneNames;

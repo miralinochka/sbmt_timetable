@@ -1,5 +1,7 @@
 import { Actions } from 'react-native-router-flux';
-import { FETCH_TIMETABLE, SET_TIMETABLE_ERROR, SET_CURRENT_TIMETABLE } from './types';
+import {
+  FETCH_TIMETABLE, SET_TIMETABLE_ERROR, SET_CURRENT_TIMETABLE, SET_CURRENT_SUBGROUP,
+} from './types';
 import * as api from '@api';
 import * as utils from '@utils';
 import toggleSpinner from './loadingActions';
@@ -55,5 +57,12 @@ export const setCurrentTimetable = ({
     timetable,
     subgroups,
     filename,
+  },
+});
+
+export const setCurrentSubgroup = subgroup => ({
+  type: SET_CURRENT_SUBGROUP,
+  payload: {
+    subgroup,
   },
 });

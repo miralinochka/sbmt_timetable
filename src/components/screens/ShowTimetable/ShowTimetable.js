@@ -8,10 +8,10 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import Spinner from '@common/Spinner';
 import generalStyles from '@styles/general';
-// import { Actions } from 'react-native-router-flux';
 import TimetableItem from './TimetableItem';
 import Calendar from './Calendar';
 import styles from './styles';
+import * as utils from '@utils';
 
 const config = {
   velocityThreshold: 0.3,
@@ -28,8 +28,8 @@ class ShowTimetable extends Component {
   onSwipeRightTimetable = () => this.setState(prevState => ({ currentDate: prevState.currentDate.subtract(1, 'd') }));
 
   renderTimetable = (currentDate) => {
-    const { currentTimetable, subgroup } = this.props;
-    const relevantTimetable = this.getCurrentTimetable(currentTimetable, currentDate);
+    const { currentTimetable, currentSubgroup } = this.props;
+    const relevantTimetable = utils.getCurrentTimetable(currentTimetable, currentDate);
     if (relevantTimetable.length === 0) {
       return (
         <View style={styles.defaultTextView}>
@@ -38,7 +38,7 @@ class ShowTimetable extends Component {
       );
     }
     return relevantTimetable.map((ttItem) => {
-      if (ttItem.subgroup === subgroup || ttItem.subgroup === 'вся группа' || subgroup === 'вся группа') {
+      if (ttItem.subgroup === currentSubgroup || ttItem.subgroup === 'вся группа' || currentSubgroup === 'вся группа') {
         return (
           <TimetableItem
             key={ttItem.time + ttItem.lecturer}
@@ -47,14 +47,6 @@ class ShowTimetable extends Component {
       }
       return null;
     });
-  }
-
-  getCurrentTimetable = (timetable, currentDate) => {
-    const currentTT = timetable.filter((tt) => {
-      const ttDate = moment(tt.date, 'DD-MM-YYYY', 'ru').format('L');
-      return ttDate === currentDate.format('L');
-    });
-    return currentTT;
   }
 
   onCurrentDayChange = (currentDate) => {
@@ -69,7 +61,6 @@ class ShowTimetable extends Component {
   render() {
     const { currentTimetable, timetableError, isLoading } = this.props;
     const { currentDate } = this.state;
-    console.log(this.props)
     return (
       <SafeAreaView style={generalStyles.fullSize}>
         {isLoading ? <Spinner />
@@ -110,19 +101,19 @@ class ShowTimetable extends Component {
 }
 
 ShowTimetable.defaultProps = {
-  subgroup: 'вся группа',
   currentTimetable: [],
 };
 
 ShowTimetable.propTypes = {
   timetableError: PropTypes.string.isRequired,
-  subgroup: PropTypes.string,
+  currentSubgroup: PropTypes.string.isRequired,
   currentTimetable: PropTypes.arrayOf(PropTypes.shape({})),
   isLoading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   currentGroupOrLecturerName: state.timetable.currentGroupOrLecturer.groupOrLecturerName,
+  currentSubgroup: state.timetable.currentGroupOrLecturer.currentSubgroup,
   currentTimetable: state.timetable.currentTimetable,
   timetableError: state.timetable.timetableError,
   isLoading: state.isLoading,

@@ -3,6 +3,7 @@ import * as actions from '@actions';
 import DropDownHolder from '@common/DropDown/DropDownHolder';
 import { Actions } from 'react-native-router-flux';
 import { sceneNames } from '@constants';
+import moment from 'moment';
 
 export const comparator = (first, second) => {
   if (first.number < second.number) { return -1; }
@@ -10,7 +11,7 @@ export const comparator = (first, second) => {
   return 0;
 };
 
-export const renderHeaderText = (currentGroupOrLecturerName) => {
+export const printHeaderText = (currentGroupOrLecturerName) => {
   if (currentGroupOrLecturerName) {
     if (currentGroupOrLecturerName[0] > 0) return `${currentGroupOrLecturerName} гр.`;
     return currentGroupOrLecturerName;
@@ -70,7 +71,15 @@ export const errorCatch = (error, groupOrLecturerName) => (dispatch) => {
     DropDownHolder.alert('error', 'Ошибка сети', 'Проверьте Интернет-соединение');
   } else {
     dispatch(actions.setTimetableError());
-    Actions.reset(sceneNames.timetable.name, { headerText: checkIfGroup(groupOrLecturerName) ? `${groupOrLecturerName} гр.` : groupOrLecturerName });
+    Actions.reset(sceneNames.timetable.name, { headerText: groupOrLecturerName && checkIfGroup(groupOrLecturerName) ? `${groupOrLecturerName} гр.` : groupOrLecturerName || 'Расписание занятий' });
   }
   dispatch(actions.toggleSpinner(false));
+};
+
+export const getCurrentTimetable = (timetable, currentDate) => {
+  const currentTT = timetable.filter((tt) => {
+    const ttDate = moment(tt.date, 'DD-MM-YYYY', 'ru').format('L');
+    return ttDate === currentDate.format('L');
+  });
+  return currentTT;
 };

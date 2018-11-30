@@ -24,17 +24,17 @@ const RouterComponent = ({ currentGroupOrLecturerName }) => (
       tabs
       tabBarStyle={footerStyle.viewStyle}
       showLabel={false}
-      transitionConfig={() => ({ screenInterpolator: StackViewStyleInterpolator.forInitial })}
+      transitionConfig={() => ({ screenInterpolator: StackViewStyleInterpolator.forHorizontal })}
     >
       <Scene
         key={sceneNames.timetable.route}
         icon={TimetableIcon}
         component={ShowTimetable}
-        headerText={utils.renderHeaderText(currentGroupOrLecturerName)}
+        headerText={utils.printHeaderText(currentGroupOrLecturerName)}
         showGroups
         refresh
         initial
-        transitionConfig={() => ({ screenInterpolator: StackViewStyleInterpolator.forInitial })}
+        transitionConfig={() => ({ screenInterpolator: StackViewStyleInterpolator.forHorizontal })}
       />
       <Scene
         key={sceneNames.searchTimetable.route}
@@ -43,12 +43,14 @@ const RouterComponent = ({ currentGroupOrLecturerName }) => (
         headerText={sceneNames.searchTimetable.title}
         refresh
         back
+        transitionConfig={() => ({ screenInterpolator: StackViewStyleInterpolator.forHorizontal })}
       />
       <Scene
         key={sceneNames.savedTimetable.route}
         icon={BookmarkIcon}
         component={SavedTimetable}
         headerText={sceneNames.savedTimetable.title}
+        transitionConfig={() => ({ screenInterpolator: StackViewStyleInterpolator.forHorizontal })}
         back
       />
       <Scene
@@ -56,6 +58,7 @@ const RouterComponent = ({ currentGroupOrLecturerName }) => (
         icon={FeedbackIcon}
         component={SendFeedback}
         headerText={sceneNames.sendFeedback.title}
+        transitionConfig={() => ({ screenInterpolator: StackViewStyleInterpolator.forHorizontal })}
         back
       />
     </Scene>

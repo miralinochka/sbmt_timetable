@@ -14,6 +14,7 @@ import { sceneNames } from '@constants';
 
 export const eventTypes = {
   SEND_FEEDBACK: 'SEND_FEEDBACK',
+  UPDATE_SUBGROUP: 'UPDATE_SUBGROUP',
 };
 
 class Header extends Component {
@@ -48,8 +49,9 @@ class Header extends Component {
     }
   };
 
-  changeTimetableView = (subgroup) => {
-    Actions.reset('_timetable', { subgroup });
+  changeTimetableView = (currentSubgroup) => {
+    const { setCurrentSubgroup } = this.props;
+    setCurrentSubgroup(currentSubgroup);
     this.setState({ visibleGroupView: false });
   };
 
@@ -67,9 +69,9 @@ class Header extends Component {
     return null;
   };
 
-  renderShortSubgroupName = (subgroup) => {
-    if (subgroup !== '' && subgroup !== 'вся группа') {
-      const textString = `, ${subgroup[0]} подгр.`;
+  renderShortSubgroupName = (currentSubgroup) => {
+    if (currentSubgroup !== '' && currentSubgroup !== 'вся группа') {
+      const textString = `, ${currentSubgroup[0]} подгр.`;
       return (
         <Text style={styles.title}>{textString}</Text>
       );
@@ -83,15 +85,15 @@ class Header extends Component {
     if (Platform.OS === 'ios') {
       return this.changeGroupView();
     }
-    const { subgroups, subgroup } = this.props;
-    if (subgroup) {
-      const subIndex = subgroups.indexOf(subgroup);
+    const { subgroups, currentSubgroup, setCurrentSubgroup } = this.props;
+    if (currentSubgroup) {
+      const subIndex = subgroups.indexOf(currentSubgroup);
       if (subIndex !== subgroups.length - 1) {
-        return Actions.refresh({ subgroup: subgroups[subIndex + 1] });
+        return setCurrentSubgroup(subgroups[subIndex + 1]);
       }
-      return Actions.refresh({ subgroup: subgroups[0] });
+      return setCurrentSubgroup(subgroups[0]);
     }
-    return Actions.refresh({ subgroup: subgroups[1] });
+    return setCurrentSubgroup(subgroups[1]);
   }
 
   onRefreshButtonPress = async () => {
@@ -116,7 +118,7 @@ class Header extends Component {
 
   render() {
     const {
-      headerText, showGroups, back, subgroups, refresh, initialRouteName, subgroup,
+      headerText, showGroups, back, subgroups, refresh, initialRouteName, currentSubgroup,
     } = this.props;
     const {
       title,
@@ -162,7 +164,7 @@ class Header extends Component {
         }
           <View style={headerTextView}>
             <Text style={title}>{headerText}</Text>
-            {this.renderShortSubgroupName(subgroup)}
+            {initialRouteName === sceneNames.timetable.name && this.renderShortSubgroupName(currentSubgroup)}
           </View>
 
           {
@@ -194,7 +196,7 @@ Header.defaultProps = {
   showGroups: null,
   back: null,
   refresh: null,
-  subgroup: '',
+  currentSubgroup: '',
 };
 
 Header.propTypes = {
@@ -203,12 +205,13 @@ Header.propTypes = {
   back: PropTypes.bool,
   refresh: PropTypes.bool,
   subgroups: PropTypes.arrayOf(PropTypes.string).isRequired,
-  subgroup: PropTypes.string,
+  currentSubgroup: PropTypes.string,
   initialRouteName: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
   subgroups: state.timetable.currentGroupOrLecturer.subgroups,
+  currentSubgroup: state.timetable.currentGroupOrLecturer.currentSubgroup,
   currentGroupOrLecturer: state.timetable.currentGroupOrLecturer,
 });
 
@@ -216,6 +219,7 @@ const mapDispatchToProps = {
   downloadTimetable: actions.downloadTimetable,
   addGroupsAndLecturers: actions.addGroupsAndLecturers,
   toggleSpinner: actions.toggleSpinner,
+  setCurrentSubgroup: actions.setCurrentSubgroup,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

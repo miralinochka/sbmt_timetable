@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for actions/loadingActions.js</title>
+    <title>Code coverage report for constants/index.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -16,13 +16,13 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../index.html">All files</a> / <a href="index.html">actions</a> loadingActions.js
+      <a href="../index.html">All files</a> / <a href="index.html">constants</a> index.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">85.71% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>6/7</span>
+        <span class='fraction'>4/4</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,14 +30,14 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/1</span>
+        <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>3/3</span>
+        <span class='fraction'>2/2</span>
       </div>
     </div>
   </div>
@@ -49,24 +49,18 @@
 4
 5
 6
-7
-8
-9</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+7</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { TOGGLE_SPINNER } from './types';
-&nbsp;
-const toggleSpinner = spinner<span class="fstat-no" title="function not covered" >Mode =&gt; ({<span class="cstat-no" title="statement not covered" ></span></span>
-  type: TOGGLE_SPINNER,
-  payload: { spinnerMode },
-});
-&nbsp;
-export default toggleSpinner;
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export const sceneNames = {
+  timetable: { route: 'timetable', name: '_timetable', title: 'Расписание занятий' },
+  searchTimetable: { route: 'searchTimetable', name: '_searchTimetable', title: 'Найти расписание' },
+  savedTimetable: { route: 'savedTimetable', name: '_savedTimetable', title: 'Сохраненное расписание' },
+  sendFeedback: { route: 'sendFeedback', name: '_sendFeedback', title: 'Напишите нам' },
+};
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
