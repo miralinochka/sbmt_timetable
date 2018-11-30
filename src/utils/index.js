@@ -4,6 +4,7 @@ import DropDownHolder from '@common/DropDown/DropDownHolder';
 import { Actions } from 'react-native-router-flux';
 import { sceneNames } from '@constants';
 import moment from 'moment';
+import colors from '@styles/colors';
 
 export const comparator = (first, second) => {
   if (first.number < second.number) { return -1; }
@@ -82,4 +83,20 @@ export const getCurrentTimetable = (timetable, currentDate) => {
     return ttDate === currentDate.format('L');
   });
   return currentTT;
+};
+
+export const generateBackgroundColor = (subjectTypeForm) => {
+  switch (subjectTypeForm) {
+    case 'л':
+      return colors.lectureColor;
+    case 'з':
+    case 'э':
+      return colors.creditColor;
+    case 'т':
+    case 'уср':
+    case 'кср':
+      return colors.testingColor;
+    default:
+      return colors.practiseColor;
+  }
 };

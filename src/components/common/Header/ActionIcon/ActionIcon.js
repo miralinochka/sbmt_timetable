@@ -7,9 +7,9 @@ import styles from './styles';
 
 const ActionIcon = ({
   // eslint-disable-next-line react/prop-types
-  icon, onIconPress, hideIcon, backIcon, disabled, styled,
+  icon, onIconPress, hideIcon, backIcon, disabled, styled, testID
 }) => (
-  <TouchableOpacity onPress={disabled ? undefined : onIconPress} style={[styles.icon, styled]}>
+  <TouchableOpacity testID={testID} onPress={disabled ? undefined : onIconPress} style={[styles.icon, styled]}>
     <Image
       style={[styles.icon, backIcon, hideIcon]}
       source={icon}

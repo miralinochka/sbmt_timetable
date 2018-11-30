@@ -7,11 +7,8 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import styles from './styles';
+import * as constants from '@constants';
 
-const weekdays = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
-const monthArray = [
-  'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь',
-];
 const config = {
   velocityThreshold: 0.3,
   directionalOffsetThreshold: 80,
@@ -33,7 +30,7 @@ class Calendar extends Component {
     return null;
   }
 
-  renderMonth = date => `${monthArray[date.month()]}, ${date.year()}`;
+  renderMonth = date => `${constants.monthArray[date.month()]}, ${date.year()}`;
 
   renderWeek = (currentDate) => {
     const days = [];
@@ -57,7 +54,7 @@ class Calendar extends Component {
       && chosenDay.date() === dayNumber.date();
     return (
       <View key={dayNumber} style={styles.weekdayView}>
-        <Text style={styles.weekdayText}>{weekdays[index]}</Text>
+        <Text style={styles.weekdayText}>{constants.weekdays[index]}</Text>
         <TouchableOpacity
           style={[styles.dayView, isChosenDay && styles.currentDay]}
           onPress={() => onDayChange(dayNumber)}

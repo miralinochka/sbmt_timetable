@@ -4,3 +4,8 @@ export const sceneNames = {
   savedTimetable: { route: 'savedTimetable', name: '_savedTimetable', title: 'Сохраненное расписание' },
   sendFeedback: { route: 'sendFeedback', name: '_sendFeedback', title: 'Напишите нам' },
 };
+
+export const weekdays = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
+export const monthArray = [
+  'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь',
+];

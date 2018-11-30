@@ -39,6 +39,13 @@ class Header extends Component {
     Header.subscribers[event] = undefined;
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      greeting: undefined,
+    };
+  }
+
   state = {
     visibleGroupView: false,
   }
@@ -96,7 +103,7 @@ class Header extends Component {
     return setCurrentSubgroup(subgroups[1]);
   }
 
-  onRefreshButtonPress = async () => {
+  onRefreshButtonPress = async (greeting) => {
     const {
       downloadTimetable,
       currentGroupOrLecturer,
@@ -104,6 +111,9 @@ class Header extends Component {
       initialRouteName,
       addGroupsAndLecturers,
     } = this.props;
+    this.setState({
+      greeting,
+    });
     toggleSpinner(true);
     if (initialRouteName === sceneNames.searchTimetable.name) {
       await addGroupsAndLecturers();
@@ -115,6 +125,20 @@ class Header extends Component {
   onTickButtonPress = async () => this.createEvent(eventTypes.SEND_FEEDBACK);
 
   onBackButtonPress = () => Actions.timetable();
+
+  renderAfterButton() {
+    return (
+      <View style={{
+        flex: 1, paddingTop: 20, justifyContent: 'center', alignItems: 'center',
+      }}
+      >
+        <Text style={{ fontSize: 25 }}>
+          {this.state.greeting}
+!!!
+        </Text>
+      </View>
+    );
+  }
 
   render() {
     const {
@@ -132,6 +156,7 @@ class Header extends Component {
       rightButton,
     } = styles;
     const { visibleGroupView } = this.state;
+    if (this.state.greeting) return this.renderAfterButton();
     return (
       <SafeAreaView style={safeArea}>
         <View style={view}>
@@ -164,7 +189,8 @@ class Header extends Component {
         }
           <View style={headerTextView}>
             <Text style={title}>{headerText}</Text>
-            {initialRouteName === sceneNames.timetable.name && this.renderShortSubgroupName(currentSubgroup)}
+            {initialRouteName === sceneNames.timetable.name
+            && this.renderShortSubgroupName(currentSubgroup)}
           </View>
 
           {
@@ -180,9 +206,10 @@ class Header extends Component {
                 <ActionIcon
                   icon={require('@images/refresh.png')} // eslint-disable-line
                   hideIcon={!refresh && hiddenIcon}
-                  onIconPress={this.onRefreshButtonPress}
+                  onIconPress={()=>this.onRefreshButtonPress('Hello')}
                   disabled={initialRouteName === sceneNames.savedTimetable.name}
                   styled={initialRouteName !== sceneNames.savedTimetable.name ? rightButton : {}}
+                  testID="hello_button"
                 />
               )
           }
@@ -207,6 +234,7 @@ Header.propTypes = {
   subgroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   currentSubgroup: PropTypes.string,
   initialRouteName: PropTypes.string.isRequired,
+  setCurrentSubgroup: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

@@ -15,7 +15,7 @@ const Switch = ({
             style={[
               styles.button,
               searchItem === item && styles.colored,
-              index === searchItems.length - 1 && styles.noRightBorder,
+              index === Object.values(searchItems).length - 1 && styles.noRightBorder,
             ]}
             key={item}
           >
