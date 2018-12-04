@@ -14,7 +14,6 @@ import { sceneNames } from '@constants';
 
 export const eventTypes = {
   SEND_FEEDBACK: 'SEND_FEEDBACK',
-  UPDATE_SUBGROUP: 'UPDATE_SUBGROUP',
 };
 
 class Header extends Component {
@@ -37,13 +36,6 @@ class Header extends Component {
       throw new Error(`not supported event type ${event}`);
     }
     Header.subscribers[event] = undefined;
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      greeting: undefined,
-    };
   }
 
   state = {
@@ -103,7 +95,7 @@ class Header extends Component {
     return setCurrentSubgroup(subgroups[1]);
   }
 
-  onRefreshButtonPress = async (greeting) => {
+  onRefreshButtonPress = async () => {
     const {
       downloadTimetable,
       currentGroupOrLecturer,
@@ -111,9 +103,6 @@ class Header extends Component {
       initialRouteName,
       addGroupsAndLecturers,
     } = this.props;
-    this.setState({
-      greeting,
-    });
     toggleSpinner(true);
     if (initialRouteName === sceneNames.searchTimetable.name) {
       await addGroupsAndLecturers();
@@ -125,20 +114,6 @@ class Header extends Component {
   onTickButtonPress = async () => this.createEvent(eventTypes.SEND_FEEDBACK);
 
   onBackButtonPress = () => Actions.timetable();
-
-  renderAfterButton() {
-    return (
-      <View style={{
-        flex: 1, paddingTop: 20, justifyContent: 'center', alignItems: 'center',
-      }}
-      >
-        <Text style={{ fontSize: 25 }}>
-          {this.state.greeting}
-!!!
-        </Text>
-      </View>
-    );
-  }
 
   render() {
     const {
@@ -156,7 +131,6 @@ class Header extends Component {
       rightButton,
     } = styles;
     const { visibleGroupView } = this.state;
-    if (this.state.greeting) return this.renderAfterButton();
     return (
       <SafeAreaView style={safeArea}>
         <View style={view}>
@@ -168,6 +142,7 @@ class Header extends Component {
               onIconPress={this.onGroupButtonPress}
               disabled={subgroups.length <= 2}
               styled={leftButton}
+              testID="subgroupButton"
             />
           )
         }
@@ -184,6 +159,7 @@ class Header extends Component {
               backIcon={backIcon}
               styled={leftButton}
               onIconPress={this.onBackButtonPress}
+              testID="backButton"
             />
           )
         }
@@ -200,16 +176,17 @@ class Header extends Component {
                   icon={require('@images/tick.png')} // eslint-disable-line
                   onIconPress={this.onTickButtonPress}
                   styled={rightButton}
+                  testID="tickButton"
                 />
               )
               : (
                 <ActionIcon
                   icon={require('@images/refresh.png')} // eslint-disable-line
                   hideIcon={!refresh && hiddenIcon}
-                  onIconPress={()=>this.onRefreshButtonPress('Hello')}
+                  onIconPress={this.onRefreshButtonPress}
                   disabled={initialRouteName === sceneNames.savedTimetable.name}
                   styled={initialRouteName !== sceneNames.savedTimetable.name ? rightButton : {}}
-                  testID="hello_button"
+                  testID="refreshButton"
                 />
               )
           }

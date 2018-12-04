@@ -79,7 +79,7 @@ export const errorCatch = (error, groupOrLecturerName) => (dispatch) => {
 
 export const getCurrentTimetable = (timetable, currentDate) => {
   const currentTT = timetable.filter((tt) => {
-    const ttDate = moment(tt.date, 'DD-MM-YYYY', 'ru').format('L');
+    const ttDate = moment(tt.date, 'DD.MM.YYYY').format('L');
     return ttDate === currentDate.format('L');
   });
   return currentTT;

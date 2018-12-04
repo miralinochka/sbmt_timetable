@@ -320,7 +320,7 @@ FN:80,getCurrentTimetable
 FN:81,(anonymous_20)
 FN:88,generateBackgroundColor
 FNF:22
-FNH:15
+FNH:17
 FNDA:3,comparator
 FNDA:5,printHeaderText
 FNDA:0,getTimetableState
@@ -340,8 +340,8 @@ FNDA:0,checkConnectionToUpdateSavedTt$
 FNDA:2,checkNoInternetConnection
 FNDA:0,errorCatch
 FNDA:0,(anonymous_18)
-FNDA:0,getCurrentTimetable
-FNDA:0,(anonymous_20)
+FNDA:2,getCurrentTimetable
+FNDA:8,(anonymous_20)
 FNDA:11,generateBackgroundColor
 DA:1,1
 DA:2,1
@@ -395,10 +395,10 @@ DA:75,0
 DA:77,0
 DA:78,1
 DA:80,1
-DA:81,0
-DA:82,0
-DA:83,0
-DA:85,0
+DA:81,2
+DA:82,8
+DA:83,8
+DA:85,2
 DA:86,1
 DA:88,1
 DA:89,11
@@ -408,7 +408,7 @@ DA:98,3
 DA:100,5
 DA:102,1
 LF:64
-LH:53
+LH:57
 BRDA:10,0,0,1
 BRDA:10,0,1,2
 BRDA:11,1,0,1

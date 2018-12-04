@@ -1,0 +1,27 @@
+6629a3cf16d8922d55a4b87f7dadbdc1
+describe('Example', function () {
+  beforeEach(function _callee() {return require("@babel/runtime/regenerator").async(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return require("@babel/runtime/regenerator").awrap(
+            device.reloadReactNative());case 2:case "end":return _context.stop();}}}, null, this);});
+
+
+
+
+
+
+
+
+
+
+
+  it('should show search timetable after tap', function _callee2() {return require("@babel/runtime/regenerator").async(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return require("@babel/runtime/regenerator").awrap(
+            element(by.label('searchTimetable')).tap());case 2:_context2.next = 4;return require("@babel/runtime/regenerator").awrap(
+
+
+
+            waitFor(element(by.id('qwer42'))).toBeVisible());case 4:_context2.next = 6;return require("@babel/runtime/regenerator").awrap(
+
+
+            element(by.text('1411')).tap());case 6:_context2.next = 8;return require("@babel/runtime/regenerator").awrap(
+            element(by.id('tt')).swipe('left', 'fast', 0.5));case 8:case "end":return _context2.stop();}}}, null, this);});
+
+});

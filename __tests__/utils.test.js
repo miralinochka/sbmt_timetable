@@ -1,4 +1,5 @@
 import * as utils from '@utils';
+import moment from 'moment';
 
 describe('utils', () => {
   it('compares 2 numbers', () => {
@@ -144,13 +145,59 @@ describe('utils', () => {
     expect(utils.printHeaderText('541')).toBe('541 гр.');
   });
 
-  // it('reeturns current timetable', () => {
-  //   expect(utils.getCurrentTimetable(null)).toBe('Расписание занятий');
-  //   expect(utils.getCurrentTimetable(undefined)).toBe('Расписание занятий');
-  //   expect(utils.getCurrentTimetable('')).toBe('Расписание занятий');
-  //   expect(utils.getCurrentTimetable('Мирончик А.')).toBe('Мирончик А.');
-  //   expect(utils.getCurrentTimetable('541')).toBe('541 гр.');
-  // });
+  it('returns current timetable', () => {
+    const date = moment().set({ month: 8, date: 10 });
+    const timetable = [
+      {
+        building: 'Октябрьская',
+        date: '03.09.2018',
+        day: 'Пн',
+        lecturer: 'Платонова Елена Павловна',
+        room: '8а ',
+        subgroup: 'вся группа',
+        subject: 'Физическая культура',
+        time: '10:20',
+        type: 'Практика',
+      },
+      {
+        building: 'Московская 5',
+        date: '10.09.2018',
+        day: 'Пн',
+        lecturer: 'Гриневич Елена Георгиевна',
+        room: '309',
+      },
+      {
+        building: 'Московская 8',
+        date: '10.09.2018',
+        day: 'Пн',
+        lecturer: 'Гриневич Елена Георгиевна',
+        room: '309',
+      },
+      {
+        building: 'Московская 6',
+        date: '15.10.2018',
+        day: 'Пн',
+      },
+    ];
+    const timetableToEqual = [
+      {
+        building: 'Московская 5',
+        date: '10.09.2018',
+        day: 'Пн',
+        lecturer: 'Гриневич Елена Георгиевна',
+        room: '309',
+      },
+      {
+        building: 'Московская 8',
+        date: '10.09.2018',
+        day: 'Пн',
+        lecturer: 'Гриневич Елена Георгиевна',
+        room: '309',
+      },
+    ];
+    expect(utils.getCurrentTimetable(timetable, date)).toEqual(timetableToEqual);
+    expect(utils.getCurrentTimetable(timetable, moment())).toEqual([]);
+  });
 
   it('returns background color', () => {
     expect(utils.generateBackgroundColor(null)).toBe('#ffd966');

@@ -11,7 +11,6 @@ class DropDownHolder {
 
   static alert(...theArgs) {
     this.dropDown.alertWithType(...theArgs);
-    console.log('alert');
   }
 }
 
