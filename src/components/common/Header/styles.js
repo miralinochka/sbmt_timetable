@@ -28,7 +28,7 @@ export default StyleSheet.create({
     marginRight: 15,
     marginLeft: 7,
   },
-  headerText: {
+  title: {
     fontSize: 22,
     fontWeight: '600',
     color: colors.mainTextColor,

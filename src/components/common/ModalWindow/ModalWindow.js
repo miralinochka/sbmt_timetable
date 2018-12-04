@@ -9,7 +9,7 @@ import ContainerItem from '../ContainerItem';
 import styles from './styles';
 
 const ModalWindow = ({
-  children, onClick, visible,
+  children, onClick, visible, testID,
 }) => (
   <Modal
     animationType="slide"
@@ -27,6 +27,7 @@ const ModalWindow = ({
             icon={require('@images/tick.png')} // eslint-disable-line
             onIconPress={onClick}
             styled={styles.iconStyle}
+            testID={testID}
           />
         </ContainerItem>
       </View>
@@ -37,6 +38,7 @@ const ModalWindow = ({
 ModalWindow.propTypes = {
   onClick: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
+  testID: PropTypes.string.isRequired,
 };
 
 export default ModalWindow;

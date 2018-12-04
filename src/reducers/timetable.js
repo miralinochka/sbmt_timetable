@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux';
 import * as utils from '@utils';
 import {
-  FETCH_TIMETABLE, SET_TIMETABLE_ERROR, SET_CURRENT_TIMETABLE,
+  FETCH_TIMETABLE, SET_TIMETABLE_ERROR, SET_CURRENT_TIMETABLE, SET_CURRENT_SUBGROUP,
 } from '@actions/types';
 
 const currentGroupOrLecturerInitialState = {
-  name: '',
+  groupOrLecturerName: '',
   subgroups: [],
+  currentSubgroup: 'вся группа',
   updatedOn: undefined,
 };
 const MAX_SAVED_TIMETABLES = 9;
@@ -45,10 +46,16 @@ export const currentGroupOrLecturer = (state = currentGroupOrLecturerInitialStat
       return {
         groupOrLecturerName: action.payload.groupOrLecturerName,
         subgroups: action.payload.subgroups,
+        currentSubgroup: currentGroupOrLecturerInitialState.currentSubgroup,
         filename: action.payload.filename,
       };
     case SET_TIMETABLE_ERROR:
       return currentGroupOrLecturerInitialState;
+    case SET_CURRENT_SUBGROUP:
+      return {
+        ...state,
+        currentSubgroup: action.payload.subgroup,
+      };
     default:
       return state;
   }

@@ -11,6 +11,7 @@ export default StyleSheet.create({
   containerMainPart: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 5,
   },
   time: {
     fontSize: 22,

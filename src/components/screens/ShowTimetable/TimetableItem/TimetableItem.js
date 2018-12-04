@@ -1,9 +1,9 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import PropTypes from 'prop-types';
-import colors from '@styles/colors';
 import ContainerItem from '@common/ContainerItem';
 import styles from './styles';
+import * as utils from '@utils';
 
 const TimetableItem = ({ timetableForADay }) => {
   const {
@@ -13,19 +13,7 @@ const TimetableItem = ({ timetableForADay }) => {
   const subjectTypeShort = subjectType.reduce((prevWord, nextWord) => (
     prevWord + nextWord[0]
   ), '');
-  const generateBC = (subjectTypeForm) => {
-    switch (subjectTypeForm) {
-      case 'л':
-        return colors.lectureColor;
-      case 'з':
-      case 'э':
-        return colors.creditColor;
-      case 'т':
-        return colors.testingColor;
-      default:
-        return colors.practiseColor;
-    }
-  };
+
   return (
     <ContainerItem styled={styles.container}>
       <View style={styles.containerMainPart}>
@@ -39,7 +27,12 @@ const TimetableItem = ({ timetableForADay }) => {
             )
           }
         </View>
-        <View style={[styles.rectangle, { backgroundColor: generateBC(subjectTypeShort) }]} />
+        <View
+          style={[
+            styles.rectangle,
+            { backgroundColor: utils.generateBackgroundColor(subjectTypeShort) },
+          ]}
+        />
         <View style={styles.containerLecturer}>
           <Text style={styles.subject}>
             {`${subject} (${subjectTypeShort})`}

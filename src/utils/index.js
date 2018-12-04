@@ -1,12 +1,23 @@
 import { NetInfo } from 'react-native';
 import * as actions from '@actions';
 import DropDownHolder from '@common/DropDown/DropDownHolder';
+import { Actions } from 'react-native-router-flux';
 import { sceneNames } from '@constants';
+import moment from 'moment';
+import colors from '@styles/colors';
 
 export const comparator = (first, second) => {
   if (first.number < second.number) { return -1; }
   if (first.number > second.number) { return 1; }
   return 0;
+};
+
+export const printHeaderText = (currentGroupOrLecturerName) => {
+  if (currentGroupOrLecturerName) {
+    if (currentGroupOrLecturerName[0] > 0) return `${currentGroupOrLecturerName} гр.`;
+    return currentGroupOrLecturerName;
+  }
+  return 'Расписание занятий';
 };
 
 export const getTimetableState = (state, action) => ({
@@ -61,7 +72,31 @@ export const errorCatch = (error, groupOrLecturerName) => (dispatch) => {
     DropDownHolder.alert('error', 'Ошибка сети', 'Проверьте Интернет-соединение');
   } else {
     dispatch(actions.setTimetableError());
-    //Actions.reset(sceneNames.timetable.name, { headerText: checkIfGroup(groupOrLecturerName) ? `${groupOrLecturerName} гр.` : groupOrLecturerName });
+    Actions.reset(sceneNames.timetable.name, { headerText: groupOrLecturerName && checkIfGroup(groupOrLecturerName) ? `${groupOrLecturerName} гр.` : groupOrLecturerName || 'Расписание занятий' });
   }
   dispatch(actions.toggleSpinner(false));
+};
+
+export const getCurrentTimetable = (timetable, currentDate) => {
+  const currentTT = timetable.filter((tt) => {
+    const ttDate = moment(tt.date, 'DD.MM.YYYY').format('L');
+    return ttDate === currentDate.format('L');
+  });
+  return currentTT;
+};
+
+export const generateBackgroundColor = (subjectTypeForm) => {
+  switch (subjectTypeForm) {
+    case 'л':
+      return colors.lectureColor;
+    case 'з':
+    case 'э':
+      return colors.creditColor;
+    case 'т':
+    case 'уср':
+    case 'кср':
+      return colors.testingColor;
+    default:
+      return colors.practiseColor;
+  }
 };

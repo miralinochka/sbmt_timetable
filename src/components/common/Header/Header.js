@@ -3,6 +3,7 @@ import {
   Text, TouchableOpacity, View, SafeAreaView, Platform,
 } from 'react-native';
 import PropTypes from 'prop-types';
+import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import * as actions from '@actions';
 import ContainerItem from '../ContainerItem';
@@ -47,8 +48,9 @@ class Header extends Component {
     }
   };
 
-  changeTimetableView = (subgroup) => {
-    this.props.navigation.setParams({ subgroup });
+  changeTimetableView = (currentSubgroup) => {
+    const { setCurrentSubgroup } = this.props;
+    setCurrentSubgroup(currentSubgroup);
     this.setState({ visibleGroupView: false });
   };
 
@@ -66,9 +68,9 @@ class Header extends Component {
     return null;
   };
 
-  renderShortSubgroupName = (subgroup) => {
-    if (subgroup !== '' && subgroup !== 'вся группа') {
-      const textString = `, ${subgroup[0]} подгр.`;
+  renderShortSubgroupName = (currentSubgroup) => {
+    if (currentSubgroup !== '' && currentSubgroup !== 'вся группа') {
+      const textString = `, ${currentSubgroup[0]} подгр.`;
       return (
         <Text style={styles.title}>{textString}</Text>
       );
@@ -79,19 +81,18 @@ class Header extends Component {
   changeGroupView = () => this.setState(prev => ({ visibleGroupView: !prev.visibleGroupView }));
 
   onGroupButtonPress = () => {
-    const { navigation } = this.props;
     if (Platform.OS === 'ios') {
       return this.changeGroupView();
     }
-    const { subgroups, subgroup } = this.props;
-    if (subgroup) {
-      const subIndex = subgroups.indexOf(subgroup);
+    const { subgroups, currentSubgroup, setCurrentSubgroup } = this.props;
+    if (currentSubgroup) {
+      const subIndex = subgroups.indexOf(currentSubgroup);
       if (subIndex !== subgroups.length - 1) {
-        return navigation.setParams({ subgroup: subgroups[subIndex + 1] });
+        return setCurrentSubgroup(subgroups[subIndex + 1]);
       }
-      return navigation.setParams({ subgroup: subgroups[0] });
+      return setCurrentSubgroup(subgroups[0]);
     }
-    return navigation.setParams({ subgroup: subgroups[1] });
+    return setCurrentSubgroup(subgroups[1]);
   }
 
   onRefreshButtonPress = async () => {
@@ -112,18 +113,14 @@ class Header extends Component {
 
   onTickButtonPress = async () => this.createEvent(eventTypes.SEND_FEEDBACK);
 
-  onBackButtonPress = () => this.props.navigation.navigate('ShowTimetable');
-
-  hideRefreshButton = initialRouteName => initialRouteName === sceneNames.savedTimetable.name;
-
-  showBackButton = initialRouteName => initialRouteName !== sceneNames.timetable.name;
+  onBackButtonPress = () => Actions.timetable();
 
   render() {
     const {
-      subgroups, subgroup, scene,
+      headerText, showGroups, back, subgroups, refresh, initialRouteName, currentSubgroup,
     } = this.props;
     const {
-      headerText,
+      title,
       view,
       safeArea,
       hiddenIcon,
@@ -134,22 +131,18 @@ class Header extends Component {
       rightButton,
     } = styles;
     const { visibleGroupView } = this.state;
-    const title = scene.descriptor.options.title;
-    const initialRouteName = scene.route.routes[scene.route.index].routeName;
-    console.log('title', title, 'initialRouteName', initialRouteName);
-
-    console.log(this.props);
     return (
       <SafeAreaView style={safeArea}>
         <View style={view}>
           {
-          initialRouteName === sceneNames.timetable.name && (
+          showGroups && (
             <ActionIcon
               icon={require('@images/groups.png')} // eslint-disable-line global-require
               hideIcon={(subgroups.length < 2) && hiddenIcon}
               onIconPress={this.onGroupButtonPress}
               disabled={subgroups.length <= 2}
               styled={leftButton}
+              testID="subgroupButton"
             />
           )
         }
@@ -160,18 +153,20 @@ class Header extends Component {
           </Container>
           )}
           {
-          this.showBackButton(initialRouteName) && (
+          back && (
             <ActionIcon
               icon={require('@images/back.png')} // eslint-disable-line
               backIcon={backIcon}
               styled={leftButton}
               onIconPress={this.onBackButtonPress}
+              testID="backButton"
             />
           )
         }
           <View style={headerTextView}>
-            <Text style={headerText}>{title}</Text>
-            {this.renderShortSubgroupName(subgroup)}
+            <Text style={title}>{headerText}</Text>
+            {initialRouteName === sceneNames.timetable.name
+            && this.renderShortSubgroupName(currentSubgroup)}
           </View>
 
           {
@@ -181,15 +176,17 @@ class Header extends Component {
                   icon={require('@images/tick.png')} // eslint-disable-line
                   onIconPress={this.onTickButtonPress}
                   styled={rightButton}
+                  testID="tickButton"
                 />
               )
               : (
                 <ActionIcon
                   icon={require('@images/refresh.png')} // eslint-disable-line
-                  hideIcon={this.hideRefreshButton(initialRouteName) && hiddenIcon}
+                  hideIcon={!refresh && hiddenIcon}
                   onIconPress={this.onRefreshButtonPress}
-                  disabled={this.hideRefreshButton(initialRouteName)}
-                  styled={this.hideRefreshButton(initialRouteName) ? {} : rightButton}
+                  disabled={initialRouteName === sceneNames.savedTimetable.name}
+                  styled={initialRouteName !== sceneNames.savedTimetable.name ? rightButton : {}}
+                  testID="refreshButton"
                 />
               )
           }
@@ -200,16 +197,26 @@ class Header extends Component {
 }
 
 Header.defaultProps = {
-  subgroup: '',
+  showGroups: null,
+  back: null,
+  refresh: null,
+  currentSubgroup: '',
 };
 
 Header.propTypes = {
+  headerText: PropTypes.string.isRequired,
+  showGroups: PropTypes.bool,
+  back: PropTypes.bool,
+  refresh: PropTypes.bool,
   subgroups: PropTypes.arrayOf(PropTypes.string).isRequired,
-  subgroup: PropTypes.string,
+  currentSubgroup: PropTypes.string,
+  initialRouteName: PropTypes.string.isRequired,
+  setCurrentSubgroup: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   subgroups: state.timetable.currentGroupOrLecturer.subgroups,
+  currentSubgroup: state.timetable.currentGroupOrLecturer.currentSubgroup,
   currentGroupOrLecturer: state.timetable.currentGroupOrLecturer,
 });
 
@@ -217,6 +224,7 @@ const mapDispatchToProps = {
   downloadTimetable: actions.downloadTimetable,
   addGroupsAndLecturers: actions.addGroupsAndLecturers,
   toggleSpinner: actions.toggleSpinner,
+  setCurrentSubgroup: actions.setCurrentSubgroup,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

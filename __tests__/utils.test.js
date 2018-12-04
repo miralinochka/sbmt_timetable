@@ -1,4 +1,5 @@
 import * as utils from '@utils';
+import moment from 'moment';
 
 describe('utils', () => {
   it('compares 2 numbers', () => {
@@ -134,5 +135,81 @@ describe('utils', () => {
   it('checks internet connection', () => {
     expect(utils.checkNoInternetConnection(null)).toEqual(false);
     expect(utils.checkNoInternetConnection(0)).toBe(true);
+  });
+
+  it('prints header text', () => {
+    expect(utils.printHeaderText(null)).toBe('Расписание занятий');
+    expect(utils.printHeaderText(undefined)).toBe('Расписание занятий');
+    expect(utils.printHeaderText('')).toBe('Расписание занятий');
+    expect(utils.printHeaderText('Мирончик А.')).toBe('Мирончик А.');
+    expect(utils.printHeaderText('541')).toBe('541 гр.');
+  });
+
+  it('returns current timetable', () => {
+    const date = moment().set({ month: 8, date: 10 });
+    const timetable = [
+      {
+        building: 'Октябрьская',
+        date: '03.09.2018',
+        day: 'Пн',
+        lecturer: 'Платонова Елена Павловна',
+        room: '8а ',
+        subgroup: 'вся группа',
+        subject: 'Физическая культура',
+        time: '10:20',
+        type: 'Практика',
+      },
+      {
+        building: 'Московская 5',
+        date: '10.09.2018',
+        day: 'Пн',
+        lecturer: 'Гриневич Елена Георгиевна',
+        room: '309',
+      },
+      {
+        building: 'Московская 8',
+        date: '10.09.2018',
+        day: 'Пн',
+        lecturer: 'Гриневич Елена Георгиевна',
+        room: '309',
+      },
+      {
+        building: 'Московская 6',
+        date: '15.10.2018',
+        day: 'Пн',
+      },
+    ];
+    const timetableToEqual = [
+      {
+        building: 'Московская 5',
+        date: '10.09.2018',
+        day: 'Пн',
+        lecturer: 'Гриневич Елена Георгиевна',
+        room: '309',
+      },
+      {
+        building: 'Московская 8',
+        date: '10.09.2018',
+        day: 'Пн',
+        lecturer: 'Гриневич Елена Георгиевна',
+        room: '309',
+      },
+    ];
+    expect(utils.getCurrentTimetable(timetable, date)).toEqual(timetableToEqual);
+    expect(utils.getCurrentTimetable(timetable, moment())).toEqual([]);
+  });
+
+  it('returns background color', () => {
+    expect(utils.generateBackgroundColor(null)).toBe('#ffd966');
+    expect(utils.generateBackgroundColor(undefined)).toBe('#ffd966');
+    expect(utils.generateBackgroundColor('')).toBe('#ffd966');
+    expect(utils.generateBackgroundColor('л')).toBe('#2b78e4');
+    expect(utils.generateBackgroundColor('з')).toBe('#ff6666');
+    expect(utils.generateBackgroundColor('э')).toBe('#ff6666');
+    expect(utils.generateBackgroundColor('т')).toBe('#a39e9e');
+    expect(utils.generateBackgroundColor('уср')).toBe('#a39e9e');
+    expect(utils.generateBackgroundColor('кср')).toBe('#a39e9e');
+    expect(utils.generateBackgroundColor('п')).toBe('#ffd966');
+    expect(utils.generateBackgroundColor('дд')).toBe('#ffd966');
   });
 });

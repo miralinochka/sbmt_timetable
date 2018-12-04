@@ -1,0 +1,89 @@
+964e3e1bde3d948314f10aa1c3fef617
+"use strict";
+
+/* istanbul ignore next */var cov_13va91b5rj = function () {
+  var path = "/Users/mac-185-71/Projects/sbmt_timetable/src/styles/colors.js",
+      hash = "d7d211cf210e2815020260ee49d797da1ea98759",
+      Function = function () {}.constructor,
+      global = new Function('return this')(),
+      gcv = "__coverage__",
+      coverageData = {
+    path: "/Users/mac-185-71/Projects/sbmt_timetable/src/styles/colors.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 1,
+          column: 13
+        },
+        end: {
+          line: 1,
+          column: 75
+        }
+      },
+      "1": {
+        start: {
+          line: 1,
+          column: 75
+        },
+        end: {
+          line: 1,
+          column: 100
+        }
+      },
+      "2": {
+        start: {
+          line: 1,
+          column: 115
+        },
+        end: {
+          line: 11,
+          column: 16
+        }
+      },
+      "3": {
+        start: {
+          line: 11,
+          column: 17
+        },
+        end: {
+          line: 11,
+          column: 44
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "332fd63041d2c1bcb487cc26dd0d5f7d97098a6c"
+  },
+      coverage = global[gcv] || (global[gcv] = {});
+
+  if (coverage[path] && coverage[path].hash === hash) {
+    return coverage[path];
+  }
+
+  coverageData.hash = hash;
+  return coverage[path] = coverageData;
+}();
+
+cov_13va91b5rj.s[0]++;
+Object.defineProperty(exports, "__esModule", { value: true }); /* istanbul ignore next */cov_13va91b5rj.s[1]++;
+exports.default = void 0;var _default = /* istanbul ignore next */(cov_13va91b5rj.s[2]++, {
+  mainColor: '#6fa8dc',
+  mainTextColor: '#fff',
+  switch: '#9fc4f4',
+  practiseColor: '#ffd966',
+  lectureColor: '#2b78e4',
+  creditColor: '#ff6666',
+  testingColor: '#a39e9e',
+  subtitle: '#303033',
+  switchBorder: '#606063',
+  text: '#000' }); /* istanbul ignore next */cov_13va91b5rj.s[3]++;
+exports.default = _default;

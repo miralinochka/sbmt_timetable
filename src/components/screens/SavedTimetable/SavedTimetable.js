@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { SafeAreaView, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import * as actions from '@actions';
 import * as utils from '@utils';
 import ListItem from '@common/ListItem';
+import Spinner from '@common/Spinner';
 import { sceneNames } from '@constants';
 
 class SavedTimetable extends Component {
@@ -22,7 +24,7 @@ class SavedTimetable extends Component {
       await downloadTimetable(chosenGroupOrLecturer, new Date());
     } else {
       setCurrentTimetable({ ...chosenGroupOrLecturer });
-      //Actions.reset(sceneNames.timetable.name, { subgroups, headerText: pressedTTItem[0] > 0 ? `${pressedTTItem} гр.` : pressedTTItem });
+      Actions.reset(sceneNames.timetable.name, { subgroups, headerText: pressedTTItem[0] > 0 ? `${pressedTTItem} гр.` : pressedTTItem });
     }
   }
 
@@ -39,11 +41,16 @@ class SavedTimetable extends Component {
   }
 
   render() {
+    const { isLoading } = this.props;
     return (
       <SafeAreaView>
-        <ScrollView>
-          {this.renderSavedTimetable()}
-        </ScrollView>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <ScrollView>
+            {this.renderSavedTimetable()}
+          </ScrollView>
+        )}
       </SafeAreaView>
     );
   }
@@ -56,10 +63,12 @@ SavedTimetable.propTypes = {
     createdOn: PropTypes.shape({}),
     filename: PropTypes.string,
   }).isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   savedTimetables: state.timetable.savedTimetables,
+  isLoading: state.isLoading,
 });
 
 const mapDispatchToProps = {

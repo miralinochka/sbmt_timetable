@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import Input from '@common/Input';
 import ContainerItem from '@common/ContainerItem';
 import ModalWindow from '@common/ModalWindow';
@@ -65,7 +66,7 @@ class SendFeedback extends Component {
 
   onModal = () => {
     this.toggleModal(false);
-    //Actions.timetable();
+    Actions.timetable();
   };
 
   render() {
@@ -90,6 +91,7 @@ class SendFeedback extends Component {
                     placeholder="Имя*"
                     value={userName}
                     onChangeText={value => this.updateFeedback('userName', value)}
+                    testID="inputUsername"
                   />
                 </ContainerItem>
                 <ContainerItem styled={styles.сontainerItem}>
@@ -97,6 +99,7 @@ class SendFeedback extends Component {
                     placeholder="E-mail*"
                     value={email}
                     onChangeText={value => this.updateFeedback('email', value)}
+                    testID="inputEmail"
                   />
                 </ContainerItem>
                 <ContainerItem styled={styles.сontainerItem}>
@@ -104,6 +107,7 @@ class SendFeedback extends Component {
                     placeholder="Тема (баг, рекомендация, оценка)*"
                     value={subject}
                     onChangeText={value => this.updateFeedback('subject', value)}
+                    testID="inputTopic"
                   />
                 </ContainerItem>
                 <ContainerItem styled={styles.сontainerItem}>
@@ -113,11 +117,13 @@ class SendFeedback extends Component {
                     onChangeText={value => this.updateFeedback('message', value)}
                     multiline
                     styled={styles.inputMessage}
+                    testID="inputMessage"
                   />
                 </ContainerItem>
                 <ModalWindow
                   visible={modalState}
                   onClick={this.onModal}
+                  testID="modalConfirmButton"
                 >
                   Спасибо! Ваш отзыв отправлен.
                 </ModalWindow>

@@ -17,10 +17,6 @@ const searchItems = {
 };
 
 class SearchTimetable extends Component {
-  static navigationOptions = {
-    title: 'Найти расписание',
-  }
-
   state = {
     searchItem: searchItems.group,
     inputText: '',
@@ -84,6 +80,7 @@ class SearchTimetable extends Component {
           <Input
             placeholder="Поиск..."
             onChangeText={this.hangleSearchInput}
+            testID="searchInput"
           />
         </ContainerItem>
         {
@@ -97,6 +94,7 @@ class SearchTimetable extends Component {
                 scrollsToTop
                 renderItem={({ item }) => this.renderFlatListItem({ item })}
                 keyExtractor={(item, index) => this.keyExtractorFunction(index)}
+                testID="qwer42"
               />
             )
         }

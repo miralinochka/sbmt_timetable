@@ -5,7 +5,7 @@ import generalStyles from '@styles/general';
 import styles from './styles';
 
 const Input = ({
-  onChangeText, placeholder, multiline, styled, value,
+  onChangeText, placeholder, multiline, styled, value, testID,
 }) => (
   <View style={generalStyles.fullSize}>
     <TextInput
@@ -15,6 +15,7 @@ const Input = ({
       style={[styles.input, styled]}
       multiline={multiline}
       value={value}
+      testID={testID}
     />
   </View>
 );
@@ -29,6 +30,7 @@ Input.propTypes = {
   placeholder: PropTypes.string.isRequired,
   multiline: PropTypes.bool,
   value: PropTypes.string,
+  testID: PropTypes.string.isRequired,
 };
 
 export default Input;
