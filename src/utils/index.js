@@ -7,8 +7,10 @@ import moment from 'moment';
 import colors from '@styles/colors';
 
 export const comparator = (first, second) => {
-  if (first.number < second.number) { return -1; }
-  if (first.number > second.number) { return 1; }
+  const firstNumber = parseInt(first.number, 10);
+  const secondNumber = parseInt(second.number, 10);
+  if (firstNumber < secondNumber) { return -1; }
+  if (firstNumber > secondNumber) { return 1; }
   return 0;
 };
 
