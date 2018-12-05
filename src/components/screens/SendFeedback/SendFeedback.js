@@ -125,6 +125,7 @@ class SendFeedback extends Component {
                     }}
                     useNativeAndroidPickerStyle={false}
                     placeholderTextColor="#999"
+                    hideIcon={Platform.OS === 'ios'}
                   />
           
                 </ContainerItem>
