@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  SafeAreaView, View, ScrollView, Text, Keyboard, TouchableWithoutFeedback,
+  SafeAreaView, View, ScrollView, Text, Keyboard, TouchableWithoutFeedback, Platform,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -13,19 +13,27 @@ import Header from '@common/Header';
 import * as actions from '@actions';
 import * as utils from '@utils';
 import * as api from '@api';
+import RNPickerSelect from 'react-native-picker-select';
 import styles from './styles';
+import { feedbackSubjects } from '@constants';
 
 class SendFeedback extends Component {
-  state = {
-    userFeedback: {
-      userName: '',
-      email: '',
-      subject: '',
-      message: '',
-      date: new Date().toISOString(),
-    },
-    feedbackError: '',
-    modalState: false,
+  constructor(props) {
+    super(props);
+
+    this.inputRefs = {};
+
+    this.state = {
+      userFeedback: {
+        userName: '',
+        email: '',
+        subject: '',
+        message: '',
+        date: new Date().toISOString(),
+      },
+      feedbackError: '',
+      modalState: false,
+    };
   }
 
   componentDidMount() {
@@ -103,12 +111,22 @@ class SendFeedback extends Component {
                   />
                 </ContainerItem>
                 <ContainerItem styled={styles.сontainerItem}>
-                  <Input
-                    placeholder="Тема (баг, рекомендация, оценка)*"
+                  <RNPickerSelect
+                    placeholder={{
+                      label: 'Выберите тему...*',
+                      value: null,
+                    }}
+                    items={feedbackSubjects}
+                    onValueChange={value => this.updateFeedback('subject', value)}
+                    style={Platform.OS === 'ios' ? { inputIOS: styles.inputIOS } : { inputAndroid: styles.inputAndroid }}
                     value={subject}
-                    onChangeText={value => this.updateFeedback('subject', value)}
-                    testID="inputTopic"
+                    ref={(el) => {
+                      this.inputRefs.picker = el;
+                    }}
+                    useNativeAndroidPickerStyle={false}
+                    placeholderTextColor="#999"
                   />
+          
                 </ContainerItem>
                 <ContainerItem styled={styles.сontainerItem}>
                   <Input

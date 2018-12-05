@@ -262,10 +262,9 @@ DA:1,1
 DA:5,0
 DA:9,0
 DA:13,0
-DA:14,0
-DA:15,1
-DA:18,1
-LF:7
+DA:14,1
+DA:17,1
+LF:6
 LH:3
 BRF:0
 BRH:0
@@ -333,7 +332,7 @@ FNDA:6,(anonymous_8)
 FNDA:6,(anonymous_9)
 FNDA:2,checkIfGroup
 FNDA:2,shortenLecturerName
-FNDA:24,checkValidEmail
+FNDA:25,checkValidEmail
 FNDA:3,checkUnfilledFeedbackValues
 FNDA:0,checkConnectionToUpdateSavedTt
 FNDA:0,checkConnectionToUpdateSavedTt$
@@ -377,8 +376,8 @@ DA:48,2
 DA:49,2
 DA:50,1
 DA:52,1
-DA:54,24
-DA:55,24
+DA:54,25
+DA:55,25
 DA:56,1
 DA:58,3
 DA:59,1

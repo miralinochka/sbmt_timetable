@@ -4,6 +4,6 @@ export default StyleSheet.create({
   сontainerItem: {
     margin: 10,
     marginTop: 0,
-    borderRadius: 20,
+    borderRadius: 10,
   },
 });

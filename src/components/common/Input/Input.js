@@ -16,6 +16,7 @@ const Input = ({
       multiline={multiline}
       value={value}
       testID={testID}
+      placeholderTextColor="#999"
     />
   </View>
 );
