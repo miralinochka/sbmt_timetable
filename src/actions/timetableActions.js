@@ -1,6 +1,6 @@
 import { Actions } from 'react-native-router-flux';
 import {
-  FETCH_TIMETABLE, SET_TIMETABLE_ERROR, SET_CURRENT_TIMETABLE, SET_CURRENT_SUBGROUP,
+  FETCH_TIMETABLE, SET_TIMETABLE_ERROR, SET_CURRENT_TIMETABLE, SET_CURRENT_SUBGROUP, DELETE_SAVED_TIMETABLE,
 } from './types';
 import * as api from '@api';
 import * as utils from '@utils';
@@ -64,5 +64,12 @@ export const setCurrentSubgroup = subgroup => ({
   type: SET_CURRENT_SUBGROUP,
   payload: {
     subgroup,
+  },
+});
+
+export const deleteSavedTimetable = groupOrLecturerName => ({
+  type: DELETE_SAVED_TIMETABLE,
+  payload: {
+    groupOrLecturerName,
   },
 });

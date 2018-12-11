@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView } from 'react-native';
+import Swipeout from 'react-native-swipeout';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
@@ -29,14 +30,25 @@ class SavedTimetable extends Component {
   }
 
   renderSavedTimetable = () => {
-    const { savedTimetables } = this.props;
+    const { savedTimetables, deleteSavedTimetable } = this.props;
     return Object.keys(savedTimetables).map(item => (
-      <ListItem
+      <Swipeout
         key={item}
-        listItem={item}
-        savedTT
-        onGroupOrLecturerPress={() => this.onGroupOrLecturerPress(item, savedTimetables[item])}
-      />
+        right={[
+          {
+            onPress: () => deleteSavedTimetable(item),
+            text: 'Удалить',
+            type: 'delete',
+          },
+        ]}
+        rowId={item}
+      >
+        <ListItem
+          listItem={item}
+          savedTT
+          onGroupOrLecturerPress={() => this.onGroupOrLecturerPress(item, savedTimetables[item])}
+        />
+      </Swipeout>
     ));
   }
 
@@ -64,6 +76,7 @@ SavedTimetable.propTypes = {
     filename: PropTypes.string,
   }).isRequired,
   isLoading: PropTypes.bool.isRequired,
+  deleteSavedTimetable: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -75,5 +88,6 @@ const mapDispatchToProps = {
   setCurrentTimetable: actions.setCurrentTimetable,
   downloadTimetable: actions.downloadTimetable,
   toggleSpinner: actions.toggleSpinner,
+  deleteSavedTimetable: actions.deleteSavedTimetable,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SavedTimetable);

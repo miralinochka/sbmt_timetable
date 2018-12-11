@@ -108,6 +108,7 @@ class SendFeedback extends Component {
                     value={email}
                     onChangeText={value => this.updateFeedback('email', value)}
                     testID="inputEmail"
+                    textContentType="emailAddress"
                   />
                 </ContainerItem>
                 <ContainerItem styled={styles.сontainerItem}>

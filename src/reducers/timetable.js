@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import * as utils from '@utils';
 import {
-  FETCH_TIMETABLE, SET_TIMETABLE_ERROR, SET_CURRENT_TIMETABLE, SET_CURRENT_SUBGROUP,
+  FETCH_TIMETABLE, SET_TIMETABLE_ERROR, SET_CURRENT_TIMETABLE, SET_CURRENT_SUBGROUP, DELETE_SAVED_TIMETABLE,
 } from '@actions/types';
 
 const currentGroupOrLecturerInitialState = {
@@ -22,6 +22,10 @@ export const savedTimetables = (state = {}, action) => {
         return utils.getTimetableState(newState, action);
       }
       return utils.getTimetableState(state, action);
+    case DELETE_SAVED_TIMETABLE:
+      const newState = { ...state };
+      delete newState[action.payload.groupOrLecturerName];
+      return newState;
     default:
       return state;
   }

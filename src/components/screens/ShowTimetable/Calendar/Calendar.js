@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Text, View, TouchableOpacity, Image,
+  Text, View, TouchableOpacity, Image, Animated,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -8,11 +8,6 @@ import moment from 'moment';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import styles from './styles';
 import * as constants from '@constants';
-
-const config = {
-  velocityThreshold: 0.3,
-  directionalOffsetThreshold: 80,
-};
 
 class Calendar extends Component {
   state = {
@@ -29,6 +24,7 @@ class Calendar extends Component {
     }
     return null;
   }
+
 
   renderMonth = date => `${constants.monthArray[date.month()]}, ${date.year()}`;
 
@@ -69,7 +65,7 @@ class Calendar extends Component {
 
   prevMonth = () => this.setState(prev => ({ date: prev.date.subtract(1, 'M') }));
 
-  onSwipeLeft = () => this.setState(prevState => ({ date: prevState.date.add(7, 'd') }));
+  onSwipeLeft = () => console.log('swipe') || this.setState(prevState => ({ date: prevState.date.add(7, 'd') }));
 
   onSwipeRight = () => this.setState(prevState => ({ date: prevState.date.subtract(7, 'd') }));
 
@@ -96,9 +92,11 @@ class Calendar extends Component {
         <GestureRecognizer
           onSwipeLeft={this.onSwipeLeft}
           onSwipeRight={this.onSwipeRight}
-          config={config}
+          config={constants.gestureConfig}
         >
-          <View style={styles.weekdaysContainer}>
+          <View
+            style={styles.weekdaysContainer}
+          >
             {this.renderWeek(date)}
           </View>
         </GestureRecognizer>

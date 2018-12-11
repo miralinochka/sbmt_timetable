@@ -34,6 +34,7 @@ export default StyleSheet.create({
   weekdaysContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+
   },
   arrowIcon: {
     width: 23,

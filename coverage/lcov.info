@@ -334,7 +334,7 @@ FNDA:6,(anonymous_8)
 FNDA:6,(anonymous_9)
 FNDA:2,checkIfGroup
 FNDA:2,shortenLecturerName
-FNDA:25,checkValidEmail
+FNDA:26,checkValidEmail
 FNDA:3,checkUnfilledFeedbackValues
 FNDA:0,checkConnectionToUpdateSavedTt
 FNDA:0,checkConnectionToUpdateSavedTt$
@@ -380,8 +380,8 @@ DA:50,2
 DA:51,2
 DA:52,1
 DA:54,1
-DA:56,25
-DA:57,25
+DA:56,26
+DA:57,26
 DA:58,1
 DA:60,3
 DA:61,1

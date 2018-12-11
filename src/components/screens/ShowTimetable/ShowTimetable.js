@@ -12,11 +12,8 @@ import TimetableItem from './TimetableItem';
 import Calendar from './Calendar';
 import styles from './styles';
 import * as utils from '@utils';
+import * as constants from '@constants';
 
-const config = {
-  velocityThreshold: 0.3,
-  directionalOffsetThreshold: 80,
-};
 
 class ShowTimetable extends Component {
   state = {
@@ -61,6 +58,7 @@ class ShowTimetable extends Component {
   render() {
     const { currentTimetable, timetableError, isLoading } = this.props;
     const { currentDate } = this.state;
+
     return (
       <SafeAreaView style={generalStyles.fullSize} testID="welcome">
         {isLoading ? <Spinner />
@@ -76,13 +74,13 @@ class ShowTimetable extends Component {
               <GestureRecognizer
                 onSwipeLeft={this.onSwipeLeftTimetable}
                 onSwipeRight={this.onSwipeRightTimetable}
-                config={config}
+                config={constants.gestureConfig}
                 style={generalStyles.fullSize}
               >
                 {
                   currentTimetable.length > 0
                     ? (
-                      <ScrollView testID="tt">
+                      <ScrollView testID="tt" style={generalStyles.fullSize}>
                         {this.renderTimetable(currentDate)}
                       </ScrollView>
                     )
