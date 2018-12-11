@@ -1,9 +1,0 @@
-1b02fc7ac38f1a6cb5399b8b7fba5450
-"use strict";Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-var _reactNavigation = require("react-navigation");var _default =
-
-function _default(NavigationView) {return function (routeConfigs) {var navigationConfig = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var router = (0, _reactNavigation.StackRouter)(routeConfigs, navigationConfig);
-    return (0, _reactNavigation.createNavigationContainer)((0, _reactNavigation.createNavigator)(NavigationView, router, navigationConfig));
-  };};exports.default = _default;

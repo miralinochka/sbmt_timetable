@@ -14,10 +14,9 @@ describe('Timetable', () => {
   it('should show timetable after finding in list', async () => {
     await element(by.label('searchTimetable')).tap();
     await waitFor(element(by.id('qwer42'))).toBeVisible();
-    await element(by.id('qwer42')).scrollTo('bottom');
-    await element(by.id('qwer42')).scroll(400,"up");
-    await element(by.id('qwer42')).scroll(400,"up");
-    await element(by.id('qwer42')).scroll(400,"up");
+    await element(by.id('qwer42')).scroll(400,"down");
+    await element(by.id('qwer42')).scroll(400,"down");
+    await element(by.id('qwer42')).scroll(400,"down");
     await element(by.text('651')).tap();
     await element(by.id('tt')).swipe('left', 'fast', 0.5);
     await element(by.id('subgroupButton')).tap();

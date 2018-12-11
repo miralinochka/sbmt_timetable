@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import {
-  Text, View, TouchableOpacity, Image,
+  Text, View, TouchableOpacity, Image, Platform,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import GestureRecognizer from 'react-native-swipe-gestures';
+import generalStyles from '@styles/general';
 import styles from './styles';
 import * as constants from '@constants';
-
-const config = {
-  velocityThreshold: 0.3,
-  directionalOffsetThreshold: 80,
-};
 
 class Calendar extends Component {
   state = {
@@ -29,6 +25,7 @@ class Calendar extends Component {
     }
     return null;
   }
+
 
   renderMonth = date => `${constants.monthArray[date.month()]}, ${date.year()}`;
 
@@ -56,10 +53,10 @@ class Calendar extends Component {
       <View key={dayNumber} style={styles.weekdayView}>
         <Text style={styles.weekdayText}>{constants.weekdays[index]}</Text>
         <TouchableOpacity
-          style={[styles.dayView, isChosenDay && styles.currentDay]}
+          style={[styles.dayView, isChosenDay && styles.chosenDay]}
           onPress={() => onDayChange(dayNumber)}
         >
-          <Text style={[styles.weekdayText, isCurrentDay && { fontWeight: '500', opacity: 1 }]}>{dayNumber.date()}</Text>
+          <Text style={[styles.weekdayText, isCurrentDay && styles.currentDay]}>{dayNumber.date()}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -76,19 +73,35 @@ class Calendar extends Component {
   render() {
     const { date } = this.state;
     return (
-      <View style={styles.container}>
-
+      <View style={[styles.container, Platform.OS === 'ios' && generalStyles.defaultPaddingHorizontal]}>
+        {Platform.OS === 'android' && (
+          <View style={[styles.monthView, styles.monthViewAndroid]}>
+            <TouchableOpacity onPress={this.prevMonth} style={[styles.arrowStyle, styles.monthArrowStyle, styles.monthArrowStyleLeft]}>
+              <Image
+                style={styles.arrowIconSmall}
+                source={require('@images/backGray.png')} // eslint-disable-line
+              />
+            </TouchableOpacity>
+            <Text style={styles.monthText}>{this.renderMonth(date)}</Text>
+            <TouchableOpacity onPress={this.nextMonth} style={[styles.arrowStyle, styles.monthArrowStyle]}>
+              <Image
+                style={[styles.arrowIconSmall, styles.flippedButton]}
+                source={require('@images/backGray.png')} // eslint-disable-line
+              />
+            </TouchableOpacity>
+          </View>
+        )}
         <View style={styles.monthView}>
-          <TouchableOpacity onPress={this.prevMonth}>
+          <TouchableOpacity onPress={this.prevMonth} style={styles.arrowStyle}>
             <Image
               style={styles.arrowIcon}
               source={require('@images/backGray.png')} // eslint-disable-line
             />
           </TouchableOpacity>
           <Text style={styles.monthText}>{this.renderMonth(date)}</Text>
-          <TouchableOpacity onPress={this.nextMonth}>
+          <TouchableOpacity onPress={this.nextMonth} style={styles.arrowStyle}>
             <Image
-              style={[styles.arrowIcon, { transform: [{ scaleX: -1 }] }]}
+              style={[styles.arrowIcon, styles.flippedButton]}
               source={require('@images/backGray.png')} // eslint-disable-line
             />
           </TouchableOpacity>
@@ -96,10 +109,12 @@ class Calendar extends Component {
         <GestureRecognizer
           onSwipeLeft={this.onSwipeLeft}
           onSwipeRight={this.onSwipeRight}
-          config={config}
+          config={constants.gestureConfig}
         >
           <View style={styles.weekdaysContainer}>
-            {this.renderWeek(date)}
+            <View style={styles.weekdaysInnerContainer}>
+              {this.renderWeek(date)}
+            </View>
           </View>
         </GestureRecognizer>
       </View>

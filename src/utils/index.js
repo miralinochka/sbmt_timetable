@@ -51,6 +51,13 @@ export const shortenLecturerName = (lecturerName) => {
   return lecturerNameArray[2] ? `${lecturerNameArray[0]} ${lecturerNameArray[1][0]}. ${lecturerNameArray[2][0]}.` : `${lecturerNameArray[0]} ${lecturerNameArray[1][0]}.`;
 };
 
+export const hasRussianSymbols = (email) => {
+  console.log('dsds')
+  const atSign = email.indexOf('@');
+  const beforeAt = email.substring(0, atSign);
+  return !beforeAt.match(/^\w+([\.-]?\w+)*/);
+};
+
 export const checkValidEmail = (email) => {
   // eslint-disable-next-line no-useless-escape
   const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;

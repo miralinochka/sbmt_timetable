@@ -1,6 +1,7 @@
 import React from 'react';
-import { Scene, Router } from 'react-native-router-flux';
+import { Scene, Router, Actions } from 'react-native-router-flux';
 import StackViewStyleInterpolator from 'react-navigation-stack';
+import { ToastAndroid, BackHandler } from 'react-native';
 import ShowTimetable from '@screens/ShowTimetable';
 import SearchTimetable from '@screens/SearchTimetable';
 import SavedTimetable from '@screens/SavedTimetable';
@@ -17,7 +18,14 @@ import * as utils from '@utils';
 
 
 const RouterComponent = ({ currentGroupOrLecturerName }) => (
-  <Router>
+  <Router
+    backAndroidHandler={() => {
+      if (Actions.currentScene === sceneNames.timetable.route) {
+        BackHandler.exitApp();
+        return false;
+      }
+    }}
+  >
     <Scene
       key="root"
       navBar={Header}

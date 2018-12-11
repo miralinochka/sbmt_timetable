@@ -8,7 +8,9 @@ const renderSubtitle = ({ listItem }) => ((listItem.speciality)
   ? (`${listItem.speciality}, ${listItem.course} курс, ${listItem.form}`)
   : (`Кафедра ${listItem.department}, ${listItem.position.toLowerCase()}`));
 
-const ListItem = ({ listItem, onGroupOrLecturerPress, savedTT }) => (
+const ListItem = ({
+  listItem, onGroupOrLecturerPress, savedTT,
+}) => (
   <TouchableOpacity onPress={onGroupOrLecturerPress}>
     <View>
       <ContainerItem styled={[styles.container, savedTT && { paddingVertical: 15 }]}>
