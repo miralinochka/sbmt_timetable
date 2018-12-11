@@ -93,7 +93,7 @@ describe('utils', () => {
     expect(utils.checkValidEmail('_______@domain.com')).toBe(true);
     expect(utils.checkValidEmail('email@domain.co.jp')).toBe(true);
     expect(utils.checkValidEmail('firstname-lastname@domain.com')).toBe(true);
-    expect(utils.checkValidEmail('olga-meleshko@inbox.ru')).toBe(true);
+    expect(utils.checkValidEmail('Olga-meleshko@inbox.ru')).toBe(true);
     expect(utils.checkValidEmail('alexbx6@gmail.com')).toBe(true);
 
     expect(utils.checkValidEmail('plainaddress')).toBe(false);

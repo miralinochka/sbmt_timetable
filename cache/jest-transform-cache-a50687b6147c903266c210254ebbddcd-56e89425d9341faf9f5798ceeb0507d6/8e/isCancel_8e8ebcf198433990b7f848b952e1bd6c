@@ -1,6 +1,0 @@
-b8599473e40aa4e8c4e2a117b3384821
-'use strict';
-
-module.exports = function isCancel(value) {
-  return !!(value && value.__CANCEL__);
-};

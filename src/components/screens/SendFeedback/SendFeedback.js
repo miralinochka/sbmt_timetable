@@ -55,9 +55,12 @@ class SendFeedback extends Component {
   onSend = async () => {
     const { toggleSpinner, showFeedbackError } = this.props;
     const { userFeedback } = this.state;
+    Keyboard.dismiss();
     try {
       if (utils.checkUnfilledFeedbackValues(userFeedback)) {
         this.setFeedbackError('Пожалуйста, заполните все поля формы.');
+      } else if (utils.hasRussianSymbols(userFeedback.email)) {
+        this.setFeedbackError('Вы ввели русские буквы в поле e-mail.');
       } else if (utils.checkValidEmail(userFeedback.email)) {
         toggleSpinner(true);
         await api.sendFeedback(userFeedback);
