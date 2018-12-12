@@ -74,7 +74,7 @@ class Calendar extends Component {
     const { date } = this.state;
     return (
       <View style={[styles.container, Platform.OS === 'ios' && generalStyles.defaultPaddingHorizontal]}>
-        {Platform.OS === 'android' && (
+        {Platform.OS === 'android' ? (
           <View style={[styles.monthView, styles.monthViewAndroid]}>
             <TouchableOpacity onPress={this.prevMonth} style={[styles.arrowStyle, styles.monthArrowStyle, styles.monthArrowStyleLeft]}>
               <Image
@@ -90,31 +90,48 @@ class Calendar extends Component {
               />
             </TouchableOpacity>
           </View>
+        ) : (
+          <View style={styles.monthView}>
+            <TouchableOpacity onPress={this.prevMonth} style={styles.arrowStyle}>
+              <Image
+                style={styles.arrowIcon}
+                source={require('@images/backGray.png')} // eslint-disable-line
+              />
+            </TouchableOpacity>
+            <Text style={styles.monthText}>{this.renderMonth(date)}</Text>
+            <TouchableOpacity onPress={this.nextMonth} style={styles.arrowStyle}>
+              <Image
+                style={[styles.arrowIcon, styles.flippedButton]}
+                source={require('@images/backGray.png')} // eslint-disable-line
+              />
+            </TouchableOpacity>
+          </View>
         )}
-        <View style={styles.monthView}>
-          <TouchableOpacity onPress={this.prevMonth} style={styles.arrowStyle}>
-            <Image
-              style={styles.arrowIcon}
-              source={require('@images/backGray.png')} // eslint-disable-line
-            />
-          </TouchableOpacity>
-          <Text style={styles.monthText}>{this.renderMonth(date)}</Text>
-          <TouchableOpacity onPress={this.nextMonth} style={styles.arrowStyle}>
-            <Image
-              style={[styles.arrowIcon, styles.flippedButton]}
-              source={require('@images/backGray.png')} // eslint-disable-line
-            />
-          </TouchableOpacity>
-        </View>
         <GestureRecognizer
           onSwipeLeft={this.onSwipeLeft}
           onSwipeRight={this.onSwipeRight}
           config={constants.gestureConfig}
         >
           <View style={styles.weekdaysContainer}>
+            {Platform.OS === 'android' && (
+            <TouchableOpacity onPress={this.onSwipeRight} style={styles.arrowStyle}>
+              <Image
+                style={styles.arrowIcon}
+                source={require('@images/backGray.png')} // eslint-disable-line
+              />
+            </TouchableOpacity>
+            )}
             <View style={styles.weekdaysInnerContainer}>
               {this.renderWeek(date)}
             </View>
+            {Platform.OS === 'android' && (
+            <TouchableOpacity onPress={this.onSwipeLeft} style={styles.arrowStyle}>
+              <Image
+                style={[styles.arrowIcon, styles.flippedButton]}
+                source={require('@images/backGray.png')} // eslint-disable-line
+              />
+            </TouchableOpacity>
+            )}
           </View>
         </GestureRecognizer>
       </View>

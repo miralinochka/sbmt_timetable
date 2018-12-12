@@ -51,7 +51,7 @@ export default StyleSheet.create({
     height: 20,
   },
   arrowStyle: {
-    marginHorizontal: 5,
+    paddingHorizontal: 8,
     justifyContent: 'center',
     alignItems: 'center',
   },
