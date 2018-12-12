@@ -1,5 +1,6 @@
 {
   "name": "sbmt_timetable",
+  "displayName": "Расписание ИБ",
   "version": "0.0.1",
   "private": true,
   "scripts": {
