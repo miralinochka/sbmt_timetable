@@ -1,8 +1,8 @@
 import React from 'react';
 import { Image, View } from 'react-native';
 import iconStyle from '@common/Header/ActionIcon/styles';
+import tabIconStyle from './styles';
 import colors from '@styles/colors';
-import generalStyles from '@styles/general';
 import { sceneNames } from '@constants';
 
 export default (props) => {
@@ -28,12 +28,7 @@ export default (props) => {
   const borderColor = props.focused ? colors.mainTextColor : colors.mainColor;
 
   return (
-    <View style={{
-      flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-      borderTopColor: borderColor, borderTopWidth: 4, padding: 20,
-      ...generalStyles.defaultPaddingVertical,
-    }}
-    >
+    <View style={[tabIconStyle.iconBackground, { borderTopColor: borderColor }]}>
       <Image
         style={iconStyle.icon}
         source={Icon}
