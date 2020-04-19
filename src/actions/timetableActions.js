@@ -1,11 +1,12 @@
 import { Actions } from 'react-native-router-flux';
-import {
-  FETCH_TIMETABLE, SET_TIMETABLE_ERROR, SET_CURRENT_TIMETABLE, SET_CURRENT_SUBGROUP, DELETE_SAVED_TIMETABLE,
-} from './types';
 import * as api from '@api';
 import * as utils from '@utils';
-import toggleSpinner from './loadingActions';
 import { sceneNames } from '@constants';
+import toggleSpinner from './loadingActions';
+import {
+  FETCH_TIMETABLE, SET_TIMETABLE_ERROR, SET_CURRENT_TIMETABLE,
+  SET_CURRENT_SUBGROUP, DELETE_SAVED_TIMETABLE,
+} from './types';
 
 export const setTimetableError = () => ({
   type: SET_TIMETABLE_ERROR,
@@ -20,11 +21,15 @@ export const downloadTimetable = (groupOrLecturer, updatedOn) => async (dispatch
   let timetable = [];
   try {
     if (utils.checkIfGroup(groupOrLecturerFile)) {
-      timetable = await api.getGroupTimetable(groupOrLecturerFile);
+      const timetableXMl = await api.getGroupTimetable(groupOrLecturerFile);
+      const convertedXml = await utils.convertXmlToJson(timetableXMl);
+      timetable = convertedXml.schedule.lesson;
       subgroups = utils.getSubgroups(timetable);
       Actions.reset(sceneNames.timetable.name, { subgroups, headerText: `${groupOrLecturerName} гр.` });
     } else {
-      timetable = await api.getLecturerTimetable(groupOrLecturerFile);
+      const timetableXMl = await api.getLecturerTimetable(groupOrLecturerFile);
+      const convertedXml = await utils.convertXmlToJson(timetableXMl);
+      timetable = convertedXml.lecturer.lesson;
       groupOrLecturerName = utils.shortenLecturerName(groupOrLecturerName);
       Actions.reset(sceneNames.timetable.name, { headerText: groupOrLecturerName });
     }

@@ -1,4 +1,5 @@
 import { NetInfo } from 'react-native';
+import { parseString } from 'react-native-xml2js';
 import * as actions from '@actions';
 import DropDownHolder from '@common/DropDown/DropDownHolder';
 import { Actions } from 'react-native-router-flux';
@@ -52,7 +53,6 @@ export const shortenLecturerName = (lecturerName) => {
 };
 
 export const hasRussianSymbols = (email) => {
-  console.log('dsds')
   const atSign = email.indexOf('@');
   const beforeAt = email.substring(0, atSign);
   return !beforeAt.match(/^\w+([\.-]?\w+)*/);
@@ -109,3 +109,12 @@ export const generateBackgroundColor = (subjectTypeForm) => {
       return colors.practiseColor;
   }
 };
+
+export const convertXmlToJson = xml => new Promise((resolve, reject) => {
+  parseString(xml, { explicitArray: false }, (err, result) => {
+    if (err) {
+      reject(err);
+    }
+    resolve(result);
+  });
+});
