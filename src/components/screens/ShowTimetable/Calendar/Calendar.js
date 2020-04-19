@@ -49,6 +49,10 @@ class Calendar extends Component {
     const isChosenDay = chosenDay.year() === dayNumber.year()
       && chosenDay.month() === dayNumber.month()
       && chosenDay.date() === dayNumber.date();
+
+    const dayStyles = [styles.weekdayText];
+    if (isCurrentDay) dayStyles.push(styles.currentDay);
+    if (isChosenDay) dayStyles.push(styles.chosenDayText);
     return (
       <View key={dayNumber} style={styles.weekdayView}>
         <Text style={styles.weekdayText}>{constants.weekdays[index]}</Text>
@@ -56,7 +60,7 @@ class Calendar extends Component {
           style={[styles.dayView, isChosenDay && styles.chosenDay]}
           onPress={() => onDayChange(dayNumber)}
         >
-          <Text style={[styles.weekdayText, isCurrentDay && styles.currentDay]}>{dayNumber.date()}</Text>
+          <Text style={dayStyles}>{dayNumber.date()}</Text>
         </TouchableOpacity>
       </View>
     );

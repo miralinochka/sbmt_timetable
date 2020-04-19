@@ -33,7 +33,7 @@ export default StyleSheet.create({
     color: colors.subtitle,
   },
   rectangle: {
-    backgroundColor: colors.practiseColor,
+    backgroundColor: colors.practiceColor,
     width: 10,
     height: '100%',
     marginHorizontal: 10,

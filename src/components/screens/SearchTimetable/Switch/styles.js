@@ -10,13 +10,13 @@ export default StyleSheet.create({
   innerContainer: {
     flexDirection: 'row',
     borderWidth: 1,
-    borderColor: colors.switchBorder,
+    borderColor: colors.switch,
     borderRadius: 3,
     overflow: 'hidden',
   },
   button: {
     borderRightWidth: 1,
-    borderColor: colors.switchBorder,
+    borderColor: colors.switch,
     paddingHorizontal: 8,
     paddingVertical: 5,
     backgroundColor: colors.mainTextColor,

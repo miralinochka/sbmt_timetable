@@ -75,8 +75,13 @@ export default StyleSheet.create({
   currentDay: {
     fontWeight: '500',
     opacity: 1,
+    color: colors.mainColor,
   },
   flippedButton: {
     transform: [{ scaleX: -1 }],
+  },
+  chosenDayText: {
+    opacity: 1,
+    color: colors.mainTextColor,
   },
 });

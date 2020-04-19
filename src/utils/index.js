@@ -106,7 +106,7 @@ export const generateBackgroundColor = (subjectTypeForm) => {
     case 'кср':
       return colors.testingColor;
     default:
-      return colors.practiseColor;
+      return colors.practiceColor;
   }
 };
 
