@@ -30,7 +30,7 @@ class ShowTimetable extends Component {
     if (relevantTimetable.length === 0) {
       return (
         <View style={styles.defaultTextView}>
-          <Text style={styles.defaultText}>Расписание не найдено:(</Text>
+          <Text style={styles.defaultText}>{constants.noTimetableFound}</Text>
         </View>
       );
     }

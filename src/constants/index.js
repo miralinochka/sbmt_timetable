@@ -28,3 +28,6 @@ export const gestureConfig = {
   velocityThreshold: 0.3,
   directionalOffsetThreshold: 80,
 };
+
+export const noTimetableFound = 'Нет занятий';
+export const noTimetableError = 'Расписание не найдено :(';

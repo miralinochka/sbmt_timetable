@@ -3,6 +3,7 @@ import * as utils from '@utils';
 import {
   FETCH_TIMETABLE, SET_TIMETABLE_ERROR, SET_CURRENT_TIMETABLE, SET_CURRENT_SUBGROUP, DELETE_SAVED_TIMETABLE,
 } from '@actions/types';
+import { noTimetableError } from '@constants';
 
 const currentGroupOrLecturerInitialState = {
   groupOrLecturerName: '',
@@ -65,10 +66,10 @@ export const currentGroupOrLecturer = (state = currentGroupOrLecturerInitialStat
   }
 };
 
-export const timetableError = (state = 'Расписание не найдено:(', action) => {
+export const timetableError = (state = noTimetableError, action) => {
   switch (action.type) {
     case SET_TIMETABLE_ERROR:
-      return 'Расписание не найдено:(';
+      return noTimetableError;
     case FETCH_TIMETABLE:
     case SET_CURRENT_TIMETABLE:
       return action.payload.error || '';
