@@ -10,9 +10,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { sceneNames } from '@constants';
 import Header from '@common/Header';
-import {
-  SearchIcon, TimetableIcon, BookmarkIcon, FeedbackIcon,
-} from '@common/TabIcons';
+import TabIcon from '@common/TabIcon';
 import footerStyle from '@common/Footer';
 import * as utils from '@utils';
 
@@ -36,7 +34,8 @@ const RouterComponent = ({ currentGroupOrLecturerName }) => (
     >
       <Scene
         key={sceneNames.timetable.route}
-        icon={TimetableIcon}
+        title={sceneNames.timetable.route}
+        icon={TabIcon}
         component={ShowTimetable}
         headerText={utils.printHeaderText(currentGroupOrLecturerName)}
         showGroups
@@ -46,7 +45,8 @@ const RouterComponent = ({ currentGroupOrLecturerName }) => (
       />
       <Scene
         key={sceneNames.searchTimetable.route}
-        icon={SearchIcon}
+        title={sceneNames.searchTimetable.route}
+        icon={TabIcon}
         component={SearchTimetable}
         headerText={sceneNames.searchTimetable.title}
         refresh
@@ -55,7 +55,8 @@ const RouterComponent = ({ currentGroupOrLecturerName }) => (
       />
       <Scene
         key={sceneNames.savedTimetable.route}
-        icon={BookmarkIcon}
+        title={sceneNames.savedTimetable.route}
+        icon={TabIcon}
         component={SavedTimetable}
         headerText={sceneNames.savedTimetable.title}
         transitionConfig={() => ({ screenInterpolator: StackViewStyleInterpolator.forHorizontal })}
@@ -63,7 +64,8 @@ const RouterComponent = ({ currentGroupOrLecturerName }) => (
       />
       <Scene
         key={sceneNames.sendFeedback.route}
-        icon={FeedbackIcon}
+        title={sceneNames.sendFeedback.route}
+        icon={TabIcon}
         component={SendFeedback}
         headerText={sceneNames.sendFeedback.title}
         transitionConfig={() => ({ screenInterpolator: StackViewStyleInterpolator.forHorizontal })}
