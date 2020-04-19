@@ -12,7 +12,7 @@ import { sceneNames } from '@constants';
 
 class SavedTimetable extends Component {
   onGroupOrLecturerPress = async (pressedTTItem, timetableObject) => {
-    const { setCurrentTimetable, downloadTimetable, toggleSpinner } = this.props;
+    const { setCurrentTimetable, downloadTimetable } = this.props;
     const subgroups = utils.getSubgroups(timetableObject.timetable);
     const chosenGroupOrLecturer = {
       groupOrLecturerName: pressedTTItem,
@@ -21,7 +21,6 @@ class SavedTimetable extends Component {
       filename: timetableObject.filename,
     };
     if (await utils.checkConnectionToUpdateSavedTt()) {
-      toggleSpinner(true);
       await downloadTimetable(chosenGroupOrLecturer, new Date());
     } else {
       setCurrentTimetable({ ...chosenGroupOrLecturer });
@@ -77,6 +76,7 @@ SavedTimetable.propTypes = {
   }).isRequired,
   isLoading: PropTypes.bool.isRequired,
   deleteSavedTimetable: PropTypes.func.isRequired,
+  downloadTimetable: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -87,7 +87,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   setCurrentTimetable: actions.setCurrentTimetable,
   downloadTimetable: actions.downloadTimetable,
-  toggleSpinner: actions.toggleSpinner,
   deleteSavedTimetable: actions.deleteSavedTimetable,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SavedTimetable);

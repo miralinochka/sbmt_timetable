@@ -99,11 +99,9 @@ class Header extends Component {
     const {
       downloadTimetable,
       currentGroupOrLecturer,
-      toggleSpinner,
       initialRouteName,
       addGroupsAndLecturers,
     } = this.props;
-    toggleSpinner(true);
     if (initialRouteName === sceneNames.searchTimetable.name) {
       await addGroupsAndLecturers();
     } else {
@@ -223,7 +221,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   downloadTimetable: actions.downloadTimetable,
   addGroupsAndLecturers: actions.addGroupsAndLecturers,
-  toggleSpinner: actions.toggleSpinner,
   setCurrentSubgroup: actions.setCurrentSubgroup,
 };
 

@@ -13,6 +13,7 @@ export const setTimetableError = () => ({
 });
 
 export const downloadTimetable = (groupOrLecturer, updatedOn) => async (dispatch) => {
+  dispatch(toggleSpinner(true));
   const groupOrLecturerFile = groupOrLecturer.filename;
   let groupOrLecturerName = groupOrLecturer.number
     || groupOrLecturer.name

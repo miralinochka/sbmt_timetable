@@ -23,8 +23,7 @@ class SearchTimetable extends Component {
   }
 
   componentDidMount() {
-    const { addGroupsAndLecturers, toggleSpinner } = this.props;
-    toggleSpinner(true);
+    const { addGroupsAndLecturers } = this.props;
     addGroupsAndLecturers();
   }
 
@@ -51,8 +50,7 @@ class SearchTimetable extends Component {
   }
 
   onGroupOrLecturerPress = async (groupOrLecturer) => {
-    const { downloadTimetable, toggleSpinner } = this.props;
-    toggleSpinner(true);
+    const { downloadTimetable } = this.props;
     await downloadTimetable(groupOrLecturer);
   }
 
@@ -108,7 +106,6 @@ SearchTimetable.propTypes = {
   lecturers: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   isLoading: PropTypes.bool.isRequired,
   addGroupsAndLecturers: PropTypes.func.isRequired,
-  toggleSpinner: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -119,7 +116,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   downloadTimetable: actions.downloadTimetable,
-  toggleSpinner: actions.toggleSpinner,
   addGroupsAndLecturers: actions.addGroupsAndLecturers,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SearchTimetable);

@@ -4,6 +4,7 @@ import * as utils from '@utils';
 import toggleSpinner from './loadingActions';
 
 const addGroupsAndLecturers = () => async (dispatch) => {
+  dispatch(toggleSpinner(true));
   try {
     const groups = await api.fetchAllGroupsTimetable();
     const lecturers = await api.fetchAllLecturersTimetable();
