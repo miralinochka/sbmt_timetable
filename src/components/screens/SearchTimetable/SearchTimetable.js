@@ -37,7 +37,7 @@ class SearchTimetable extends Component {
     const { groups } = this.props;
     const { inputText } = this.state;
     return groups.filter(group => (
-      group.number.includes(inputText)
+      group.number.toLowerCase().includes(inputText.trim().toLowerCase())
     ));
   }
 
@@ -45,7 +45,7 @@ class SearchTimetable extends Component {
     const { lecturers } = this.props;
     const { inputText } = this.state;
     return lecturers.filter(lecturer => (
-      lecturer.name.includes(inputText) && !lecturer.name.toLowerCase().includes('вакансия')
+      lecturer.name.toLowerCase().includes(inputText.trim().toLowerCase()) && !lecturer.name.toLowerCase().includes('вакансия')
     ));
   }
 
