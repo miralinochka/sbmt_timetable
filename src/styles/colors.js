@@ -10,4 +10,6 @@ export default {
   switchBorder: '#606063',
   text: '#000',
   red: '#c62835',
+  placeholderColor: '#999',
+  borderColor: '#ddd',
 };

@@ -16,6 +16,7 @@ import * as api from '@api';
 import RNPickerSelect from 'react-native-picker-select';
 import { feedbackSubjects } from '@constants';
 import styles from './styles';
+import colors from '@styles/colors';
 
 class SendFeedback extends Component {
   constructor(props) {
@@ -137,8 +138,8 @@ class SendFeedback extends Component {
                       this.inputRefs.picker = el;
                     }}
                     useNativeAndroidPickerStyle={false}
-                    placeholderTextColor="#999"
-                    hideIcon={Platform.OS === 'ios'}
+                    placeholderTextColor={colors.placeholderColor}
+                    hideIcon
                   />
 
                 </ContainerItem>

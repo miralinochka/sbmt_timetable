@@ -3,6 +3,7 @@ import { TextInput, View } from 'react-native';
 import PropTypes from 'prop-types';
 import generalStyles from '@styles/general';
 import styles from './styles';
+import colors from '@styles/colors';
 
 const Input = ({
   onChangeText, placeholder, multiline, styled, value, testID, textContentType,
@@ -16,7 +17,7 @@ const Input = ({
       multiline={multiline}
       value={value}
       testID={testID}
-      placeholderTextColor="#999"
+      placeholderTextColor={colors.placeholderColor}
       textContentType={textContentType}
     />
   </View>
