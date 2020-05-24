@@ -9,4 +9,5 @@ export default {
   subtitle: '#303033',
   switchBorder: '#606063',
   text: '#000',
+  red: '#c62835',
 };

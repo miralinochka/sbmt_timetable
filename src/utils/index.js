@@ -53,9 +53,7 @@ export const shortenLecturerName = (lecturerName) => {
 };
 
 export const hasRussianSymbols = (email) => {
-  const atSign = email.indexOf('@');
-  const beforeAt = email.substring(0, atSign);
-  return !beforeAt.match(/^\w+([\.-]?\w+)*/);
+  return email.match(/[а-яА-я]+/);
 };
 
 export const checkValidEmail = (email) => {

@@ -10,11 +10,7 @@ import ListItem from '@common/ListItem';
 import generalStyles from '@styles/general';
 import Switch from './Switch';
 import styles from './styles';
-
-const searchItems = {
-  group: 'Группа',
-  lecturer: 'Преподаватель',
-};
+import { searchItems } from '@constants';
 
 class SearchTimetable extends Component {
   state = {
@@ -28,6 +24,7 @@ class SearchTimetable extends Component {
   }
 
   toggleSearch = () => this.setState(({ searchItem }) => ({
+    inputText: '',
     searchItem: searchItem === searchItems.group ? searchItems.lecturer : searchItems.group,
   }));
 
@@ -64,7 +61,7 @@ class SearchTimetable extends Component {
   keyExtractorFunction = index => index.toString();
 
   render() {
-    const { searchItem } = this.state;
+    const { searchItem, inputText } = this.state;
     const { isLoading } = this.props;
 
     return (
@@ -79,6 +76,7 @@ class SearchTimetable extends Component {
             placeholder="Поиск..."
             onChangeText={this.hangleSearchInput}
             testID="searchInput"
+            value={inputText}
           />
         </ContainerItem>
         {
@@ -92,7 +90,6 @@ class SearchTimetable extends Component {
                 scrollsToTop
                 renderItem={({ item }) => this.renderFlatListItem({ item })}
                 keyExtractor={(item, index) => this.keyExtractorFunction(index)}
-                testID="qwer42"
               />
             )
         }

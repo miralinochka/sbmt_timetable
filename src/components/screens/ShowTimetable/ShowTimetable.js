@@ -8,11 +8,11 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import Spinner from '@common/Spinner';
 import generalStyles from '@styles/general';
+import * as utils from '@utils';
+import * as constants from '@constants';
 import TimetableItem from './TimetableItem';
 import Calendar from './Calendar';
 import styles from './styles';
-import * as utils from '@utils';
-import * as constants from '@constants';
 
 
 class ShowTimetable extends Component {
@@ -40,7 +40,8 @@ class ShowTimetable extends Component {
           <TimetableItem
             key={ttItem.time + ttItem.lecturer}
             timetableForADay={ttItem}
-          />);
+          />
+        );
       }
       return null;
     });

@@ -14,8 +14,8 @@ import * as actions from '@actions';
 import * as utils from '@utils';
 import * as api from '@api';
 import RNPickerSelect from 'react-native-picker-select';
-import styles from './styles';
 import { feedbackSubjects } from '@constants';
+import styles from './styles';
 
 class SendFeedback extends Component {
   constructor(props) {
@@ -65,7 +65,16 @@ class SendFeedback extends Component {
         toggleSpinner(true);
         await api.sendFeedback(userFeedback);
         toggleSpinner(false);
-        this.setState({ userFeedback: {}, feedbackError: '' });
+        this.setState({
+          userFeedback: {
+            userName: '',
+            email: '',
+            subject: '',
+            message: '',
+            date: new Date().toISOString(),
+          },
+          feedbackError: '',
+        });
         this.toggleModal(true);
       } else {
         this.setFeedbackError('Вы ввели некорректный e-mail.');
@@ -131,7 +140,7 @@ class SendFeedback extends Component {
                     placeholderTextColor="#999"
                     hideIcon={Platform.OS === 'ios'}
                   />
-          
+
                 </ContainerItem>
                 <ContainerItem styled={styles.сontainerItem}>
                   <Input

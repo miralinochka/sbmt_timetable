@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import generalStyles from '@styles/general';
+import colors from '@styles/colors';
 
 export default StyleSheet.create({
   container: {
@@ -7,14 +8,14 @@ export default StyleSheet.create({
     ...generalStyles.defaultPaddingHorizontal,
   },
   inputIOS: {
-    color: '#000',
+    color: colors.text,
     paddingHorizontal: 10,
     paddingVertical: 5,
     fontSize: 18,
     lineHeight: 20,
   },
   inputAndroid: {
-    color: '#000',
+    color: colors.text,
     paddingHorizontal: 10,
     paddingVertical: 5,
     fontSize: 18,
@@ -39,7 +40,7 @@ export default StyleSheet.create({
     paddingVertical: 10,
   },
   errorText: {
-    color: 'red',
+    color: colors.red,
     textAlign: 'left',
   },
   inputMessage: {

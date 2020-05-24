@@ -31,3 +31,8 @@ export const gestureConfig = {
 
 export const noTimetableFound = 'Нет занятий';
 export const noTimetableError = 'Расписание не найдено :(';
+
+export const searchItems = {
+  group: 'Группа',
+  lecturer: 'Преподаватель',
+};
