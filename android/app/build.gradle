@@ -91,8 +91,7 @@ def enableSeparateBuildPerCPUArchitecture = false
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
-def enableProguardInReleaseBuilds = false
-def pass = getPassword("alina","android_keystore")
+def enableProguardInReleaseBuilds = true
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -110,10 +109,12 @@ android {
     }
      signingConfigs {
         release {
+          if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
             storeFile file(MYAPP_RELEASE_STORE_FILE)
-            storePassword pass // Change this
+            storePassword MYAPP_RELEASE_STORE_PASSWORD // Change this
             keyAlias MYAPP_RELEASE_KEY_ALIAS
-            keyPassword pass // Change this
+            keyPassword MYAPP_RELEASE_KEY_PASSWORD // Change this
+          }
         }
     }
     splits {
